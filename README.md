@@ -15,7 +15,12 @@ docs/           registro das experimentações no formato do documento de especi
 
 ## Como rodar
 
-Requer Python 3.12 ou mais recente.
+Requer Python 3.12 ou mais recente e Docker.
+
+```bash
+cp .env.exemplo .env   # e troque as senhas
+docker compose up -d   # PostgreSQL e InfluxDB
+```
 
 ```bash
 cd backend
@@ -25,6 +30,9 @@ python3 -m venv .venv
 
 # Experimentação 1: coleta da Binance (180 s de WebSocket)
 .venv/bin/python ../experimentos/exp1_ingestao_binance/executar.py 180
+
+# Experimentação 2: InfluxDB x PostgreSQL (precisa do docker compose)
+.venv/bin/python ../experimentos/exp2_series_temporais/executar.py
 
 # Experimentação 4: comparação dos indicadores e cenários do score
 .venv/bin/python ../experimentos/exp4_indicadores/comparar.py
@@ -36,6 +44,6 @@ python3 -m venv .venv
 | Nº | Tema | Situação |
 | --- | --- | --- |
 | 1 | Ingestão de dados da Binance em Python | Realizado |
-| 2 | Séries temporais: InfluxDB x PostgreSQL | Proposto |
+| 2 | Séries temporais: InfluxDB x PostgreSQL | Realizado (decisão a confirmar) |
 | 3 | Interface React e Modo Explicativo | Proposto |
 | 4 | Indicadores RSI e MACD e estrutura do score | Realizado (parâmetros provisórios) |

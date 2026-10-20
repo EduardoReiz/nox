@@ -1,0 +1,37 @@
+# Ambiente local do Nox (seção 19.1). As senhas vêm do arquivo .env,
+# criado a partir do .env.exemplo, e só servem para desenvolvimento.
+services:
+  postgres:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_DB: nox
+      POSTGRES_USER: nox
+      POSTGRES_PASSWORD: ${NOX_PG_SENHA}
+    ports: ["5432:5432"]
+    volumes: [pg_dados:/var/lib/postgresql/data]
+    mem_limit: 512m
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U nox -d nox"]
+      interval: 3s
+      retries: 20
+
+  influxdb:
+    image: influxdb:2.7-alpine
+    environment:
+      DOCKER_INFLUXDB_INIT_MODE: setup
+      DOCKER_INFLUXDB_INIT_USERNAME: nox
+      DOCKER_INFLUXDB_INIT_PASSWORD: ${NOX_INFLUX_SENHA}
+      DOCKER_INFLUXDB_INIT_ORG: nox
+      DOCKER_INFLUXDB_INIT_BUCKET: mercado
+      DOCKER_INFLUXDB_INIT_ADMIN_TOKEN: ${NOX_INFLUX_TOKEN}
+    ports: ["8086:8086"]
+    volumes: [influx_dados:/var/lib/influxdb2]
+    mem_limit: 768m
+    healthcheck:
+      test: ["CMD", "influx", "ping"]
+      interval: 3s
+      retries: 20
+
+volumes:
+  pg_dados:
+  influx_dados:
