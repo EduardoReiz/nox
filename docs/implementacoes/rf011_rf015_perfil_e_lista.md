@@ -18,7 +18,7 @@ Situação: **Implementado e testado** (20/10/2026). Os dois requisitos estavam 
   - **Backend:** regras de perfil, frequência e usuário do Telegram em `nox/domain/contas.py`; serviço em `nox/application/perfil.py`.
   - **Rotas da API:** `GET/PUT /api/conta/preferencias`, `GET/PUT /api/conta/lista`, `GET /api/conta/meus-dados` e `GET /api/ativos`.
   - **Frontend:**
-    - na tela Conta: perfil de investidor (três frases, uma por perfil), alertas (notificação e Telegram, a cada sinal ou resumo diário) e "Baixar meus dados";
+    - na tela Conta: perfil de investidor (três frases, uma por perfil), alertas (notificação e Telegram, a cada mudança ou resumo diário) e "Baixar meus dados";
     - na tela Sinais: uma estrela em cada ativo para acompanhar, e os ativos acompanhados aparecem primeiro, em "Seus ativos".
 
 - **Como cada exigência foi atendida:**
@@ -26,9 +26,9 @@ Situação: **Implementado e testado** (20/10/2026). Os dois requisitos estavam 
   | Exigência | Como foi feito |
   | --- | --- |
   | Perfil de risco: conservador, moderado ou arrojado (RF-011) | Escolha por frases do dia a dia ("Prefiro perder pouco, mesmo ganhando menos..."), mais fáceis para o iniciante que os nomes técnicos. |
-  | Canais de alerta push e Telegram (RF-011) | Um interruptor por canal; o Telegram pede o usuário (@nome), que é validado e normalizado. |
+  | Canais de alerta push e Telegram (RF-011) | Cada canal é conectado primeiro (permissão do navegador ou conversa com o bot) e depois ligado ou desligado. Na primeira versão o Telegram pedia o @usuario; isso mudou no RF-012, porque o Telegram não deixa um bot escrever só a partir do @. |
   | Frequência dos alertas (RF-012) | A cada sinal novo ou um resumo por dia. |
-  | Dados pessoais protegidos (RNE-005) | O perfil de risco e o usuário do Telegram ficam cifrados no banco, com a mesma cifra do segredo do 2FA. |
+  | Dados pessoais protegidos (RNE-005) | O perfil de risco, a inscrição de notificação e o chat do Telegram ficam cifrados no banco, com a mesma cifra do segredo do 2FA. |
   | Coleta restrita ao necessário (RNE-005) | Só o que os alertas exigem. Nada de saldo, carteira ou dados bancários. |
   | Lista vinculada ao usuário, escolhida entre os ativos do sistema (RF-015) | A lista só aceita ativos que o Nox acompanha. Quem continua na lista mantém a data em que foi adicionado. Limite de 20 ativos. |
   | Destaque no feed (RF-015) | Na tela Sinais, os ativos acompanhados aparecem primeiro. |
@@ -62,7 +62,7 @@ Situação: **Implementado e testado** (20/10/2026). Os dois requisitos estavam 
 
 - **Limitações identificadas:**
   - O perfil ainda não muda as recomendações; o documento deixa essa definição para os próximos períodos.
-  - Os alertas não são enviados: as preferências ficam prontas para o RF-012. O push vai precisar da inscrição do navegador (Web Push), e o Telegram de um bot do Nox. Só com o usuário (@nome) não é possível mandar mensagem; quando o bot existir, a pessoa vai precisar iniciar a conversa com ele.
+  - O envio dos alertas foi feito em seguida, no RF-012 (`rf012_alertas.md`).
   - A lista tem só os seis ativos acompanhados pelo sistema.
 
 - **Próximos passos:**

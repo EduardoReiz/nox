@@ -82,6 +82,11 @@ def test_preferencias_lista_e_meus_dados(cliente):
     c, _ = cliente
     assert c.get("/api/conta/preferencias").status_code == 401
     c.post("/api/conta/cadastro", json={"nome": "Ana", "email": "ana@exemplo.com", "senha": SENHA})
+    sem_conectar = c.put("/api/conta/preferencias", json={"perfil_risco": "moderado", "frequencia": "cada_sinal",
+                                                          "canais": {"push": {"ativo": True}}})
+    assert sem_conectar.status_code == 400
+    inscricao = {"endpoint": "https://push.exemplo/abc", "keys": {"p256dh": "p", "auth": "a"}}
+    assert c.post("/api/conta/push", json=inscricao).status_code == 204
     r = c.put("/api/conta/preferencias", json={"perfil_risco": "moderado", "frequencia": "cada_sinal",
                                                 "canais": {"push": {"ativo": True}}})
     assert r.status_code == 200 and r.json()["perfil_risco"] == "moderado"
@@ -97,3 +102,23 @@ def test_lista_de_ativos_publica(cliente):
     c, _ = cliente
     simbolos = [a["simbolo"] for a in c.get("/api/ativos").json()]
     assert "BTCUSDT" in simbolos and len(simbolos) == len(ATIVOS)
+
+
+def test_config_de_alertas_e_telegram_sem_bot(cliente, monkeypatch):
+    c, _ = cliente
+    monkeypatch.setenv("NOX_VAPID_PRIVADA", "privada")
+    monkeypatch.setenv("NOX_VAPID_PUBLICA", "publica")
+    monkeypatch.delenv("NOX_TELEGRAM_TOKEN", raising=False)
+    assert c.get("/api/alertas/config").json() == {"push_chave_publica": "publica", "telegram_bot": None}
+    c.post("/api/conta/cadastro", json={"nome": "Ana", "email": "ana@exemplo.com", "senha": SENHA})
+    r = c.post("/api/conta/telegram")
+    assert r.status_code == 503 and "ainda não foi configurado" in r.json()["detail"]
+
+
+def test_link_do_telegram_com_bot_configurado(cliente, monkeypatch):
+    c, _ = cliente
+    monkeypatch.setenv("NOX_TELEGRAM_TOKEN", "123:abc")
+    monkeypatch.setenv("NOX_TELEGRAM_BOT", "@NoxAlertasBot")
+    c.post("/api/conta/cadastro", json={"nome": "Ana", "email": "ana@exemplo.com", "senha": SENHA})
+    link = c.post("/api/conta/telegram").json()["link"]
+    assert link.startswith("https://t.me/NoxAlertasBot?start=") and len(link.split("=")[1]) >= 32

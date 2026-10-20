@@ -75,6 +75,29 @@ def test_ativos_lista_e_preferencias(repo):
     repo.salvar_preferencia(u.id, "telegram", True, "cifrado")
     repo.salvar_preferencia(u.id, "telegram", False, None)
     assert repo.preferencias(u.id) == [("telegram", False, None)]
+    assert repo.seguidores("ETHUSDT") == [u.id]
+    repo.criar_desafio("telegram", "h-tg-" + u.id, u.id, t0 + timedelta(days=9999))
+    assert repo.usuario_do_desafio("telegram", "h-tg-" + u.id, t0) == u.id
     u.frequencia_alerta = "resumo_diario"
     repo.atualizar_usuario(u)
     assert repo.usuario_por_id(u.id).frequencia_alerta == "resumo_diario"
+
+
+def test_sinais_e_alertas_no_postgres(repo):
+    from nox.infrastructure.sinais_repo import SinaisPostgres
+    s = SinaisPostgres(config.postgres_dsn())
+    u = novo()
+    repo.criar_usuario(u)
+    repo.garantir_ativos({"BTCUSDT": "Bitcoin"})
+    vela = datetime(2001, 1, 1, tzinfo=UTC) + timedelta(hours=int(uuid.uuid4().int % 100000))
+    dados = {"ativo": "BTCUSDT", "gerado_em": datetime.now(UTC).isoformat(), "acao": "comprar", "score": 70,
+             "direcao": "alta", "componentes": [{"nome": "tecnico"}], "divergencia": None, "explicacao": "teste"}
+    sid = s.salvar(dados, vela)
+    assert sid and s.salvar(dados, vela) is None
+    s.registrar_alerta(u.id, sid, "resumo", "pendente", datetime.now(UTC))
+    assert s.pendentes_resumo()[u.id][0]["explicacao"] == "teste"
+    s.marcar_resumo_enviado(u.id, datetime.now(UTC))
+    assert u.id not in s.pendentes_resumo()
+    s.con.execute("DELETE FROM alerta WHERE usuario_id = %s", (u.id,))
+    s.con.execute("DELETE FROM sinal WHERE id = %s", (sid,))
+    s.con.close()

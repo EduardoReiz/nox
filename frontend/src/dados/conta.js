@@ -39,4 +39,16 @@ export const conta = {
   salvarPreferencias: (dados) => pedir('/preferencias', { metodo: 'PUT', corpo: dados }),
   lista: () => pedir('/lista', { metodo: 'GET' }),
   salvarLista: (ativos) => pedir('/lista', { metodo: 'PUT', corpo: { ativos } }),
+  conectarPush: (inscricao) => pedir('/push', { corpo: inscricao }),
+  desconectarPush: () => pedir('/push', { metodo: 'DELETE' }),
+  conectarTelegram: () => pedir('/telegram'),
+  desconectarTelegram: () => pedir('/telegram', { metodo: 'DELETE' }),
+  testarAlertas: () => pedir('/alertas/teste'),
+}
+
+// Chave pública do push e nome do bot do Telegram (rota pública, fora de /conta).
+export async function configAlertas() {
+  const r = await fetch('/api/alertas/config')
+  if (!r.ok) throw new Error('Não foi possível carregar a configuração dos alertas.')
+  return r.json()
 }

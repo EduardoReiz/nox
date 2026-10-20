@@ -13,12 +13,15 @@ from fastapi.responses import JSONResponse
 from pydantic import BaseModel
 
 from nox.application.autenticacao import ServicoAutenticacao
+from nox.application.alertas import ServicoAlertas
 from nox.application.perfil import ServicoPerfil
-from nox.application.sinais import ATIVOS
+from nox.application.sinais import ATIVOS, ServicoSinais
 from nox.domain.contas import ErroDeConta, Usuario
 from nox.infrastructure import config
 from nox.infrastructure.contas_repo import ContasPostgres
 from nox.infrastructure.email import EmailNoLog
+from nox.infrastructure.notificacoes import CanalPush, ClienteTelegram
+from nox.infrastructure.sinais_repo import SinaisPostgres
 from nox.infrastructure.seguranca import Cifra
 
 COOKIE = "nox_sessao"
@@ -44,6 +47,16 @@ def servico() -> ServicoAutenticacao:
 @lru_cache
 def servico_perfil() -> ServicoPerfil:
     return ServicoPerfil(_repo(), _cifra(), ATIVOS)
+
+
+@lru_cache
+def servico_alertas() -> ServicoAlertas:
+    v, t = config.vapid(), config.telegram()
+    return ServicoAlertas(
+        _repo(), SinaisPostgres(config.postgres_dsn()), servico_perfil(), ServicoSinais().sinais_com_vela,
+        CanalPush(v["privada"], v["contato"]) if v else None,
+        ClienteTelegram(t["token"]) if t else None,
+        url_app=os.environ.get("NOX_URL_APP", "http://localhost:5173"))
 
 
 def _abrir(resposta: Response, token: str) -> None:
@@ -110,6 +123,11 @@ class Preferencias(BaseModel):
 
 class Lista(BaseModel):
     ativos: list[str]
+
+
+class Inscricao(BaseModel):
+    endpoint: str
+    keys: dict[str, str]
 
 
 @rotas.post("/cadastro", status_code=201)
@@ -242,3 +260,49 @@ def meus_dados(u: Usuario = Depends(usuario_atual), p: ServicoPerfil = Depends(s
     """LGPD: o titular baixa tudo o que o Nox guarda sobre ele."""
     return JSONResponse(p.meus_dados(u),
                         headers={"Content-Disposition": 'attachment; filename="meus-dados-nox.json"'})
+
+
+# --- alertas (RF-012) ------------------------------------------------------------
+
+alertas_publico = APIRouter(prefix="/api/alertas", tags=["alertas"])
+
+
+@alertas_publico.get("/config")
+def config_alertas():
+    """O que a tela precisa para oferecer cada canal."""
+    v, t = config.vapid(), config.telegram()
+    return {"push_chave_publica": v["publica"] if v else None, "telegram_bot": t["bot"] if t else None}
+
+
+@rotas.post("/push", status_code=204)
+def conectar_push(dados: Inscricao, u: Usuario = Depends(usuario_atual), p: ServicoPerfil = Depends(servico_perfil)):
+    try:
+        p.conectar_push(u, dados.model_dump())
+    except ErroDeConta as e:
+        raise _erro(e) from None
+
+
+@rotas.delete("/push", status_code=204)
+def desconectar_push(u: Usuario = Depends(usuario_atual), p: ServicoPerfil = Depends(servico_perfil)):
+    p.desconectar(u.id, "push")
+
+
+@rotas.post("/telegram")
+def conectar_telegram(u: Usuario = Depends(usuario_atual), p: ServicoPerfil = Depends(servico_perfil)):
+    t = config.telegram()
+    if not t:
+        raise HTTPException(503, "O bot do Telegram do Nox ainda não foi configurado.")
+    return {"link": f"https://t.me/{t['bot']}?start={p.iniciar_vinculo_telegram(u)}"}
+
+
+@rotas.delete("/telegram", status_code=204)
+def desconectar_telegram(u: Usuario = Depends(usuario_atual), p: ServicoPerfil = Depends(servico_perfil)):
+    p.desconectar(u.id, "telegram")
+
+
+@rotas.post("/alertas/teste")
+def alerta_teste(u: Usuario = Depends(usuario_atual), a: ServicoAlertas = Depends(servico_alertas)):
+    resultado = a.testar(u)
+    if not resultado:
+        raise HTTPException(400, "Ligue e conecte pelo menos um canal de alerta antes do teste.")
+    return resultado

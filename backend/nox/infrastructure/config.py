@@ -32,3 +32,20 @@ def chave_dados() -> str:
 def cookie_seguro() -> bool:
     """Em produção o cookie só trafega por HTTPS (RNF-003). Localhost usa HTTP."""
     return os.environ.get("NOX_COOKIE_SEGURO", "0") == "1"
+
+
+def vapid() -> dict | None:
+    """Chaves das notificações push. Sem elas, o canal push fica desligado."""
+    privada, publica = os.environ.get("NOX_VAPID_PRIVADA"), os.environ.get("NOX_VAPID_PUBLICA")
+    if not privada or not publica:
+        return None
+    return {"privada": privada, "publica": publica,
+            "contato": os.environ.get("NOX_VAPID_CONTATO", "mailto:contato@nox.invalid")}
+
+
+def telegram() -> dict | None:
+    """Token e nome do bot criado no @BotFather. Sem eles, o Telegram fica desligado."""
+    token, bot = os.environ.get("NOX_TELEGRAM_TOKEN"), os.environ.get("NOX_TELEGRAM_BOT")
+    if not token or not bot:
+        return None
+    return {"token": token, "bot": bot.lstrip("@")}

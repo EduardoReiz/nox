@@ -40,6 +40,12 @@ python3 -m venv .venv
 .venv/bin/python ../experimentos/exp4_indicadores/cenarios.py
 ```
 
+### Alertas (worker)
+
+```bash
+cd backend && .venv/bin/python -m nox.worker   # gera os sinais a cada minuto e envia os alertas
+```
+
 ### Interface
 
 ```bash
@@ -61,6 +67,7 @@ cd frontend && NOX_LOG_API=/caminho/do/api.log node e2e/conta.mjs
 | RF-010 Conta, login, 2FA e recuperação de senha | `docs/implementacoes/rf010_conta_e_acesso.md` |
 | RF-011 Perfil de risco e preferências de alerta | `docs/implementacoes/rf011_rf015_perfil_e_lista.md` |
 | RF-015 Lista de ativos acompanhados | `docs/implementacoes/rf011_rf015_perfil_e_lista.md` |
+| RF-012 Alertas (push e Telegram) e RF-008 sinais gravados | `docs/implementacoes/rf012_alertas.md` |
 
 ## Situação das experimentações
 

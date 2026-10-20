@@ -36,6 +36,7 @@ class RepositorioContas(Protocol):
     def salvar_preferencia(self, usuario_id: str, canal: str, ativa: bool, identificador_cifrado: str | None) -> None: ...
     def lista(self, usuario_id: str) -> list[tuple[str, datetime]]: ...
     def salvar_lista(self, usuario_id: str, simbolos: list[str], agora: datetime) -> None: ...
+    def seguidores(self, simbolo: str) -> list[str]: ...
 
 
 EMAIL_EM_USO = "Já existe uma conta com esse e-mail."
@@ -134,6 +135,9 @@ class ContasMemoria:
         atual = self._listas.get(usuario_id, {})
         self._listas[usuario_id] = {s: atual.get(s, agora) for s in simbolos}
 
+    def seguidores(self, simbolo):
+        return [uid for uid, itens in self._listas.items() if simbolo in itens]
+
 
 ESQUEMA = """
 CREATE TABLE IF NOT EXISTS usuario (
@@ -154,7 +158,7 @@ CREATE TABLE IF NOT EXISTS sessao (
 );
 CREATE TABLE IF NOT EXISTS desafio (
     token_hash   text PRIMARY KEY,
-    tipo         text NOT NULL CHECK (tipo IN ('2fa', 'recuperacao')),
+    tipo         text NOT NULL,
     usuario_id   uuid NOT NULL REFERENCES usuario(id) ON DELETE CASCADE,
     expira_em    timestamptz NOT NULL,
     falhas       int NOT NULL DEFAULT 0
@@ -169,6 +173,9 @@ CREATE TABLE IF NOT EXISTS auditoria (
 );
 CREATE INDEX IF NOT EXISTS auditoria_usuario ON auditoria (usuario_id, evento, quando);
 ALTER TABLE usuario ADD COLUMN IF NOT EXISTS frequencia_alerta text NOT NULL DEFAULT 'cada_sinal';
+-- 'telegram' é o código que liga a conta ao chat do bot (RF-012).
+ALTER TABLE desafio DROP CONSTRAINT IF EXISTS desafio_tipo_check;
+ALTER TABLE desafio ADD CONSTRAINT desafio_tipo_check CHECK (tipo IN ('2fa', 'recuperacao', 'telegram'));
 -- Ativo, Lista de Acompanhamento e Preferência de Alerta (seção 18.1).
 CREATE TABLE IF NOT EXISTS ativo (
     simbolo   text PRIMARY KEY,
@@ -305,3 +312,7 @@ class ContasPostgres:
                 cur.executemany(
                     "INSERT INTO lista_acompanhamento VALUES (%s, %s, %s) ON CONFLICT DO NOTHING",
                     [(usuario_id, s, agora) for s in simbolos])
+
+    def seguidores(self, simbolo):
+        return [str(l["usuario_id"]) for l in self.con.execute(
+            "SELECT usuario_id FROM lista_acompanhamento WHERE simbolo = %s", (simbolo,))]

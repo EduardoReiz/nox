@@ -92,6 +92,12 @@ class ServicoSinais:
     def sinais(self) -> list[dict]:
         return self._dados()[1]
 
+    def sinais_com_vela(self) -> list[tuple[dict, datetime]]:
+        """Cada sinal com o instante da última vela fechada que o gerou. É a
+        chave que impede gravar o mesmo sinal duas vezes (RF-008)."""
+        _, sinais, series = self._dados()
+        return [(s, series[s["ativo"]][-1].instante) for s in sinais if series.get(s["ativo"])]
+
     def velas(self, ativo: str, quantidade: int) -> list[dict]:
         series = self._dados()[2]
         if ativo not in series:

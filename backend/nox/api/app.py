@@ -8,6 +8,7 @@ O frontend consulta esta API, e nunca a exchange (seção 18.2). Rodar com:
 from fastapi import FastAPI, HTTPException, Query
 from fastapi.middleware.cors import CORSMiddleware
 
+from nox.api.contas import alertas_publico
 from nox.api.contas import rotas as rotas_conta
 from nox.application.sinais import ATIVOS, ServicoSinais
 
@@ -15,6 +16,7 @@ app = FastAPI(title="Nox", version="0.1.0")
 # O frontend chega pelo proxy do Vite, na mesma origem; o CORS só libera leitura.
 app.add_middleware(CORSMiddleware, allow_origins=["http://localhost:5173"], allow_methods=["GET"])
 app.include_router(rotas_conta)
+app.include_router(alertas_publico)
 servico = ServicoSinais()
 
 

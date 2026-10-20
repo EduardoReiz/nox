@@ -78,7 +78,6 @@ PERFIS = {
 }
 FREQUENCIAS = {"cada_sinal": "A cada sinal novo", "resumo_diario": "Um resumo por dia"}
 CANAIS = ("push", "telegram")
-TELEGRAM = re.compile(r"^@?[A-Za-z][A-Za-z0-9_]{4,31}$")
 MAX_LISTA = 20
 
 
@@ -92,18 +91,3 @@ def validar_frequencia(frequencia: str) -> str:
     if frequencia not in FREQUENCIAS:
         raise ErroDeConta("Escolha a frequência dos alertas.")
     return frequencia
-
-
-def normalizar_telegram(usuario: str) -> str:
-    """Nome de usuário do Telegram: 5 a 32 letras, números ou _, começando por letra."""
-    usuario = usuario.strip()
-    if not TELEGRAM.match(usuario):
-        raise ErroDeConta("Digite seu usuário do Telegram, por exemplo @maria_silva.")
-    return "@" + usuario.lstrip("@")
-
-
-@dataclass
-class PreferenciaAlerta:
-    canal: str  # "push" ou "telegram"
-    ativa: bool
-    identificador: str | None = None  # usuário do Telegram; no push, a inscrição do navegador (RF-012)

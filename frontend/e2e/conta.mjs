@@ -117,25 +117,45 @@ try {
   ok(sessao?.httpOnly && sessao.sameSite === 'Strict', 'cookie de sessão httpOnly e SameSite=Strict')
   ok(!(await p.evaluate(() => document.cookie)).includes('nox_sessao'), 'o JavaScript da página não vê a sessão')
 
-  console.log('Conta A: perfil, alertas e lista de ativos (RF-011, RF-015)')
+  console.log('Conta A: perfil e alertas (RF-011, RF-012)')
   await p.goto(`${URL}/conta`)
   await p.getByRole('radio', { name: /Moderado/ }).check()
-  await p.getByRole('switch', { name: 'Mensagem no Telegram' }).check({ force: true })
-  await p.getByLabel('Seu usuário do Telegram').fill('ab')
-  await p.getByRole('button', { name: 'Salvar preferências' }).click()
-  await p.getByText('Digite seu usuário do Telegram').waitFor()
-  ok(true, 'usuário do Telegram inválido recusado')
-  await p.getByLabel('Seu usuário do Telegram').fill('ana_teste')
   await p.getByRole('radio', { name: 'Um resumo por dia' }).check()
   await p.getByRole('button', { name: 'Salvar preferências' }).click()
   await p.getByText('Preferências salvas.').waitFor()
-  await foto(p, 'preferencias')
   await p.reload()
   await p.getByRole('radio', { name: /Moderado/ }).waitFor()
   ok(await p.getByRole('radio', { name: /Moderado/ }).isChecked(), 'perfil continua salvo depois de recarregar')
   ok(await p.getByRole('radio', { name: 'Um resumo por dia' }).isChecked(), 'frequência continua salva')
-  ok((await p.getByLabel('Seu usuário do Telegram').inputValue()) === '@ana_teste', 'Telegram salvo e normalizado')
+  await p.getByText('O bot do Nox no Telegram ainda está sendo criado').waitFor()
+  ok(true, 'sem bot configurado, o Telegram avisa em vez de quebrar')
 
+  // O Chrome headless não tem serviço de push: a inscrição falha. Serve para
+  // conferir que o erro chega ao usuário em português.
+  await contexto.grantPermissions(['notifications'], { origin: URL })
+  await p.getByRole('button', { name: 'Conectar notificações' }).click()
+  await p.getByText('O navegador não conseguiu ativar as notificações').waitFor({ timeout: 20_000 })
+  ok(true, 'falha do navegador ao inscrever vira mensagem clara em português')
+
+  // Uma inscrição de mentira, como a que o navegador entregaria, cadastrada
+  // pela API: confere o caminho do servidor e da tela.
+  const inscricao = { endpoint: 'https://push.invalid/e2e', keys: { p256dh: 'BOr_teste', auth: 'auth_teste' } }
+  const cadastro = await p.evaluate((dados) => fetch('/api/conta/push', {
+    method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(dados),
+  }).then((r) => r.status), inscricao)
+  ok(cadastro === 204, 'API aceita a inscrição de notificação')
+  await p.reload()
+  const pushLigado = p.getByRole('switch', { name: 'Notificações' })
+  await pushLigado.waitFor()
+  ok(await pushLigado.isChecked(), 'canal de notificação aparece conectado e ligado')
+  await p.getByRole('button', { name: 'Enviar um alerta de teste' }).click()
+  const resultado = p.getByText(/^Notificação: /)
+  await resultado.waitFor({ timeout: 30_000 })
+  ok((await resultado.textContent()).startsWith('Notificação: falhou'),
+    'endereço de push inexistente: o teste mostra a falha sem quebrar a tela')
+  await foto(p, 'preferencias')
+
+  console.log('Conta A: lista de ativos (RF-015)')
   await p.goto(`${URL}/sinais`)
   await p.getByRole('button', { name: 'Acompanhar Ethereum' }).click()
   await p.getByRole('heading', { name: 'Seus ativos' }).waitFor()
