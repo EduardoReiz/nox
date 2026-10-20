@@ -5,7 +5,7 @@ import pytest
 from fastapi.testclient import TestClient
 
 from nox.api import app as modulo_app
-from nox.application.sinais import ServicoSinais
+from nox.application.sinais import ATIVOS, ServicoSinais
 from nox.infrastructure.binance import ClienteBinance
 
 HORA_MS = 3_600_000
@@ -34,7 +34,7 @@ def cliente(monkeypatch):
 
 def test_feed_traz_um_sinal_por_ativo_com_explicacao_e_aviso(cliente):
     sinais = cliente.get("/api/sinais").json()
-    assert [s["ativo"] for s in sinais] == ["BTCUSDT", "ETHUSDT", "SOLUSDT"]
+    assert [s["ativo"] for s in sinais] == list(ATIVOS)
     for s in sinais:
         assert s["disponivel"] is True
         assert s["acao"] in {"comprar", "vender", "manter"}

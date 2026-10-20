@@ -59,6 +59,8 @@ cd frontend && NOX_LOG_API=/caminho/do/api.log node e2e/conta.mjs
 | Requisito | Registro |
 | --- | --- |
 | RF-010 Conta, login, 2FA e recuperação de senha | `docs/implementacoes/rf010_conta_e_acesso.md` |
+| RF-011 Perfil de risco e preferências de alerta | `docs/implementacoes/rf011_rf015_perfil_e_lista.md` |
+| RF-015 Lista de ativos acompanhados | `docs/implementacoes/rf011_rf015_perfil_e_lista.md` |
 
 ## Situação das experimentações
 

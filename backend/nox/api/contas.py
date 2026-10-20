@@ -9,9 +9,12 @@ import os
 from functools import lru_cache
 
 from fastapi import APIRouter, Cookie, Depends, HTTPException, Response
+from fastapi.responses import JSONResponse
 from pydantic import BaseModel
 
 from nox.application.autenticacao import ServicoAutenticacao
+from nox.application.perfil import ServicoPerfil
+from nox.application.sinais import ATIVOS
 from nox.domain.contas import ErroDeConta, Usuario
 from nox.infrastructure import config
 from nox.infrastructure.contas_repo import ContasPostgres
@@ -23,9 +26,24 @@ rotas = APIRouter(prefix="/api/conta", tags=["conta"])
 
 
 @lru_cache
+def _repo() -> ContasPostgres:
+    return ContasPostgres(config.postgres_dsn())
+
+
+@lru_cache
+def _cifra() -> Cifra:
+    return Cifra(config.chave_dados())
+
+
+@lru_cache
 def servico() -> ServicoAutenticacao:
-    return ServicoAutenticacao(ContasPostgres(config.postgres_dsn()), Cifra(config.chave_dados()), EmailNoLog(),
+    return ServicoAutenticacao(_repo(), _cifra(), EmailNoLog(),
                                url_app=os.environ.get("NOX_URL_APP", "http://localhost:5173"))
+
+
+@lru_cache
+def servico_perfil() -> ServicoPerfil:
+    return ServicoPerfil(_repo(), _cifra(), ATIVOS)
 
 
 def _abrir(resposta: Response, token: str) -> None:
@@ -82,6 +100,16 @@ class SoEmail(BaseModel):
 class NovaSenha(BaseModel):
     token: str
     senha: str
+
+
+class Preferencias(BaseModel):
+    perfil_risco: str | None = None
+    frequencia: str = "cada_sinal"
+    canais: dict[str, dict] = {}
+
+
+class Lista(BaseModel):
+    ativos: list[str]
 
 
 @rotas.post("/cadastro", status_code=201)
@@ -177,3 +205,40 @@ def excluir(dados: SoSenha, resposta: Response, u: Usuario = Depends(usuario_atu
     except ErroDeConta as e:
         raise _erro(e) from None
     resposta.delete_cookie(COOKIE, path="/api")
+
+
+# --- perfil, alertas e lista de ativos (RF-011, RF-015) ------------------------
+
+
+@rotas.get("/preferencias")
+def ler_preferencias(u: Usuario = Depends(usuario_atual), p: ServicoPerfil = Depends(servico_perfil)):
+    return p.preferencias(u)
+
+
+@rotas.put("/preferencias")
+def salvar_preferencias(dados: Preferencias, u: Usuario = Depends(usuario_atual),
+                        p: ServicoPerfil = Depends(servico_perfil)):
+    try:
+        return p.salvar_preferencias(u, dados.perfil_risco, dados.frequencia, dados.canais)
+    except ErroDeConta as e:
+        raise _erro(e) from None
+
+
+@rotas.get("/lista")
+def ler_lista(u: Usuario = Depends(usuario_atual), p: ServicoPerfil = Depends(servico_perfil)):
+    return {"ativos": p.lista(u)}
+
+
+@rotas.put("/lista")
+def salvar_lista(dados: Lista, u: Usuario = Depends(usuario_atual), p: ServicoPerfil = Depends(servico_perfil)):
+    try:
+        return {"ativos": p.salvar_lista(u, dados.ativos)}
+    except ErroDeConta as e:
+        raise _erro(e) from None
+
+
+@rotas.get("/meus-dados")
+def meus_dados(u: Usuario = Depends(usuario_atual), p: ServicoPerfil = Depends(servico_perfil)):
+    """LGPD: o titular baixa tudo o que o Nox guarda sobre ele."""
+    return JSONResponse(p.meus_dados(u),
+                        headers={"Content-Disposition": 'attachment; filename="meus-dados-nox.json"'})

@@ -1,4 +1,5 @@
-"""Experimentação 3, passo 2: cinco sinais simulados, um deles com divergência.
+"""Experimentação 3, passo 2: sinais simulados (cinco no início, seis desde
+que o Nox passou a acompanhar o Cardano), um deles com divergência.
 
 As forças são escolhidas à mão, mas o score, a ação e o texto saem das mesmas
 regras do backend, para que o simulado seja igual ao que a API entregaria.
@@ -29,6 +30,8 @@ CASOS = [
      (0.05, {"rsi": 52.0, "forca_rsi": 0.0, "forca_macd": 0.1, "cruzamento": None}), 0.1, None),
     ("XRPUSDT", "XRP", 0.5821, 1.1,
      (0.62, {"rsi": 45.0, "forca_rsi": 0.0, "forca_macd": 1.0, "cruzamento": "alta"}), None, None),
+    ("ADAUSDT", "Cardano", 0.3412, -1.4,
+     (-0.45, {"rsi": 64.0, "forca_rsi": -0.4, "forca_macd": -0.5, "cruzamento": None}), -0.2, None),
 ]
 
 

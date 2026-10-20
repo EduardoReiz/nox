@@ -7,6 +7,8 @@ from fastapi.testclient import TestClient
 from nox.api import contas
 from nox.api.app import app
 from nox.application.autenticacao import ServicoAutenticacao
+from nox.application.perfil import ServicoPerfil
+from nox.application.sinais import ATIVOS
 from nox.infrastructure.contas_repo import ContasMemoria
 from nox.infrastructure.email import EmailMemoria
 from nox.infrastructure.seguranca import Cifra, Senhas
@@ -16,9 +18,12 @@ SENHA = "lua-cheia-sobre-o-mar"
 
 @pytest.fixture
 def cliente():
-    servico = ServicoAutenticacao(ContasMemoria(), Cifra(Cifra.nova_chave()), EmailMemoria(),
+    repo, cifra = ContasMemoria(), Cifra(Cifra.nova_chave())
+    servico = ServicoAutenticacao(repo, cifra, EmailMemoria(),
                                   senhas=Senhas(time_cost=1, memory_cost=1024, parallelism=1))
+    perfil = ServicoPerfil(repo, cifra, ATIVOS)
     app.dependency_overrides[contas.servico] = lambda: servico
+    app.dependency_overrides[contas.servico_perfil] = lambda: perfil
     yield TestClient(app), servico
     app.dependency_overrides.clear()
 
@@ -71,3 +76,24 @@ def test_esqueci_responde_igual_para_qualquer_email(cliente):
     b = c.post("/api/conta/senha/esqueci", json={"email": "ninguem@exemplo.com"})
     assert a.status_code == b.status_code == 202
     assert a.json() == b.json()
+
+
+def test_preferencias_lista_e_meus_dados(cliente):
+    c, _ = cliente
+    assert c.get("/api/conta/preferencias").status_code == 401
+    c.post("/api/conta/cadastro", json={"nome": "Ana", "email": "ana@exemplo.com", "senha": SENHA})
+    r = c.put("/api/conta/preferencias", json={"perfil_risco": "moderado", "frequencia": "cada_sinal",
+                                                "canais": {"push": {"ativo": True}}})
+    assert r.status_code == 200 and r.json()["perfil_risco"] == "moderado"
+    assert c.put("/api/conta/lista", json={"ativos": ["XYZUSDT"]}).status_code == 400
+    assert c.put("/api/conta/lista", json={"ativos": ["ETHUSDT", "BTCUSDT"]}).json() == {"ativos": ["ETHUSDT", "BTCUSDT"]}
+    assert c.get("/api/conta/lista").json()["ativos"] == ["ETHUSDT", "BTCUSDT"]
+    dados = c.get("/api/conta/meus-dados")
+    assert "attachment" in dados.headers["content-disposition"]
+    assert dados.json()["perfil_de_risco"] == "moderado"
+
+
+def test_lista_de_ativos_publica(cliente):
+    c, _ = cliente
+    simbolos = [a["simbolo"] for a in c.get("/api/ativos").json()]
+    assert "BTCUSDT" in simbolos and len(simbolos) == len(ATIVOS)

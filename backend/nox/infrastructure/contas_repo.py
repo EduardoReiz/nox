@@ -30,6 +30,12 @@ class RepositorioContas(Protocol):
     def apagar_desafios(self, usuario_id: str, tipo: str) -> None: ...
     def registrar(self, evento: str, usuario_id: str | None, quando: datetime) -> None: ...
     def contar_eventos(self, usuario_id: str, evento: str, desde: datetime) -> int: ...
+    def garantir_ativos(self, ativos: dict[str, str]) -> None: ...
+    def ativos(self) -> dict[str, str]: ...
+    def preferencias(self, usuario_id: str) -> list[tuple[str, bool, str | None]]: ...
+    def salvar_preferencia(self, usuario_id: str, canal: str, ativa: bool, identificador_cifrado: str | None) -> None: ...
+    def lista(self, usuario_id: str) -> list[tuple[str, datetime]]: ...
+    def salvar_lista(self, usuario_id: str, simbolos: list[str], agora: datetime) -> None: ...
 
 
 EMAIL_EM_USO = "Já existe uma conta com esse e-mail."
@@ -41,6 +47,9 @@ class ContasMemoria:
         self.sessoes: dict[str, tuple[str, datetime]] = {}
         self.desafios: dict[str, dict] = {}
         self.auditoria: list[tuple[str, str | None, datetime]] = []
+        self._ativos: dict[str, str] = {}
+        self._preferencias: dict[str, dict[str, tuple[bool, str | None]]] = {}
+        self._listas: dict[str, dict[str, datetime]] = {}
 
     def criar_usuario(self, u):
         if self.usuario_por_email(u.email):
@@ -62,6 +71,8 @@ class ContasMemoria:
         self.apagar_sessoes(id_)
         self.desafios = {k: d for k, d in self.desafios.items() if d["usuario_id"] != id_}
         self.auditoria = [(e, None if uid == id_ else uid, q) for e, uid, q in self.auditoria]
+        self._preferencias.pop(id_, None)
+        self._listas.pop(id_, None)
 
     def criar_sessao(self, token_hash, usuario_id, expira_em):
         self.sessoes[token_hash] = (usuario_id, expira_em)
@@ -103,6 +114,26 @@ class ContasMemoria:
     def contar_eventos(self, usuario_id, evento, desde):
         return sum(1 for e, uid, q in self.auditoria if uid == usuario_id and e == evento and q >= desde)
 
+    def garantir_ativos(self, ativos):
+        self._ativos.update(ativos)
+
+    def ativos(self):
+        return dict(self._ativos)
+
+    def preferencias(self, usuario_id):
+        return [(c, a, i) for c, (a, i) in self._preferencias.get(usuario_id, {}).items()]
+
+    def salvar_preferencia(self, usuario_id, canal, ativa, identificador_cifrado):
+        self._preferencias.setdefault(usuario_id, {})[canal] = (ativa, identificador_cifrado)
+
+    def lista(self, usuario_id):
+        itens = self._listas.get(usuario_id, {})
+        return sorted(itens.items(), key=lambda par: par[1])
+
+    def salvar_lista(self, usuario_id, simbolos, agora):
+        atual = self._listas.get(usuario_id, {})
+        self._listas[usuario_id] = {s: atual.get(s, agora) for s in simbolos}
+
 
 ESQUEMA = """
 CREATE TABLE IF NOT EXISTS usuario (
@@ -137,10 +168,30 @@ CREATE TABLE IF NOT EXISTS auditoria (
     quando       timestamptz NOT NULL
 );
 CREATE INDEX IF NOT EXISTS auditoria_usuario ON auditoria (usuario_id, evento, quando);
+ALTER TABLE usuario ADD COLUMN IF NOT EXISTS frequencia_alerta text NOT NULL DEFAULT 'cada_sinal';
+-- Ativo, Lista de Acompanhamento e Preferência de Alerta (seção 18.1).
+CREATE TABLE IF NOT EXISTS ativo (
+    simbolo   text PRIMARY KEY,
+    nome      text NOT NULL,
+    tipo      text NOT NULL DEFAULT 'cripto'
+);
+CREATE TABLE IF NOT EXISTS lista_acompanhamento (
+    usuario_id     uuid NOT NULL REFERENCES usuario(id) ON DELETE CASCADE,
+    simbolo        text NOT NULL REFERENCES ativo(simbolo),
+    adicionado_em  timestamptz NOT NULL,
+    PRIMARY KEY (usuario_id, simbolo)
+);
+CREATE TABLE IF NOT EXISTS preferencia_alerta (
+    usuario_id              uuid NOT NULL REFERENCES usuario(id) ON DELETE CASCADE,
+    canal                   text NOT NULL CHECK (canal IN ('push', 'telegram')),
+    identificador_cifrado   text,
+    ativa                   boolean NOT NULL DEFAULT false,
+    PRIMARY KEY (usuario_id, canal)
+);
 """
 
 CAMPOS = ("id", "email", "nome", "senha_hash", "totp_cifrado", "totp_ativo",
-          "totp_ultimo_passo", "perfil_risco_cifrado", "criado_em")
+          "totp_ultimo_passo", "perfil_risco_cifrado", "frequencia_alerta", "criado_em")
 
 
 class ContasPostgres:
@@ -219,3 +270,38 @@ class ContasPostgres:
         return self.con.execute(
             "SELECT count(*) AS n FROM auditoria WHERE usuario_id = %s AND evento = %s AND quando >= %s",
             (usuario_id, evento, desde)).fetchone()["n"]
+
+    def garantir_ativos(self, ativos):
+        with self.con.cursor() as cur:
+            cur.executemany(
+                "INSERT INTO ativo (simbolo, nome) VALUES (%s, %s) ON CONFLICT (simbolo) DO UPDATE SET nome = EXCLUDED.nome",
+                list(ativos.items()))
+
+    def ativos(self):
+        return {l["simbolo"]: l["nome"] for l in self.con.execute("SELECT simbolo, nome FROM ativo ORDER BY simbolo")}
+
+    def preferencias(self, usuario_id):
+        return [(l["canal"], l["ativa"], l["identificador_cifrado"]) for l in self.con.execute(
+            "SELECT canal, ativa, identificador_cifrado FROM preferencia_alerta WHERE usuario_id = %s", (usuario_id,))]
+
+    def salvar_preferencia(self, usuario_id, canal, ativa, identificador_cifrado):
+        self.con.execute("""
+            INSERT INTO preferencia_alerta (usuario_id, canal, ativa, identificador_cifrado) VALUES (%s, %s, %s, %s)
+            ON CONFLICT (usuario_id, canal) DO UPDATE SET ativa = EXCLUDED.ativa,
+                identificador_cifrado = EXCLUDED.identificador_cifrado
+        """, (usuario_id, canal, ativa, identificador_cifrado))
+
+    def lista(self, usuario_id):
+        return [(l["simbolo"], l["adicionado_em"]) for l in self.con.execute(
+            "SELECT simbolo, adicionado_em FROM lista_acompanhamento WHERE usuario_id = %s ORDER BY adicionado_em, simbolo",
+            (usuario_id,))]
+
+    def salvar_lista(self, usuario_id, simbolos, agora):
+        # Quem continua na lista mantém a data em que foi adicionado.
+        with self.con.transaction():
+            self.con.execute("DELETE FROM lista_acompanhamento WHERE usuario_id = %s AND NOT (simbolo = ANY(%s))",
+                             (usuario_id, simbolos))
+            with self.con.cursor() as cur:
+                cur.executemany(
+                    "INSERT INTO lista_acompanhamento VALUES (%s, %s, %s) ON CONFLICT DO NOTHING",
+                    [(usuario_id, s, agora) for s in simbolos])

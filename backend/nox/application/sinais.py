@@ -13,7 +13,14 @@ from nox.domain.mercado import Vela
 from nox.domain.score import SemSinal, Sinal, gerar_sinal
 from nox.infrastructure.binance import ClienteBinance
 
-ATIVOS = {"BTCUSDT": "Bitcoin", "ETHUSDT": "Ethereum", "SOLUSDT": "Solana"}
+ATIVOS = {
+    "BTCUSDT": "Bitcoin",
+    "ETHUSDT": "Ethereum",
+    "SOLUSDT": "Solana",
+    "BNBUSDT": "BNB",
+    "XRPUSDT": "XRP",
+    "ADAUSDT": "Cardano",
+}
 INTERVALO = "1h"
 VELAS_POR_CALCULO = 300
 CACHE_SEGUNDOS = 60  # o sinal só muda quando fecha uma vela de 1 hora

@@ -35,4 +35,8 @@ export const conta = {
   esqueci: (email) => pedir('/senha/esqueci', { corpo: { email } }),
   redefinir: (token, senha) => pedir('/senha/redefinir', { corpo: { token, senha } }),
   excluir: (senha) => pedir('/excluir', { corpo: { senha } }),
+  preferencias: () => pedir('/preferencias', { metodo: 'GET' }),
+  salvarPreferencias: (dados) => pedir('/preferencias', { metodo: 'PUT', corpo: dados }),
+  lista: () => pedir('/lista', { metodo: 'GET' }),
+  salvarLista: (ativos) => pedir('/lista', { metodo: 'PUT', corpo: { ativos } }),
 }

@@ -37,7 +37,8 @@ class Usuario:
     totp_cifrado: str | None = None  # segredo do 2FA, cifrado (RNE-005)
     totp_ativo: bool = False
     totp_ultimo_passo: int = 0  # impede reusar o mesmo código
-    perfil_risco_cifrado: str | None = None  # RF-011, ainda não usado
+    perfil_risco_cifrado: str | None = None  # RF-011, cifrado (RNE-005)
+    frequencia_alerta: str = "cada_sinal"  # RF-011 e RF-012
 
 
 def normalizar_email(email: str) -> str:
@@ -66,3 +67,43 @@ def validar_senha(senha: str, email: str = "") -> None:
     usuario_email = email.split("@")[0].lower()
     if len(usuario_email) >= 4 and usuario_email in senha.lower():
         raise ErroDeConta("A senha não pode conter o seu e-mail.")
+
+
+# --- perfil e preferências (RF-011) ------------------------------------------
+
+PERFIS = {
+    "conservador": "Prefiro perder pouco, mesmo ganhando menos. Uma queda forte me tiraria o sono.",
+    "moderado": "Aceito algumas quedas no caminho se, no longo prazo, puder ganhar mais.",
+    "arrojado": "Aguento grandes oscilações e sei que posso perder boa parte do que investi.",
+}
+FREQUENCIAS = {"cada_sinal": "A cada sinal novo", "resumo_diario": "Um resumo por dia"}
+CANAIS = ("push", "telegram")
+TELEGRAM = re.compile(r"^@?[A-Za-z][A-Za-z0-9_]{4,31}$")
+MAX_LISTA = 20
+
+
+def validar_perfil(perfil: str | None) -> str | None:
+    if perfil is not None and perfil not in PERFIS:
+        raise ErroDeConta("Escolha um dos perfis: conservador, moderado ou arrojado.")
+    return perfil
+
+
+def validar_frequencia(frequencia: str) -> str:
+    if frequencia not in FREQUENCIAS:
+        raise ErroDeConta("Escolha a frequência dos alertas.")
+    return frequencia
+
+
+def normalizar_telegram(usuario: str) -> str:
+    """Nome de usuário do Telegram: 5 a 32 letras, números ou _, começando por letra."""
+    usuario = usuario.strip()
+    if not TELEGRAM.match(usuario):
+        raise ErroDeConta("Digite seu usuário do Telegram, por exemplo @maria_silva.")
+    return "@" + usuario.lstrip("@")
+
+
+@dataclass
+class PreferenciaAlerta:
+    canal: str  # "push" ou "telegram"
+    ativa: bool
+    identificador: str | None = None  # usuário do Telegram; no push, a inscrição do navegador (RF-012)

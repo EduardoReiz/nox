@@ -61,3 +61,20 @@ def test_sessao_desafio_auditoria_e_exclusao(repo):
     anonimos = repo.con.execute(
         "SELECT count(*) AS n FROM auditoria WHERE usuario_id IS NULL AND quando = %s", (agora,)).fetchone()
     assert anonimos["n"] >= 1
+
+
+def test_ativos_lista_e_preferencias(repo):
+    u = novo()
+    repo.criar_usuario(u)
+    repo.garantir_ativos({"BTCUSDT": "Bitcoin", "ETHUSDT": "Ethereum"})
+    assert {"BTCUSDT", "ETHUSDT"} <= set(repo.ativos())
+    t0 = datetime.now(UTC)
+    repo.salvar_lista(u.id, ["BTCUSDT", "ETHUSDT"], t0)
+    repo.salvar_lista(u.id, ["ETHUSDT"], t0 + timedelta(days=1))
+    assert repo.lista(u.id) == [("ETHUSDT", t0)]
+    repo.salvar_preferencia(u.id, "telegram", True, "cifrado")
+    repo.salvar_preferencia(u.id, "telegram", False, None)
+    assert repo.preferencias(u.id) == [("telegram", False, None)]
+    u.frequencia_alerta = "resumo_diario"
+    repo.atualizar_usuario(u)
+    assert repo.usuario_por_id(u.id).frequencia_alerta == "resumo_diario"

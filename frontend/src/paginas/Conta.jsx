@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { Navigate, useNavigate, useSearchParams } from 'react-router-dom'
 import { Botao, Campo, Mensagem, Titulo } from '../componentes/Formulario'
 import { Carregando } from '../componentes/Partes'
+import Preferencias from '../componentes/Preferencias'
 import { conta } from '../dados/conta'
 import { useEnvio } from '../dados/useEnvio'
 import { useConta } from '../dados/ContaContexto'
@@ -136,6 +137,21 @@ export default function Conta() {
       <section className="mt-9">
         <h2 className="mb-4 font-serif text-xl">Verificação em duas etapas</h2>
         <DoisFatores ativo={usuario.dois_fatores} aoMudar={recarregar} />
+      </section>
+
+      <section className="mt-9 border-t border-linha pt-8">
+        <Preferencias />
+      </section>
+
+      <section className="mt-9 border-t border-linha pt-6">
+        <h2 className="font-serif text-xl">Seus dados</h2>
+        <p className="mt-1 text-sm leading-relaxed text-nevoa">
+          Baixe um arquivo com tudo o que o Nox guarda sobre você: conta, perfil, alertas e ativos acompanhados.
+        </p>
+        <a href="/api/conta/meus-dados" download="meus-dados-nox.json"
+          className="mt-4 inline-block text-[15px] underline underline-offset-4 hover:text-white">
+          Baixar meus dados
+        </a>
       </section>
 
       <section className="mt-9 space-y-5 border-t border-linha pt-6">

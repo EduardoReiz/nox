@@ -36,6 +36,18 @@ const contexto = await navegador.newContext({
   reducedMotion: 'reduce',
 })
 const p = await contexto.newPage()
+// Na primeira carga de módulos novos o Vite recarrega a página e interrompe a
+// navegação em andamento (ERR_ABORTED). Nesse caso, tenta mais uma vez.
+const irPara = p.goto.bind(p)
+p.goto = async (url, op) => {
+  try {
+    return await irPara(url, op)
+  } catch (e) {
+    if (!String(e.message).includes('ERR_ABORTED')) throw e
+    await p.waitForLoadState()
+    return irPara(url, op)
+  }
+}
 const erros = []
 p.on('pageerror', (e) => erros.push(e.message))
 
@@ -104,6 +116,38 @@ try {
   const sessao = cookies.find((c) => c.name === 'nox_sessao')
   ok(sessao?.httpOnly && sessao.sameSite === 'Strict', 'cookie de sessão httpOnly e SameSite=Strict')
   ok(!(await p.evaluate(() => document.cookie)).includes('nox_sessao'), 'o JavaScript da página não vê a sessão')
+
+  console.log('Conta A: perfil, alertas e lista de ativos (RF-011, RF-015)')
+  await p.goto(`${URL}/conta`)
+  await p.getByRole('radio', { name: /Moderado/ }).check()
+  await p.getByRole('switch', { name: 'Mensagem no Telegram' }).check({ force: true })
+  await p.getByLabel('Seu usuário do Telegram').fill('ab')
+  await p.getByRole('button', { name: 'Salvar preferências' }).click()
+  await p.getByText('Digite seu usuário do Telegram').waitFor()
+  ok(true, 'usuário do Telegram inválido recusado')
+  await p.getByLabel('Seu usuário do Telegram').fill('ana_teste')
+  await p.getByRole('radio', { name: 'Um resumo por dia' }).check()
+  await p.getByRole('button', { name: 'Salvar preferências' }).click()
+  await p.getByText('Preferências salvas.').waitFor()
+  await foto(p, 'preferencias')
+  await p.reload()
+  await p.getByRole('radio', { name: /Moderado/ }).waitFor()
+  ok(await p.getByRole('radio', { name: /Moderado/ }).isChecked(), 'perfil continua salvo depois de recarregar')
+  ok(await p.getByRole('radio', { name: 'Um resumo por dia' }).isChecked(), 'frequência continua salva')
+  ok((await p.getByLabel('Seu usuário do Telegram').inputValue()) === '@ana_teste', 'Telegram salvo e normalizado')
+
+  await p.goto(`${URL}/sinais`)
+  await p.getByRole('button', { name: 'Acompanhar Ethereum' }).click()
+  await p.getByRole('heading', { name: 'Seus ativos' }).waitFor()
+  await p.reload()
+  await p.getByRole('button', { name: 'Deixar de acompanhar Ethereum' }).waitFor()
+  ok(true, 'ativo acompanhado continua marcado depois de recarregar')
+  await foto(p, 'sinais_com_lista')
+
+  const meusDados = await p.evaluate(() => fetch('/api/conta/meus-dados').then((r) => r.json()))
+  ok(meusDados.perfil_de_risco === 'moderado' && meusDados.ativos_acompanhados[0].ativo === 'ETHUSDT',
+    'baixar meus dados traz perfil e lista')
+  ok(!JSON.stringify(meusDados).includes('argon2'), 'arquivo de dados não traz o hash da senha')
 
   console.log('Conta B: recuperação de senha e exclusão')
   await contexto.clearCookies()

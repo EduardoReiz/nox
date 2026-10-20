@@ -217,5 +217,48 @@
       "variacao_24h_pct": 1.1,
       "atualizado_em": "2026-10-20T15:00:00+00:00"
     }
+  },
+  {
+    "ativo": "ADAUSDT",
+    "nome": "Cardano",
+    "disponivel": true,
+    "gerado_em": "2026-10-20T14:40:00+00:00",
+    "acao": "manter",
+    "score": 36,
+    "direcao": "baixa",
+    "componentes": [
+      {
+        "nome": "tecnico",
+        "forca": -0.45,
+        "peso": 0.625,
+        "pontuacao": 45,
+        "detalhes": {
+          "rsi": 64.0,
+          "forca_rsi": -0.4,
+          "forca_macd": -0.5,
+          "cruzamento": null
+        },
+        "rotulo": "Análise técnica"
+      },
+      {
+        "nome": "sentimento",
+        "forca": -0.2,
+        "peso": 0.375,
+        "pontuacao": 20,
+        "detalhes": {},
+        "rotulo": "Sentimento do mercado"
+      }
+    ],
+    "ausentes": [
+      "Previsão de Machine Learning"
+    ],
+    "divergencia": null,
+    "explicacao": "O Nox sugere manter ADA, com confiança 36 de 100. No gráfico, o RSI está em 64, chegando perto de 70, a zona em que o preço costuma corrigir, e o MACD mostra impulso de queda. O sentimento das notícias e redes está negativo. Os sinais apontam levemente para baixa, mas a confiança está abaixo de 60, o mínimo para o Nox sugerir comprar ou vender. Este cálculo não usou a previsão de Machine Learning.",
+    "aviso_risco": "Esta recomendação é apenas informativa e não constitui consultoria de investimentos. O Nox não opera em seu nome. Criptoativos são muito voláteis: decida com cuidado e invista só o que pode perder.",
+    "preco": {
+      "ultimo": 0.3412,
+      "variacao_24h_pct": -1.4,
+      "atualizado_em": "2026-10-20T15:00:00+00:00"
+    }
   }
 ]

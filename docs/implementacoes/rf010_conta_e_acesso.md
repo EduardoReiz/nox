@@ -72,7 +72,6 @@ Também atende a RNE-005 e ao RNF-003, e a parte de direitos do titular do RNF-0
   - O login com Apple, Google ou Facebook, que aparecia no protótipo antigo, não foi feito.
 
 - **Próximos passos:**
-  - perfil de risco e preferências de alerta (RF-011), usando a cifra já pronta;
-  - lista de ativos acompanhados (RF-015);
+  - perfil de risco e preferências de alerta (RF-011) e lista de ativos acompanhados (RF-015), feitos depois (ver `rf011_rf015_perfil_e_lista.md`);
   - códigos de recuperação do 2FA;
   - escolha do serviço de e-mail.
