@@ -9,6 +9,7 @@ O Nox acompanha o mercado e combina indicadores técnicos (RSI e MACD), sentimen
 
 ```
 backend/        núcleo em Python (camadas api, application, domain e infrastructure)
+frontend/       interface web em React (Vite, Tailwind e Recharts)
 experimentos/   scripts e evidências das experimentações da seção 19.2
 docs/           registro das experimentações no formato do documento de especificação
 ```
@@ -39,11 +40,21 @@ python3 -m venv .venv
 .venv/bin/python ../experimentos/exp4_indicadores/cenarios.py
 ```
 
+### Interface
+
+```bash
+cd backend && .venv/bin/uvicorn nox.api.app:app --port 8000   # API com dados reais
+cd frontend && npm install && npm run dev                      # http://localhost:5173
+
+# ou, sem backend, com os sinais simulados:
+cd frontend && VITE_FONTE=simulado npm run dev
+```
+
 ## Situação das experimentações
 
 | Nº | Tema | Situação |
 | --- | --- | --- |
 | 1 | Ingestão de dados da Binance em Python | Realizado |
 | 2 | Séries temporais: InfluxDB x PostgreSQL | Realizado (decisão a confirmar) |
-| 3 | Interface React e Modo Explicativo | Proposto |
+| 3 | Interface React e Modo Explicativo | Parcialmente realizado (falta a avaliação com participantes) |
 | 4 | Indicadores RSI e MACD e estrutura do score | Realizado (parâmetros provisórios) |

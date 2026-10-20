@@ -1,0 +1,32 @@
+@import "tailwindcss";
+
+/* Cores e fontes do protótipo no Figma (NOX-AI). */
+@theme {
+  --color-fundo: #262626;
+  --color-moldura: #d9d9d9;
+  --color-texto-suave: #535353;
+  --color-alta: #2f8a3c;
+  --color-alta-claro: #79ce8b;
+  --color-queda: #e00000;
+  --color-queda-claro: #f5a3a3;
+  --font-sans: "Roboto", system-ui, sans-serif;
+  --font-inter: "Inter", system-ui, sans-serif;
+  --font-titulo: "Joan", Georgia, serif;
+}
+
+html {
+  background: var(--color-fundo);
+  color-scheme: dark;
+}
+
+body {
+  margin: 0;
+  min-height: 100dvh;
+  background: var(--color-fundo);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+}
+
+.cartao {
+  @apply rounded-lg bg-white text-black;
+}

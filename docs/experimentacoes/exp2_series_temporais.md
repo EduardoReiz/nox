@@ -1,6 +1,6 @@
 # Experimentação 2 – Organização e consulta de séries temporais
 
-Situação: **Realizado** (execução em 20/10/2026). A decisão final de persistência está proposta ao fim e depende da confirmação da equipe.
+Situação: **Realizado** (execução em 20/10/2026). Decisão de persistência adotada em 20/10/2026: só PostgreSQL neste período (ver ao fim). Falta comunicá-la ao orientador.
 
 - **Objetivo:** confirmar se o InfluxDB atende melhor que uma tabela no PostgreSQL às consultas de que o Nox precisa e definir a política de retenção do histórico.
 
@@ -66,7 +66,7 @@ Situação: **Realizado** (execução em 20/10/2026). A decisão final de persis
   | Custo zero no ambiente acadêmico | sim | sim |
   | Curva de aprendizado da equipe | baixa, já vista em aula | maior (Flux, tags e campos, buckets) |
 
-- **Decisão proposta:** usar só o PostgreSQL neste período e no próximo, inclusive para as séries de mercado, e rever a escolha quando o volume crescer. O ponto de revisão seria, por exemplo, muitos ativos com anos de dados de 1 minuto. Nesse momento as opções seriam o InfluxDB ou a extensão TimescaleDB, que acrescenta ao PostgreSQL compressão e retenção automática sem trocar de banco. A separação de responsabilidades da seção 18.2 continua valendo, porque as séries ficam numa tabela própria, com acesso isolado na camada infrastructure. A troca de banco, se vier, fica restrita a um arquivo, como esta experimentação mostrou.
+- **Decisão adotada:** usar só o PostgreSQL neste período e no próximo, inclusive para as séries de mercado, e rever a escolha quando o volume crescer. O ponto de revisão seria, por exemplo, muitos ativos com anos de dados de 1 minuto. Nesse momento as opções seriam o InfluxDB ou a extensão TimescaleDB, que acrescenta ao PostgreSQL compressão e retenção automática sem trocar de banco. A separação de responsabilidades da seção 18.2 continua valendo, porque as séries ficam numa tabela própria, com acesso isolado na camada infrastructure. A troca de banco, se vier, fica restrita a um arquivo, como esta experimentação mostrou.
 
 - **Política de retenção proposta:** velas de 1 minuto por 30 dias e velas de 1 hora sem prazo (um ano de velas de 1 hora tem 8760 registros por ativo). A limpeza das velas de 1 minuto seria uma rotina diária. A política será confirmada quando o modelo de ML definir quanto histórico precisa.
 
@@ -75,4 +75,4 @@ Situação: **Realizado** (execução em 20/10/2026). A decisão final de persis
   - O espaço do InfluxDB foi medido antes da compactação completa dos arquivos, e pode diminuir com o tempo.
   - Não foi testado o TimescaleDB.
 
-- **Próximos passos:** confirmar a decisão com a equipe e com o orientador; atualizar a seção 18.2 se a decisão for mantida; ligar a coleta da Experimentação 1 à gravação no banco escolhido.
+- **Próximos passos:** apresentar a decisão ao orientador; atualizar as seções 18.1 e 18.2 (Observação de Mercado e Indicadores Calculados passam para o PostgreSQL) e a tabela da seção 19.1; ligar a coleta da Experimentação 1 à gravação no PostgreSQL. O InfluxDB continua no `docker-compose.yml` só para permitir repetir esta experimentação.
