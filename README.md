@@ -19,8 +19,8 @@ docs/           registro das experimentações no formato do documento de especi
 Requer Python 3.12 ou mais recente e Docker.
 
 ```bash
-cp .env.exemplo .env   # e troque as senhas
-docker compose up -d   # PostgreSQL e InfluxDB
+cp .env.exemplo .env   # troque as senhas e gere a NOX_CHAVE_DADOS (instrução no arquivo)
+docker compose up -d postgres
 ```
 
 ```bash
@@ -48,7 +48,17 @@ cd frontend && npm install && npm run dev                      # http://localhos
 
 # ou, sem backend, com os sinais simulados:
 cd frontend && VITE_FONTE=simulado npm run dev
+
+# teste de ponta a ponta da conta (precisa do banco, da API e do frontend no ar,
+# com o log da API num arquivo para ler o link de recuperação)
+cd frontend && NOX_LOG_API=/caminho/do/api.log node e2e/conta.mjs
 ```
+
+## Requisitos implementados
+
+| Requisito | Registro |
+| --- | --- |
+| RF-010 Conta, login, 2FA e recuperação de senha | `docs/implementacoes/rf010_conta_e_acesso.md` |
 
 ## Situação das experimentações
 
