@@ -26,8 +26,9 @@ python3 -m venv .venv
 # Experimentação 1: coleta da Binance (180 s de WebSocket)
 .venv/bin/python ../experimentos/exp1_ingestao_binance/executar.py 180
 
-# Experimentação 4: comparação dos indicadores
+# Experimentação 4: comparação dos indicadores e cenários do score
 .venv/bin/python ../experimentos/exp4_indicadores/comparar.py
+.venv/bin/python ../experimentos/exp4_indicadores/cenarios.py
 ```
 
 ## Situação das experimentações
@@ -37,4 +38,4 @@ python3 -m venv .venv
 | 1 | Ingestão de dados da Binance em Python | Realizado |
 | 2 | Séries temporais: InfluxDB x PostgreSQL | Proposto |
 | 3 | Interface React e Modo Explicativo | Proposto |
-| 4 | Indicadores RSI e MACD e estrutura do score | Parcialmente realizado (indicadores prontos) |
+| 4 | Indicadores RSI e MACD e estrutura do score | Realizado (parâmetros provisórios) |

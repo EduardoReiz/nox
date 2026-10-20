@@ -1,0 +1,13 @@
+cenario,forca_tecnico,forca_sentimento,forca_ml,pesos_usados,pontuacoes_S,score_antes_da_reducao,divergencia,score_final,direcao,acao
+Tudo aponta alta com força,0.9,0.8,0.8,tecnico 0.50 / sentimento 0.30 / ml 0.20,tecnico 90 / sentimento 80 / ml 80,85,não,85,alta,comprar
+Tudo aponta queda com força,-0.9,-0.8,-0.8,tecnico 0.50 / sentimento 0.30 / ml 0.20,tecnico 90 / sentimento 80 / ml 80,85,não,85,baixa,vender
+"Técnico forte, sem sentimento e sem ML",0.8,,,tecnico 1.00,tecnico 80,80,não,80,alta,comprar
+"Técnico moderado, sem sentimento e sem ML",0.5,,,tecnico 1.00,tecnico 50,50,não,50,alta,manter
+"Técnico forte, sentimento neutro",0.9,0.0,,tecnico 0.62 / sentimento 0.37,tecnico 90 / sentimento 0,56,não,56,alta,manter
+"Técnico alta, sentimento levemente negativo",0.8,-0.2,,tecnico 0.62 / sentimento 0.37,tecnico 80 / sentimento 0,50,não,50,alta,manter
+"Técnico alta, sentimento muito negativo (divergência)",0.8,-0.7,,tecnico 0.62 / sentimento 0.37,tecnico 80 / sentimento 0,50,sim,35,alta,manter
+"Técnico queda, sentimento muito positivo (divergência)",-0.8,0.7,,tecnico 0.62 / sentimento 0.37,tecnico 80 / sentimento 0,50,sim,35,baixa,manter
+"Técnico alta, sentimento negativo e ML a favor (divergência)",0.8,-0.6,0.9,tecnico 0.50 / sentimento 0.30 / ml 0.20,tecnico 80 / sentimento 0 / ml 90,58,sim,41,alta,manter
+"Técnico neutro, sentimento e ML muito positivos",0.0,1.0,1.0,tecnico 0.50 / sentimento 0.30 / ml 0.20,tecnico 0 / sentimento 100 / ml 100,50,não,50,alta,manter
+Sinais fracos em todos os componentes,0.3,0.2,0.25,tecnico 0.50 / sentimento 0.30 / ml 0.20,tecnico 30 / sentimento 20 / ml 25,26,não,26,alta,manter
+"Técnico moderado de alta, sentimento e ML de queda (divergência)",0.5,-0.5,-0.4,tecnico 0.50 / sentimento 0.30 / ml 0.20,tecnico 50 / sentimento 0 / ml 0,25,sim,18,alta,manter

@@ -1,0 +1,41 @@
+{
+  "executado_em": "2026-10-20T14:17:54.264624+00:00",
+  "observacao": "só o componente técnico, sem sentimento e sem ML",
+  "resultado": {
+    "BTCUSDT": {
+      "horas_avaliadas": 800,
+      "acoes": {
+        "manter": 782,
+        "vender": 16,
+        "comprar": 2
+      },
+      "score_mediano": 17,
+      "score_p90": 45,
+      "score_maximo": 91,
+      "horas_com_rsi_forte_e_macd_contrario": 133
+    },
+    "ETHUSDT": {
+      "horas_avaliadas": 800,
+      "acoes": {
+        "manter": 773,
+        "vender": 15,
+        "comprar": 12
+      },
+      "score_mediano": 18,
+      "score_p90": 44,
+      "score_maximo": 87,
+      "horas_com_rsi_forte_e_macd_contrario": 145
+    },
+    "SOLUSDT": {
+      "horas_avaliadas": 800,
+      "acoes": {
+        "manter": 796,
+        "vender": 4
+      },
+      "score_mediano": 19,
+      "score_p90": 42,
+      "score_maximo": 75,
+      "horas_com_rsi_forte_e_macd_contrario": 150
+    }
+  }
+}
