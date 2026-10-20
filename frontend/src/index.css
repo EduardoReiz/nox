@@ -1,32 +1,37 @@
 @import "tailwindcss";
 
-/* Cores e fontes do protótipo no Figma (NOX-AI). */
+/* Nox é "noite": o céu da meia-noite é o fundo, o luar é o texto e a lua
+   mostra a confiança de cada sinal. */
 @theme {
-  --color-fundo: #262626;
-  --color-moldura: #d9d9d9;
-  --color-texto-suave: #535353;
-  --color-alta: #2f8a3c;
-  --color-alta-claro: #79ce8b;
-  --color-queda: #e00000;
-  --color-queda-claro: #f5a3a3;
-  --font-sans: "Roboto", system-ui, sans-serif;
-  --font-inter: "Inter", system-ui, sans-serif;
-  --font-titulo: "Joan", Georgia, serif;
+  --color-ceu: #151a36;
+  --color-ceu-alto: #1e2550;
+  --color-linha: #2f3870;
+  --color-luar: #eee7d0;
+  --color-nevoa: #9aa0c4;
+  --color-alta: #74d4b2;
+  --color-queda: #f0808f;
+  --color-aviso: #e9bc63;
+  --font-sans: "Figtree", system-ui, sans-serif;
+  --font-serif: "Newsreader", Georgia, serif;
 }
 
 html {
-  background: var(--color-fundo);
+  background: var(--color-ceu);
+  color: var(--color-luar);
   color-scheme: dark;
 }
 
 body {
   margin: 0;
   min-height: 100dvh;
-  background: var(--color-fundo);
+  background: var(--color-ceu);
   font-family: var(--font-sans);
+  font-variant-numeric: tabular-nums;
   -webkit-font-smoothing: antialiased;
 }
 
-.cartao {
-  @apply rounded-lg bg-white text-black;
+:focus-visible {
+  outline: 2px solid var(--color-luar);
+  outline-offset: 3px;
+  border-radius: 4px;
 }

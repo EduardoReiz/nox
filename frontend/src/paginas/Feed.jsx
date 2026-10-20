@@ -1,78 +1,82 @@
 import { Link } from 'react-router-dom'
-import Cabecalho from '../componentes/Cabecalho'
-import { AvisoRisco, BarraScore, Carregando, Erro, SeloAcao, Termo } from '../componentes/Partes'
+import Lua from '../componentes/Lua'
+import { Acao, AvisoRisco, Carregando, Erro, Termo } from '../componentes/Partes'
 import { buscarSinais } from '../dados/fonte'
 import { dolar, horario, porcentagem, simbolo } from '../dados/formato'
 import { useDados } from '../dados/useDados'
 
-// Feed de Sinais (RF-009): o sinal mais recente de cada ativo, com acesso ao
-// Modo Explicativo e o aviso de risco sempre à vista (RF-013).
+// Feed de Sinais (RF-009): o sinal mais recente de cada ativo, do mais
+// confiante ao menos confiante, com o aviso de risco à vista (RF-013).
 
-function CartaoSinal({ sinal }) {
-  const { preco } = sinal
-  if (!sinal.disponivel) {
-    return (
-      <li className="cartao p-4">
-        <p className="font-black">{sinal.nome} <span className="font-normal text-texto-suave">{simbolo(sinal.ativo)}</span></p>
-        <p className="mt-2 text-sm text-texto-suave">Sem sinal agora: {sinal.motivo}.</p>
-      </li>
-    )
-  }
-  return (
-    <li>
-      <Link to={`/sinais/${sinal.ativo}`} className="cartao block p-4 transition hover:ring-2 hover:ring-white/60">
-        <div className="flex items-start justify-between gap-3">
-          <div>
-            <p className="font-black text-[17px]">
-              {sinal.nome} <span className="font-normal text-texto-suave">{simbolo(sinal.ativo)}</span>
-            </p>
-            <p className="text-sm">
-              {dolar(preco.ultimo)}{' '}
-              <span className={preco.variacao_24h_pct >= 0 ? 'text-alta' : 'text-queda'}>
-                {porcentagem(preco.variacao_24h_pct)}
-              </span>
-            </p>
-          </div>
-          <SeloAcao acao={sinal.acao} />
-        </div>
-        <div className="mt-3 flex items-center gap-3">
-          <BarraScore score={sinal.score} acao={sinal.acao} />
-          <span className="w-16 shrink-0 text-right text-sm font-semibold">{sinal.score}/100</span>
-        </div>
-        {sinal.divergencia && (
-          <p className="mt-2 text-xs font-semibold text-amber-700">
-            Gráfico e notícias discordam: confiança reduzida.
+function Linha({ s }) {
+  const conteudo = (
+    <>
+      <Lua score={s.disponivel ? s.score : 0} acao={s.acao} tamanho={48} />
+      <div className="min-w-0 flex-1">
+        <p className="font-semibold">
+          {s.nome} <span className="font-normal text-nevoa">{simbolo(s.ativo)}</span>
+        </p>
+        {s.preco && (
+          <p className="text-sm text-nevoa">
+            {dolar(s.preco.ultimo)}{' '}
+            <span className={s.preco.variacao_24h_pct >= 0 ? 'text-alta' : 'text-queda'}>
+              {porcentagem(s.preco.variacao_24h_pct)}
+            </span>
           </p>
         )}
-        <p className="mt-3 flex justify-between text-xs text-texto-suave">
-          <span>Gerado em {horario(sinal.gerado_em)}</span>
-          <span className="font-semibold text-black">Entender por quê ▶</span>
-        </p>
-      </Link>
+        {s.divergencia && (
+          <p className="mt-1 text-sm text-aviso">Gráfico e notícias discordam, confiança reduzida</p>
+        )}
+        {!s.disponivel && <p className="mt-1 text-sm text-nevoa">Sem sinal agora: {s.motivo}.</p>}
+      </div>
+      {s.disponivel && (
+        <div className="text-right">
+          <Acao acao={s.acao} className="text-lg" />
+          <p className="text-sm text-nevoa">{s.score} de 100</p>
+        </div>
+      )}
+    </>
+  )
+  return (
+    <li className="border-b border-linha">
+      {s.disponivel ? (
+        <Link to={`/sinais/${s.ativo}`} className="flex items-center gap-4 px-5 py-4 hover:bg-ceu-alto/60">
+          {conteudo}
+        </Link>
+      ) : (
+        <div className="flex items-center gap-4 px-5 py-4">{conteudo}</div>
+      )}
     </li>
   )
 }
 
 export default function Feed() {
   const { dados, erro, carregando } = useDados(buscarSinais)
+  const ordenados = dados && [...dados].sort((a, b) => (b.score ?? -1) - (a.score ?? -1))
+  const gerado = dados?.find((s) => s.gerado_em)?.gerado_em
+
   return (
-    <main className="mx-auto max-w-[440px] pb-10">
-      <Cabecalho voltar titulo="Sinais" />
-      <p className="px-[28px] pt-4 text-sm text-white/80">
-        A <Termo id="score">confiança</Termo> vai de 0 a 100. Abaixo de 60 o Nox sugere manter.
-      </p>
+    <>
+      <div className="px-5 pb-5 pt-9">
+        <h1 className="font-serif text-[2.1rem] font-medium leading-tight tracking-tight">Sinais</h1>
+        <p className="mt-2 text-[15px] leading-relaxed text-nevoa">
+          Do mais ao menos confiante. Abaixo de 60 de <Termo id="score">confiança</Termo>, a sugestão é sempre
+          manter. Toque num ativo para ver o porquê.
+        </p>
+      </div>
       {carregando && <Carregando />}
       {erro && <Erro erro={erro} />}
-      {dados && (
-        <div className="space-y-4 px-[28px] pt-4">
-          <AvisoRisco texto={dados.find((s) => s.aviso_risco)?.aviso_risco ?? ''} />
-          <ul className="space-y-4">
-            {[...dados]
-              .sort((a, b) => (b.score ?? -1) - (a.score ?? -1))
-              .map((s) => <CartaoSinal key={s.ativo} sinal={s} />)}
+      {ordenados && (
+        <>
+          <ul className="border-t border-linha">
+            {ordenados.map((s) => <Linha key={s.ativo} s={s} />)}
           </ul>
-        </div>
+          <div className="space-y-4 px-5 py-7">
+            {gerado && <p className="text-xs text-nevoa">Calculados em {horario(gerado)}, horário de Brasília.</p>}
+            <AvisoRisco texto={dados.find((s) => s.aviso_risco)?.aviso_risco ?? ''} />
+          </div>
+        </>
       )}
-    </main>
+    </>
   )
 }

@@ -39,7 +39,7 @@ Contrato entre o backend (API) e o frontend, definido no passo 1 da Experimenta�
   ],
   "ausentes": ["Previsão de Machine Learning"],
   "divergencia": { "tecnico": "alta", "sentimento": "negativo", "score_antes": 50, "reducao": 0.3 },
-  "explicacao": "O Nox sugere MANTER SOLUSDT, com confiança 35 de 100. ...",
+  "explicacao": "O Nox sugere manter SOL, com confiança 35 de 100. ...",
   "aviso_risco": "Esta recomendação é apenas informativa e não constitui consultoria de investimentos. ..."
 }
 ```

@@ -27,9 +27,17 @@ export function horario(iso) {
 }
 
 export const ACOES = {
-  comprar: { rotulo: 'Comprar', cor: 'bg-alta text-white' },
-  vender: { rotulo: 'Vender', cor: 'bg-queda text-white' },
-  manter: { rotulo: 'Manter', cor: 'bg-texto-suave text-white' },
+  comprar: { rotulo: 'Comprar', cor: 'text-alta' },
+  vender: { rotulo: 'Vender', cor: 'text-queda' },
+  manter: { rotulo: 'Manter', cor: 'text-luar' },
+}
+
+// Saudação pelo horário de Brasília.
+export function saudacao(agora = new Date()) {
+  const hora = Number(agora.toLocaleString('pt-BR', { timeZone: 'America/Sao_Paulo', hour: '2-digit', hour12: false }))
+  if (hora >= 5 && hora < 12) return 'Bom dia'
+  if (hora >= 12 && hora < 18) return 'Boa tarde'
+  return 'Boa noite'
 }
 
 export function simbolo(ativo) {

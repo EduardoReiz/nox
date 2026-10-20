@@ -40,7 +40,7 @@
     ],
     "ausentes": [],
     "divergencia": null,
-    "explicacao": "O Nox sugere COMPRAR BTCUSDT, com confiança 74 de 100. No gráfico, o RSI está em 33, chegando perto de 30, a zona em que o preço costuma voltar a subir, e o MACD acabou de cruzar para cima, um sinal de que a alta está ganhando força. O sentimento das notícias e redes está positivo.",
+    "explicacao": "O Nox sugere comprar BTC, com confiança 74 de 100. No gráfico, o RSI está em 33, chegando perto de 30, a zona em que o preço costuma voltar a subir, e o MACD acabou de cruzar para cima, um sinal de que a alta está ganhando força. O sentimento das notícias e redes está positivo.",
     "aviso_risco": "Esta recomendação é apenas informativa e não constitui consultoria de investimentos. O Nox não opera em seu nome. Criptoativos são muito voláteis: decida com cuidado e invista só o que pode perder.",
     "preco": {
       "ultimo": 91374.0,
@@ -83,7 +83,7 @@
       "Previsão de Machine Learning"
     ],
     "divergencia": null,
-    "explicacao": "O Nox sugere VENDER ETHUSDT, com confiança 69 de 100. No gráfico, o RSI está em 72, acima de 70: o preço subiu rápido e muitas vezes corrige para baixo depois disso, e o MACD acabou de cruzar para baixo, um sinal de que a queda está ganhando força. O sentimento das notícias e redes está negativo. Este cálculo não usou a previsão de Machine Learning.",
+    "explicacao": "O Nox sugere vender ETH, com confiança 69 de 100. No gráfico, o RSI está em 72, acima de 70: o preço subiu rápido e muitas vezes corrige para baixo depois disso, e o MACD acabou de cruzar para baixo, um sinal de que a queda está ganhando força. O sentimento das notícias e redes está negativo. Este cálculo não usou a previsão de Machine Learning.",
     "aviso_risco": "Esta recomendação é apenas informativa e não constitui consultoria de investimentos. O Nox não opera em seu nome. Criptoativos são muito voláteis: decida com cuidado e invista só o que pode perder.",
     "preco": {
       "ultimo": 2875.1,
@@ -131,7 +131,7 @@
       "score_antes": 50,
       "reducao": 0.3
     },
-    "explicacao": "O Nox sugere MANTER SOLUSDT, com confiança 35 de 100. No gráfico, o RSI está em 31, chegando perto de 30, a zona em que o preço costuma voltar a subir, e o MACD mostra impulso de alta. O sentimento das notícias e redes está negativo. Atenção: o gráfico aponta alta, mas o sentimento está negativo. Por essa divergência, a confiança caiu de 50 para 35. Os sinais apontam levemente para alta, mas a confiança está abaixo de 60, o mínimo para o Nox sugerir comprar ou vender. Este cálculo não usou a previsão de Machine Learning.",
+    "explicacao": "O Nox sugere manter SOL, com confiança 35 de 100. No gráfico, o RSI está em 31, chegando perto de 30, a zona em que o preço costuma voltar a subir, e o MACD mostra impulso de alta. O sentimento das notícias e redes está negativo. Atenção: o gráfico aponta alta, mas o sentimento está negativo. Por essa divergência, a confiança caiu de 50 para 35. Os sinais apontam levemente para alta, mas a confiança está abaixo de 60, o mínimo para o Nox sugerir comprar ou vender. Este cálculo não usou a previsão de Machine Learning.",
     "aviso_risco": "Esta recomendação é apenas informativa e não constitui consultoria de investimentos. O Nox não opera em seu nome. Criptoativos são muito voláteis: decida com cuidado e invista só o que pode perder.",
     "preco": {
       "ultimo": 142.37,
@@ -174,7 +174,7 @@
       "Previsão de Machine Learning"
     ],
     "divergencia": null,
-    "explicacao": "O Nox sugere MANTER BNBUSDT, com confiança 7 de 100. No gráfico, o RSI está em 52, numa faixa neutra (entre 40 e 60), e o MACD não mostra impulso claro. O sentimento das notícias e redes está neutro. Os sinais apontam levemente para alta, mas a confiança está abaixo de 60, o mínimo para o Nox sugerir comprar ou vender. Este cálculo não usou a previsão de Machine Learning.",
+    "explicacao": "O Nox sugere manter BNB, com confiança 7 de 100. No gráfico, o RSI está em 52, numa faixa neutra (entre 40 e 60), e o MACD não mostra impulso claro. O sentimento das notícias e redes está neutro. Os sinais apontam levemente para alta, mas a confiança está abaixo de 60, o mínimo para o Nox sugerir comprar ou vender. Este cálculo não usou a previsão de Machine Learning.",
     "aviso_risco": "Esta recomendação é apenas informativa e não constitui consultoria de investimentos. O Nox não opera em seu nome. Criptoativos são muito voláteis: decida com cuidado e invista só o que pode perder.",
     "preco": {
       "ultimo": 598.2,
@@ -210,7 +210,7 @@
       "Previsão de Machine Learning"
     ],
     "divergencia": null,
-    "explicacao": "O Nox sugere COMPRAR XRPUSDT, com confiança 62 de 100. No gráfico, o RSI está em 45, numa faixa neutra (entre 40 e 60), e o MACD acabou de cruzar para cima, um sinal de que a alta está ganhando força. Este cálculo não usou o sentimento de mercado nem a previsão de Machine Learning.",
+    "explicacao": "O Nox sugere comprar XRP, com confiança 62 de 100. No gráfico, o RSI está em 45, numa faixa neutra (entre 40 e 60), e o MACD acabou de cruzar para cima, um sinal de que a alta está ganhando força. Este cálculo não usou o sentimento de mercado nem a previsão de Machine Learning.",
     "aviso_risco": "Esta recomendação é apenas informativa e não constitui consultoria de investimentos. O Nox não opera em seu nome. Criptoativos são muito voláteis: decida com cuidado e invista só o que pode perder.",
     "preco": {
       "ultimo": 0.5821,

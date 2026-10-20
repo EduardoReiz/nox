@@ -1,40 +1,45 @@
-import { Link, useNavigate } from 'react-router-dom'
-import logo from '../assets/logo-nox.png'
+import { Link, NavLink } from 'react-router-dom'
+import logo from '../assets/logo-n.png'
 import { FONTE } from '../dados/fonte'
 
-// Logo do Figma: imagem de 120x150 recortada num círculo de 60 px.
-export function Logo() {
+const ABAS = [
+  { para: '/', nome: 'Hoje', fim: true },
+  { para: '/sinais', nome: 'Sinais' },
+  { para: '/aprendizado', nome: 'Aprender' },
+]
+
+export default function Cabecalho() {
   return (
-    <Link to="/" aria-label="Nox, início" className="relative block size-[60px] overflow-hidden rounded-full">
-      <img src={logo} alt="" width="120" height="150" className="absolute -left-[30px] -top-[45px] max-w-none" />
-    </Link>
+    <header className="flex items-center gap-4 border-b border-linha px-5 py-3">
+      <Link to="/" className="flex items-center gap-2" aria-label="Nox, página inicial">
+        <img src={logo} alt="" width="28" height="28" />
+        <span className="font-serif text-xl font-medium tracking-tight">Nox</span>
+      </Link>
+      <nav className="ml-auto flex gap-1 text-sm" aria-label="Seções">
+        {ABAS.map((a) => (
+          <NavLink
+            key={a.para}
+            to={a.para}
+            end={a.fim}
+            className={({ isActive }) =>
+              `rounded-full px-3 py-1.5 transition-colors ${isActive ? 'bg-ceu-alto text-luar' : 'text-nevoa hover:text-luar'}`
+            }
+          >
+            {a.nome}
+          </NavLink>
+        ))}
+      </nav>
+    </header>
   )
 }
 
-export default function Cabecalho({ voltar = false, titulo }) {
-  const navegar = useNavigate()
+// Faixa logo abaixo do cabeçalho quando os dados são simulados, para nenhuma
+// captura de tela ser confundida com dados reais.
+export function FaixaSimulado() {
+  if (FONTE !== 'simulado') return null
   return (
-    <header className="flex items-center gap-3 px-[25px] pt-[27px]">
-      {voltar ? (
-        <button
-          type="button"
-          onClick={() => navegar(-1)}
-          aria-label="Voltar"
-          className="flex size-[44px] items-center justify-center rounded-full text-white hover:bg-white/10"
-        >
-          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-            <path d="M15 18l-6-6 6-6" />
-          </svg>
-        </button>
-      ) : (
-        <Logo />
-      )}
-      {titulo && <h1 className="font-inter text-xl font-semibold text-white">{titulo}</h1>}
-      {FONTE === 'simulado' && (
-        <span className="ml-auto rounded bg-amber-300 px-2 py-0.5 text-xs font-semibold text-black">
-          Dados simulados
-        </span>
-      )}
-    </header>
+    <p className="bg-aviso px-5 py-1.5 text-center text-xs font-semibold text-ceu">
+      Dados simulados para teste. Não são preços nem sinais reais.
+    </p>
   )
 }

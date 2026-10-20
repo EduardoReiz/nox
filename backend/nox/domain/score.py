@@ -265,8 +265,9 @@ def _frase_macd(d: dict) -> str:
 
 
 def explicar(s: Sinal) -> str:
-    nomes = {"comprar": "COMPRAR", "vender": "VENDER", "manter": "MANTER"}
-    partes = [f"O Nox sugere {nomes[s.acao]} {s.ativo}, com confiança {s.score} de 100."]
+    # "BTCUSDT" é o par na exchange; para o usuário basta "BTC".
+    moeda = s.ativo.removesuffix("USDT")
+    partes = [f"O Nox sugere {s.acao} {moeda}, com confiança {s.score} de 100."]
 
     tec = next(c for c in s.componentes if c.nome == "tecnico")
     partes.append(f"No gráfico, {_frase_rsi(tec.detalhes['rsi'])}, e {_frase_macd(tec.detalhes)}.")
