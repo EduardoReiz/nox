@@ -1,0 +1,20 @@
+2026-10-20 11:05:29,649 INFO exp1: início da Experimentação 1
+2026-10-20 11:05:31,733 INFO exp1: BTCUSDT: 999 velas fechadas, íntegra=True
+2026-10-20 11:05:33,651 INFO exp1: ETHUSDT: 999 velas fechadas, íntegra=True
+2026-10-20 11:05:35,123 INFO exp1: SOLUSDT: 999 velas fechadas, íntegra=True
+2026-10-20 11:05:39,930 INFO exp1: histórico BTCUSDT desde 2026-01-01: 7022 velas, 0 lacunas
+2026-10-20 11:05:39,940 WARNING nox.infrastructure.binance: tentativa 1: falha de rede (ConnectError); nova tentativa em 0.5s
+2026-10-20 11:05:40,451 WARNING nox.infrastructure.binance: tentativa 2: falha de rede (ConnectError); nova tentativa em 1.0s
+2026-10-20 11:05:41,463 WARNING nox.infrastructure.binance: tentativa 3: falha de rede (ConnectError); nova tentativa em 2.0s
+2026-10-20 11:05:43,474 WARNING nox.infrastructure.binance: tentativa 4: falha de rede (ConnectError); nova tentativa em 4.0s
+2026-10-20 11:05:43,483 WARNING nox.infrastructure.binance: tentativa 1: HTTP 429; nova tentativa em 1.0s
+2026-10-20 11:05:44,493 WARNING nox.infrastructure.binance: tentativa 2: HTTP 429; nova tentativa em 1.0s
+2026-10-20 11:05:50,685 INFO nox.infrastructure.binance_ws: conectado em wss://stream.binance.com:443/ws/btcusdt@kline_1m
+2026-10-20 11:06:00,166 INFO exp1: websocket: vela de 14:05:00 fechou em 82482.44
+2026-10-20 11:07:00,165 INFO exp1: websocket: vela de 14:06:00 fechou em 82520.22
+2026-10-20 11:08:00,166 INFO exp1: websocket: vela de 14:07:00 fechou em 82842.73
+2026-10-20 11:08:54,810 WARNING nox.infrastructure.binance_ws: conexão perdida (ConnectionRefusedError); reconectando em 1s
+2026-10-20 11:08:55,815 WARNING nox.infrastructure.binance_ws: conexão perdida (ConnectionRefusedError); reconectando em 2s
+2026-10-20 11:08:57,818 WARNING nox.infrastructure.binance_ws: conexão perdida (ConnectionRefusedError); reconectando em 4s
+2026-10-20 11:09:01,839 WARNING nox.infrastructure.binance_ws: conexão perdida (ConnectionRefusedError); reconectando em 8s
+2026-10-20 11:09:04,815 INFO exp1: fim; resumo em /home/usuario/Projetos/faculdade/Projeto-Nox/backend/../experimentos/exp1_ingestao_binance/evidencias/resumo.json

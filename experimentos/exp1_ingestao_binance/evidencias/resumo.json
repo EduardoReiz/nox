@@ -1,0 +1,91 @@
+{
+  "executado_em": "2026-10-20T14:05:29.650191+00:00",
+  "ativos": [
+    "BTCUSDT",
+    "ETHUSDT",
+    "SOLUSDT"
+  ],
+  "intervalo": "1h",
+  "rest": {
+    "BTCUSDT": {
+      "linhas_recebidas": 1000,
+      "velas_fechadas": 999,
+      "descartada_vela_aberta": 1,
+      "primeira": "2026-09-08T23:00:00+00:00",
+      "ultima": "2026-10-20T13:00:00+00:00",
+      "tempo_requisicao_ms": 1352,
+      "invalidas": 0,
+      "duplicadas": 0,
+      "fora_de_ordem": 0,
+      "lacunas": [],
+      "peso_usado_no_minuto": 4
+    },
+    "ETHUSDT": {
+      "linhas_recebidas": 1000,
+      "velas_fechadas": 999,
+      "descartada_vela_aberta": 1,
+      "primeira": "2026-09-08T23:00:00+00:00",
+      "ultima": "2026-10-20T13:00:00+00:00",
+      "tempo_requisicao_ms": 588,
+      "invalidas": 0,
+      "duplicadas": 0,
+      "fora_de_ordem": 0,
+      "lacunas": [],
+      "peso_usado_no_minuto": 8
+    },
+    "SOLUSDT": {
+      "linhas_recebidas": 1000,
+      "velas_fechadas": 999,
+      "descartada_vela_aberta": 1,
+      "primeira": "2026-09-08T23:00:00+00:00",
+      "ultima": "2026-10-20T13:00:00+00:00",
+      "tempo_requisicao_ms": 642,
+      "invalidas": 0,
+      "duplicadas": 0,
+      "fora_de_ordem": 0,
+      "lacunas": [],
+      "peso_usado_no_minuto": 12
+    },
+    "historico_paginado_BTCUSDT": {
+      "desde": "2026-01-01T00:00:00+00:00",
+      "velas": 7022,
+      "paginas": 8,
+      "tempo_total_s": 4.81,
+      "lacunas": [],
+      "duplicadas": 0,
+      "peso_usado_no_minuto": 28
+    }
+  },
+  "falhas_rest": {
+    "queda_de_rede": {
+      "erro_final": "/api/v3/klines falhou depois de 4 tentativas",
+      "tempo_ate_desistir_s": 3.54
+    },
+    "limite_de_requisicoes": {
+      "respostas_429_simuladas": 2,
+      "retry_after_s": 1,
+      "requisicoes": 3,
+      "velas_obtidas_no_fim": 10,
+      "tempo_total_s": 2.38
+    }
+  },
+  "websocket": {
+    "segundos": 180,
+    "mensagens": 89,
+    "mensagens_por_segundo": 0.49,
+    "velas_fechadas": [
+      "2026-10-20T14:05:00+00:00",
+      "2026-10-20T14:06:00+00:00",
+      "2026-10-20T14:07:00+00:00"
+    ]
+  },
+  "falhas_websocket": {
+    "duracao_s": 10,
+    "mensagens_de_reconexao": [
+      "conexão perdida (ConnectionRefusedError); reconectando em 1s",
+      "conexão perdida (ConnectionRefusedError); reconectando em 2s",
+      "conexão perdida (ConnectionRefusedError); reconectando em 4s",
+      "conexão perdida (ConnectionRefusedError); reconectando em 8s"
+    ]
+  }
+}

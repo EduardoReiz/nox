@@ -1,0 +1,94 @@
+{
+  "executado_em": "2026-10-20T14:09:29.438519+00:00",
+  "aquecimento": 200,
+  "BTCUSDT": {
+    "velas": 999,
+    "de": "2026-09-08T23:00:00+00:00",
+    "ate": "2026-10-20T13:00:00+00:00",
+    "rsi": {
+      "maior_diferenca_logo_no_inicio": 5.87011,
+      "maior_diferenca_apos_aquecimento": 6.5838e-06,
+      "ultimo_valor_nox": 57.0547,
+      "ultimo_valor_ta": 57.0547
+    },
+    "macd": {
+      "maior_diferenca_logo_no_inicio": 185.663895,
+      "maior_diferenca_apos_aquecimento": 0.0002613406,
+      "ultimo_valor_nox": -95.4561,
+      "ultimo_valor_ta": -95.4561
+    },
+    "linha_de_sinal": {
+      "maior_diferenca_logo_no_inicio": 144.26783,
+      "maior_diferenca_apos_aquecimento": 0.0003843244,
+      "ultimo_valor_nox": -104.9486,
+      "ultimo_valor_ta": -104.9486
+    },
+    "histograma": {
+      "maior_diferenca_logo_no_inicio": 44.23901,
+      "maior_diferenca_apos_aquecimento": 0.0001229838,
+      "ultimo_valor_nox": 9.4926,
+      "ultimo_valor_ta": 9.4926
+    },
+    "cruzamento_na_ultima_vela": "alta"
+  },
+  "ETHUSDT": {
+    "velas": 999,
+    "de": "2026-09-08T23:00:00+00:00",
+    "ate": "2026-10-20T13:00:00+00:00",
+    "rsi": {
+      "maior_diferenca_logo_no_inicio": 5.43449,
+      "maior_diferenca_apos_aquecimento": 2.8712e-06,
+      "ultimo_valor_nox": 56.2228,
+      "ultimo_valor_ta": 56.2228
+    },
+    "macd": {
+      "maior_diferenca_logo_no_inicio": 6.709738,
+      "maior_diferenca_apos_aquecimento": 9.6412e-06,
+      "ultimo_valor_nox": -3.3656,
+      "ultimo_valor_ta": -3.3656
+    },
+    "linha_de_sinal": {
+      "maior_diferenca_logo_no_inicio": 5.492445,
+      "maior_diferenca_apos_aquecimento": 1.41782e-05,
+      "ultimo_valor_nox": -3.8402,
+      "ultimo_valor_ta": -3.8402
+    },
+    "histograma": {
+      "maior_diferenca_logo_no_inicio": 1.838951,
+      "maior_diferenca_apos_aquecimento": 4.537e-06,
+      "ultimo_valor_nox": 0.4746,
+      "ultimo_valor_ta": 0.4746
+    },
+    "cruzamento_na_ultima_vela": "alta"
+  },
+  "SOLUSDT": {
+    "velas": 999,
+    "de": "2026-09-08T23:00:00+00:00",
+    "ate": "2026-10-20T13:00:00+00:00",
+    "rsi": {
+      "maior_diferenca_logo_no_inicio": 5.479566,
+      "maior_diferenca_apos_aquecimento": 2.2023e-06,
+      "ultimo_valor_nox": 57.974,
+      "ultimo_valor_ta": 57.974
+    },
+    "macd": {
+      "maior_diferenca_logo_no_inicio": 0.416284,
+      "maior_diferenca_apos_aquecimento": 5.896e-07,
+      "ultimo_valor_nox": 0.0119,
+      "ultimo_valor_ta": 0.0119
+    },
+    "linha_de_sinal": {
+      "maior_diferenca_logo_no_inicio": 0.328004,
+      "maior_diferenca_apos_aquecimento": 8.671e-07,
+      "ultimo_valor_nox": 0.0297,
+      "ultimo_valor_ta": 0.0297
+    },
+    "histograma": {
+      "maior_diferenca_logo_no_inicio": 0.103005,
+      "maior_diferenca_apos_aquecimento": 2.775e-07,
+      "ultimo_valor_nox": -0.0179,
+      "ultimo_valor_ta": -0.0179
+    },
+    "cruzamento_na_ultima_vela": null
+  }
+}
