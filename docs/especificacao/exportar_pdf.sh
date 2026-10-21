@@ -10,3 +10,11 @@ for passo in 1 2; do
   node paginas.mjs
 done
 echo "gerado $NOME.pdf"
+
+# Copia para a pasta "Projeto Nox/documentação" do Google Drive, se estiver sincronizada.
+DRIVE="$HOME/Google Drive/Meu Drive/Projeto Nox/documentação"
+if [ -d "$HOME/Google Drive/Meu Drive/Projeto Nox" ]; then
+  mkdir -p "$DRIVE"
+  cp "$NOME.docx" "$NOME.pdf" "$DRIVE/"
+  echo "copiado para o Google Drive"
+fi
