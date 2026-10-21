@@ -1,0 +1,10 @@
+velas: 999
+RSI, maior diferença (todas): (0.005, 984)
+RSI, maior diferença (últimas 799): (0.005, 799)
+MACD linha, maior diferença (todas): (185.6639, 999)
+MACD linha, maior diferença (após 200 velas): (0.0003, 799)
+histograma, maior diferença (todas): (41.7192, 973)
+histograma, maior diferença (após 200 velas): (0.0001, 799)
+último RSI: antigo 57.05 | novo 57.05
+último histograma: antigo 9.49257379 | novo 9.49257379
+cruzamento: antigo bull | novo alta

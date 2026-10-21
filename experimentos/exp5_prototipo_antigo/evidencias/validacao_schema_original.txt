@@ -1,0 +1,226 @@
+Prisma schema loaded from prisma/schema.prisma
+
+Error: Prisma schema validation - (validate wasm)
+Error code: P1012
+error: Error validating: This line is not a valid definition within a generator.
+  -->  prisma/schema.prisma:2
+   | 
+ 1 | generator client { provider = "prisma-client-js" }
+ 2 | datasource db { provider = "postgresql"; url = env("DATABASE_URL") }
+ 3 | model User {
+   | 
+error: Error validating: This line is not a valid definition within a generator.
+  -->  prisma/schema.prisma:3
+   | 
+ 2 | datasource db { provider = "postgresql"; url = env("DATABASE_URL") }
+ 3 | model User {
+ 4 |   id           String   @id @default(cuid())
+   | 
+error: Error validating: This line is not a valid definition within a generator.
+  -->  prisma/schema.prisma:4
+   | 
+ 3 | model User {
+ 4 |   id           String   @id @default(cuid())
+ 5 |   email        String   @unique
+   | 
+error: Error validating: This line is not a valid definition within a generator.
+  -->  prisma/schema.prisma:5
+   | 
+ 4 |   id           String   @id @default(cuid())
+ 5 |   email        String   @unique
+ 6 |   name         String?
+   | 
+error: Error validating: This line is not a valid definition within a generator.
+  -->  prisma/schema.prisma:6
+   | 
+ 5 |   email        String   @unique
+ 6 |   name         String?
+ 7 |   passwordHash String
+   | 
+error: Error validating: This line is not a valid definition within a generator.
+  -->  prisma/schema.prisma:7
+   | 
+ 6 |   name         String?
+ 7 |   passwordHash String
+ 8 |   role         Role     @default(USER)
+   | 
+error: Error validating: This line is not a valid definition within a generator.
+  -->  prisma/schema.prisma:8
+   | 
+ 7 |   passwordHash String
+ 8 |   role         Role     @default(USER)
+ 9 |   twoFAEnabled Boolean  @default(false)
+   | 
+error: Error validating: This line is not a valid definition within a generator.
+  -->  prisma/schema.prisma:9
+   | 
+ 8 |   role         Role     @default(USER)
+ 9 |   twoFAEnabled Boolean  @default(false)
+10 |   createdAt    DateTime @default(now())
+   | 
+error: Error validating: This line is not a valid definition within a generator.
+  -->  prisma/schema.prisma:10
+   | 
+ 9 |   twoFAEnabled Boolean  @default(false)
+10 |   createdAt    DateTime @default(now())
+11 |   updatedAt    DateTime @updatedAt
+   | 
+error: Error validating: This line is not a valid definition within a generator.
+  -->  prisma/schema.prisma:11
+   | 
+10 |   createdAt    DateTime @default(now())
+11 |   updatedAt    DateTime @updatedAt
+12 |   sessions     Session[]
+   | 
+error: Error validating: This line is not a valid definition within a generator.
+  -->  prisma/schema.prisma:12
+   | 
+11 |   updatedAt    DateTime @updatedAt
+12 |   sessions     Session[]
+13 |   apiKeys      ApiKey[]
+   | 
+error: Error validating: This line is not a valid definition within a generator.
+  -->  prisma/schema.prisma:13
+   | 
+12 |   sessions     Session[]
+13 |   apiKeys      ApiKey[]
+14 |   portfolios   Portfolio[]
+   | 
+error: Error validating: This line is not a valid definition within a generator.
+  -->  prisma/schema.prisma:14
+   | 
+13 |   apiKeys      ApiKey[]
+14 |   portfolios   Portfolio[]
+15 |   watchlists   Watchlist[]
+   | 
+error: Error validating: This line is not a valid definition within a generator.
+  -->  prisma/schema.prisma:15
+   | 
+14 |   portfolios   Portfolio[]
+15 |   watchlists   Watchlist[]
+16 |   auditLogs    AuditLog[]
+   | 
+error: Error validating: This line is not a valid definition within a generator.
+  -->  prisma/schema.prisma:16
+   | 
+15 |   watchlists   Watchlist[]
+16 |   auditLogs    AuditLog[]
+17 |   twoFA        TwoFactorSecret?
+   | 
+error: Error validating: This line is not a valid definition within a generator.
+  -->  prisma/schema.prisma:17
+   | 
+16 |   auditLogs    AuditLog[]
+17 |   twoFA        TwoFactorSecret?
+18 | }
+   | 
+error: Error validating: This line is invalid. It does not start with any known Prisma schema keyword.
+  -->  prisma/schema.prisma:138
+   | 
+137 | }
+138 | enum Role { USER ADMIN }
+139 | enum AssetKind { CRYPTO }
+   | 
+error: Error validating: This line is invalid. It does not start with any known Prisma schema keyword.
+  -->  prisma/schema.prisma:139
+   | 
+138 | enum Role { USER ADMIN }
+139 | enum AssetKind { CRYPTO }
+140 | enum TxType { BUY SELL }
+   | 
+error: Error validating: This line is invalid. It does not start with any known Prisma schema keyword.
+  -->  prisma/schema.prisma:140
+   | 
+139 | enum AssetKind { CRYPTO }
+140 | enum TxType { BUY SELL }
+141 | enum SignalAction { BUY SELL HOLD }
+   | 
+error: Error validating: This line is invalid. It does not start with any known Prisma schema keyword.
+  -->  prisma/schema.prisma:141
+   | 
+140 | enum TxType { BUY SELL }
+141 | enum SignalAction { BUY SELL HOLD }
+142 | 
+   | 
+error: Type "User" is neither a built-in type, nor refers to another model, composite type, or enum.
+  -->  prisma/schema.prisma:22
+   | 
+21 |   userId     String
+22 |   user       User     @relation(fields: [userId], references: [id])
+   | 
+error: Type "User" is neither a built-in type, nor refers to another model, composite type, or enum.
+  -->  prisma/schema.prisma:31
+   | 
+30 |   backupCodes String[]
+31 |   user        User    @relation(fields: [userId], references: [id])
+   | 
+error: Type "User" is neither a built-in type, nor refers to another model, composite type, or enum.
+  -->  prisma/schema.prisma:36
+   | 
+35 |   userId    String
+36 |   user      User      @relation(fields: [userId], references: [id])
+   | 
+error: Type "AssetKind" is neither a built-in type, nor refers to another model, composite type, or enum.
+  -->  prisma/schema.prisma:49
+   | 
+48 |   name     String
+49 |   kind     AssetKind
+   | 
+error: Type "TxType" is neither a built-in type, nor refers to another model, composite type, or enum.
+  -->  prisma/schema.prisma:65
+   | 
+64 |   assetId     String
+65 |   type        TxType
+   | 
+error: Type "SignalAction" is neither a built-in type, nor refers to another model, composite type, or enum.
+  -->  prisma/schema.prisma:84
+   | 
+83 |   ts        DateTime @default(now())
+84 |   action    SignalAction
+   | 
+error: Type "User" is neither a built-in type, nor refers to another model, composite type, or enum.
+  -->  prisma/schema.prisma:104
+   | 
+103 |   items  WatchItem[]
+104 |   user   User @relation(fields: [userId], references: [id])
+   | 
+error: Type "User" is neither a built-in type, nor refers to another model, composite type, or enum.
+  -->  prisma/schema.prisma:119
+   | 
+118 |   createdAt DateTime @default(now())
+119 |   user      User    @relation(fields: [userId], references: [id])
+   | 
+error: Attribute not known: "@index".
+  -->  prisma/schema.prisma:75
+   | 
+74 |   assetId   String
+75 |   ts        DateTime @index
+   | 
+error: Argument "provider" is missing in generator block "client".
+  -->  prisma/schema.prisma:1
+   | 
+   | 
+ 1 | generator client { provider = "prisma-client-js" }
+ 2 | datasource db { provider = "postgresql"; url = env("DATABASE_URL") }
+ 3 | model User {
+ 4 |   id           String   @id @default(cuid())
+ 5 |   email        String   @unique
+ 6 |   name         String?
+ 7 |   passwordHash String
+ 8 |   role         Role     @default(USER)
+ 9 |   twoFAEnabled Boolean  @default(false)
+10 |   createdAt    DateTime @default(now())
+11 |   updatedAt    DateTime @updatedAt
+12 |   sessions     Session[]
+13 |   apiKeys      ApiKey[]
+14 |   portfolios   Portfolio[]
+15 |   watchlists   Watchlist[]
+16 |   auditLogs    AuditLog[]
+17 |   twoFA        TwoFactorSecret?
+18 | }
+   | 
+
+Validation Error Count: 30
+[Context: validate]
+
+Prisma CLI Version : 5.22.0

@@ -1,0 +1,1 @@
+import { FastifyPluginAsync } from 'fastify'; import { prisma } from '../utils/z.js'; export const newsRoutes:FastifyPluginAsync=async(app)=>{ app.get('/', async()=> prisma.newsArticle.findMany({ orderBy:{ published:'desc' }, take:50 })); };

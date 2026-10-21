@@ -1,0 +1,164 @@
+generator client {
+  provider = "prisma-client-js"
+}
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+model User {
+  id           String   @id @default(cuid())
+  email        String   @unique
+  name         String?
+  passwordHash String
+  role         Role     @default(USER)
+  twoFAEnabled Boolean  @default(false)
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+  sessions     Session[]
+  apiKeys      ApiKey[]
+  portfolios   Portfolio[]
+  watchlists   Watchlist[]
+  auditLogs    AuditLog[]
+  twoFA        TwoFactorSecret?
+}
+model Session {
+  id         String   @id @default(cuid())
+  userId     String
+  user       User     @relation(fields: [userId], references: [id])
+  refreshJti String   @unique
+  createdAt  DateTime @default(now())
+  expiresAt  DateTime
+}
+model TwoFactorSecret {
+  userId      String  @id
+  secret      String
+  backupCodes String[]
+  user        User    @relation(fields: [userId], references: [id])
+}
+model Portfolio {
+  id        String    @id @default(cuid())
+  userId    String
+  user      User      @relation(fields: [userId], references: [id])
+  name      String
+  base      String
+  holdings  Holding[]
+  txs       Transaction[]
+  metrics   PortfolioMetric[]
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+}
+model Asset {
+  id       String   @id @default(cuid())
+  symbol   String   @unique
+  name     String
+  kind     AssetKind
+  prices   PricePoint[]
+  holdings     Holding[]
+  transactions Transaction[]
+  signals      Signal[]
+  watchItems   WatchItem[]
+}
+model Holding {
+  id          String    @id @default(cuid())
+  portfolioId String
+  assetId     String
+  qty         Decimal   @db.Decimal(38,18)
+  avgPrice    Decimal   @db.Decimal(38,10)
+  portfolio   Portfolio @relation(fields: [portfolioId], references: [id])
+  asset       Asset     @relation(fields: [assetId], references: [id])
+}
+model Transaction {
+  id          String    @id @default(cuid())
+  portfolioId String
+  assetId     String
+  type        TxType
+  qty         Decimal   @db.Decimal(38,18)
+  price       Decimal   @db.Decimal(38,10)
+  timestamp   DateTime  @default(now())
+  portfolio   Portfolio @relation(fields: [portfolioId], references: [id])
+  asset       Asset     @relation(fields: [assetId], references: [id])
+}
+model PricePoint {
+  id        String   @id @default(cuid())
+  assetId   String
+  ts        DateTime
+  price     Decimal  @db.Decimal(38,10)
+  source    String
+  asset     Asset    @relation(fields: [assetId], references: [id])
+  @@index([ts])
+}
+model Signal {
+  id        String   @id @default(cuid())
+  assetId   String
+  ts        DateTime @default(now())
+  action    SignalAction
+  reason    String
+  score     Int
+  details   Json
+  asset     Asset     @relation(fields: [assetId], references: [id])
+}
+model NewsArticle {
+  id        String   @id @default(cuid())
+  title     String
+  url       String   @unique
+  source    String
+  published DateTime
+  sentiment Int
+  topics    String[]
+}
+model Watchlist {
+  id     String  @id @default(cuid())
+  userId String
+  name   String
+  items  WatchItem[]
+  user   User @relation(fields: [userId], references: [id])
+}
+model WatchItem {
+  id          String   @id @default(cuid())
+  watchlistId String
+  assetId     String
+  watchlist   Watchlist @relation(fields: [watchlistId], references: [id])
+  asset       Asset     @relation(fields: [assetId], references: [id])
+}
+model ApiKey {
+  id        String   @id @default(cuid())
+  userId    String
+  provider  String
+  encKey    Bytes
+  createdAt DateTime @default(now())
+  user      User    @relation(fields: [userId], references: [id])
+}
+model PortfolioMetric {
+  id          String   @id @default(cuid())
+  portfolioId String
+  date        DateTime
+  value       Decimal  @db.Decimal(38,10)
+  pnl         Decimal  @db.Decimal(38,10)
+  volatility  Decimal? @db.Decimal(38,10)
+  portfolio   Portfolio @relation(fields:[portfolioId], references:[id])
+}
+model AuditLog {
+  id        String   @id @default(cuid())
+  userId    String?
+  user      User?    @relation(fields: [userId], references: [id])
+  ip        String?
+  action    String
+  meta      Json
+  createdAt DateTime @default(now())
+}
+enum Role {
+  USER
+  ADMIN
+}
+enum AssetKind {
+  CRYPTO
+}
+enum TxType {
+  BUY
+  SELL
+}
+enum SignalAction {
+  BUY
+  SELL
+  HOLD
+}

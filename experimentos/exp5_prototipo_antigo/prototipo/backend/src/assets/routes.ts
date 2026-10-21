@@ -1,0 +1,1 @@
+import { FastifyPluginAsync } from 'fastify'; import { prisma } from '../utils/z.js'; export const assetRoutes:FastifyPluginAsync=async(app)=>{ app.get('/', async()=> prisma.asset.findMany()); app.get('/:symbol', async(req)=> prisma.asset.findUnique({ where:{ symbol: (req.params as any).symbol } })); };

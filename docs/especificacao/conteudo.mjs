@@ -28,7 +28,7 @@ export const conteudo = [
     ['2.2', '3º', '02 (revisão)', '14/05/2026', 'Plano de arquitetura técnica em camadas, consolidação do feedback da Fase 02 e cronograma de desenvolvimento prático do núcleo em Python; refinamento dos requisitos de desempenho (RNF-002) e de conformidade (RNF-007).'],
     ['3.0', '4º', '01', '07/09/2026', 'Formalização das escolhas tecnológicas (seções 19 e 19.1): Python, React, PostgreSQL, InfluxDB e Redis. Consolidação do histórico, das regras de negócio e do DER; atualização dos requisitos e do planejamento.'],
     ['3.1', '4º', '02', '18/10/2026', 'Registro das experimentações técnicas iniciais (seção 19.2). Revisão e ampliação dos requisitos funcionais (RF-001 a RF-015), dos requisitos não funcionais e das regras de negócio. Refinamento do modelo de dados com a separação entre PostgreSQL e InfluxDB, e atualização das escolhas tecnológicas, dos diagramas e do planejamento.'],
-    ['3.2', '4º', '02 (revisão)', '21/10/2026', 'Execução das experimentações da seção 19.2 e implementação do núcleo em Python e da interface em React, construídos do zero a partir desta especificação. Adoção do PostgreSQL também para as séries temporais (Experimentação 2). Atualização da situação dos requisitos, das regras de negócio com os parâmetros definidos, do design, dos diagramas, do modelo de dados, das escolhas tecnológicas e do planejamento.'],
+    ['3.2', '4º', '02 (revisão)', '21/10/2026', 'Execução das experimentações da seção 19.2, inclusive a do protótipo de referência de 2025 (Experimentação 5), e implementação do núcleo em Python e da interface em React a partir desta especificação. Adoção do PostgreSQL também para as séries temporais (Experimentação 2). Atualização da situação dos requisitos, das regras de negócio com os parâmetros definidos, do design, dos diagramas, do modelo de dados, das escolhas tecnológicas e do planejamento.'],
   ], [10, 11, 13, 15, 51], { primeiraNegrito: false, centralizar: [0, 1, 2, 3] }],
 
   // ------------------------------------------------------------------ PARTE 01
@@ -79,15 +79,15 @@ export const conteudo = [
 
   ['secao', '4 RESPOSITÓRIOS E ARTEFATOS DO PROJETO', 'Criação obrigatória: Repositório de Código a partir do 2º Período – Fase 02; Repositório de Protótipo a partir do 2º Período – Fase 01', 'Atualização: contínua'],
   ['tabela', ['Tipo de Artefato', 'Link', 'Descrição'], [
-    ['Repositório de Código', `${REPO}.git`, 'Núcleo em Python (backend), interface em React, experimentações do 4º Período com suas evidências (seção 19.2) e registros de implementação em docs/.'],
-    ['Repositório de Protótipo', `${REPO}/tree/main/frontend`, 'Interface navegável do Nox em React, com a identidade visual atual: telas Hoje, Sinais, Modo Explicativo, Aprender, login, cadastro, verificação em duas etapas, recuperação de senha e Conta.'],
+    ['Repositório de Código', `${REPO}.git`, 'Núcleo em Python (backend), interface em React, protótipo de referência do 2º Período preservado (experimentos/exp5_prototipo_antigo), experimentações do 4º Período com suas evidências (seção 19.2) e registros de implementação em docs/.'],
+    ['Repositório de Protótipo', `${REPO}/tree/main/frontend`, 'Interface navegável do Nox em React, com a identidade visual atual: telas Hoje, Sinais, Modo Explicativo, Aprender, login, cadastro, verificação em duas etapas, recuperação de senha e Conta. O protótipo React de 2025 está em experimentos/exp5_prototipo_antigo/prototipo/frontend.'],
   ], [22, 38, 40]],
 
   // ------------------------------------------------------------------ PARTE 02
   ['parte', 'PARTE 02 – PLANEJAMENTO DO SEMESTRE'],
   ['secao', '5 SITUAÇÃO ATUAL DO PROJETO', 'Criação obrigatória: 1º ao 8º Período – Fase 01'],
   ['p', 'O Nox chega à revisão da Fase 02 do 4º Período com o núcleo funcional em Python e a interface em React em funcionamento. Já existem a documentação PRD, a arquitetura lógica em quatro blocos, o modelo de dados, as regras de negócio do score de confiança e do Modo Explicativo e as escolhas tecnológicas justificadas.'],
-  ['p', 'Os protótipos citados nas versões anteriores, o protótipo React de alta fidelidade e o protótipo de referência em TypeScript, não estão disponíveis. Por isso, em outubro de 2026, o código foi construído do zero a partir desta especificação, seguindo a stack e as camadas definidas na seção 19.1. Cada parte foi registrada como experimentação, no formato da seção 19.2, com o código e as evidências no repositório.'],
+  ['p', 'No 2º Período, a equipe construiu um protótipo full-stack: interface em React e um backend de referência em TypeScript (Fastify, Prisma e PostgreSQL), usado para visualizar o fluxo entre tela, API e banco de dados. Ele está preservado no repositório e, em outubro de 2026, foi executado pela primeira vez (Experimentação 5). A execução confirmou que o schema não passa na validação do Prisma, que o servidor não sobe com as dependências declaradas, que a verificação em duas etapas libera o acesso sem a senha e que o código gerado não é compatível com aplicativos autenticadores. Por isso, o núcleo foi construído em Python, a partir desta especificação e com testes automatizados desde o início, e a interface foi refeita com uma identidade visual nova (seção 16). Cada parte foi registrada como experimentação, no formato da seção 19.2, com o código e as evidências no repositório.'],
   ['p', 'Hoje o Nox:'],
   ['lista', [
     'coleta velas de 1 hora de seis criptoativos (BTC, ETH, SOL, BNB, XRP e ADA) na API pública da Binance, com validação, novas tentativas e reconexão (RF-001);',
@@ -130,7 +130,7 @@ export const conteudo = [
     ['Desenvolvimento', 'Experimentação 2: gravação e consulta de séries temporais (InfluxDB x PostgreSQL).', 'Outubro', 'Concluída'],
     ['Desenvolvimento', 'Experimentação 4: RSI, MACD e estrutura do score em Python.', 'Outubro', 'Concluída'],
     ['Desenvolvimento', 'Experimentação 3: interface React e Modo Explicativo.', 'Outubro e novembro', 'Telas concluídas; avaliação com participantes planejada'],
-    ['Desenvolvimento', 'Experimentação 5: implementação full-stack de referência (sinais gravados, conta, perfil, lista e alertas).', 'Outubro', 'Concluída'],
+    ['Desenvolvimento', 'Experimentação 5: execução do protótipo de referência de 2025 e implementação, no núcleo Python, da conta, do perfil, da lista e dos alertas.', 'Outubro', 'Concluída'],
     ['Desenvolvimento', 'Gravação contínua das velas, aplicativo instalável, perfil no limiar de ação, códigos de recuperação, conteúdo educativo, histórico de sinais e envio de e-mails.', 'Novembro', 'Planejada'],
     ['Implantação', 'Publicação da API, do processo de alertas e da interface em servidor com HTTPS.', 'Novembro', 'Planejada'],
     ['Ajustes e validação', 'Registro das evidências, revisão do documento e definição das prioridades do 5º Período.', 'Dezembro', 'Planejada'],
@@ -358,7 +358,7 @@ export const conteudo = [
 
   ['secao', '19 SOLUÇÃO TECNOLÓGICA E EXPERIMENTAÇÃO TÉCNICA INICIAL', 'Criação obrigatória: 4º Período – Fase 02', 'Atualização: contínua'],
   ['p', 'No 4º Período, o Nox passou da especificação para os primeiros testes práticos com as tecnologias escolhidas. A equipe confirmou, em pequena escala, que é possível obter dados da Binance, organizar séries temporais, calcular indicadores corretamente e apresentar uma recomendação com sua explicação. Em seguida, integrou essas partes num sistema que funciona de ponta a ponta, com conta, lista de ativos e alertas.'],
-  ['p', 'O código foi escrito do zero, a partir desta especificação, porque os protótipos das versões anteriores não estão disponíveis. O Nox ainda não é um sistema publicado: ele roda no computador da equipe, com o banco em Docker, e a publicação em servidor está prevista para novembro.'],
+  ['p', 'O ponto de partida foi o protótipo de referência do 2º Período em TypeScript (Fastify, Prisma e PostgreSQL), junto com o protótipo React. Esse backend não é a versão final: ele serviu para visualizar o fluxo entre telas, API e banco e para esboçar o modelo de dados e o cálculo dos indicadores, e a Experimentação 5 mostrou o que precisava ser corrigido. O Nox ainda não é um sistema publicado: ele roda no computador da equipe, com o banco em Docker, e a publicação em servidor está prevista para novembro.'],
   ['sub', '19.1 Escolhas Tecnológicas'],
   ['p', 'A solução usa Python no backend, React no frontend e PostgreSQL para persistência. A tabela mostra a situação de cada escolha após as experimentações da seção 19.2.'],
   ['tabela', ['Camada', 'Tecnologia', 'Situação'], [
@@ -403,7 +403,7 @@ export const conteudo = [
   ['p', '**Cache.** O último estado calculado de cada ativo fica na memória da API por 60 segundos, o que basta para responder ao frontend rapidamente (RNF-002) sem consultar a Binance a cada acesso. O Redis, previsto na versão 3.0, só se torna necessário quando houver mais de uma instância da API compartilhando esse estado.'],
 
   ['sub', '19.2 Experimentação Técnica e Primeiros Testes'],
-  ['p', 'A equipe definiu cinco experimentações para o semestre e executou todas em outubro de 2026, em Python e React. Quatro foram realizadas por completo; a Experimentação 3 ainda depende da avaliação com participantes. O código e as evidências estão no repositório (seção 4). As situações usadas são:'],
+  ['p', 'A equipe definiu cinco experimentações para o semestre e executou todas em outubro de 2026. Quatro foram realizadas por completo; a Experimentação 3 ainda depende da avaliação com participantes. O código e as evidências estão no repositório (seção 4). As situações usadas são:'],
   ['lista', [
     '**Realizado:** há evidência de execução e resultado;',
     '**Parcialmente realizado:** há código ou artefato produzido, ainda sem execução completa ou validação;',
@@ -415,7 +415,7 @@ export const conteudo = [
     ['2', 'Organização de séries temporais: InfluxDB x PostgreSQL', 'RF-002; RNF-002', 'Realizado'],
     ['3', 'Interface React e Modo Explicativo', 'RF-005, RF-009, RF-013', 'Parcialmente realizado'],
     ['4', 'Indicadores RSI e MACD e estrutura do score', 'RF-003, RF-006, RF-007', 'Realizado'],
-    ['5', 'Implementação full-stack de referência e modelo físico de dados', 'RF-008, RF-010, RF-011, RF-012, RF-015', 'Realizado'],
+    ['5', 'Protótipo de referência full-stack e modelo físico de dados', 'RF-008, RF-010, RF-015', 'Realizado'],
   ], [6, 46, 26, 22], { primeiraNegrito: false, centralizar: [0] }],
 
   ['experimento', {
@@ -564,37 +564,50 @@ export const conteudo = [
   }],
 
   ['experimento', {
-    titulo: 'Experimentação 5 – Implementação full-stack de referência e modelo físico de dados',
-    situacao: 'Realizado (20/10/2026). O protótipo de referência em TypeScript citado na versão 3.1 não está disponível; por isso, esta experimentação passou a usar a implementação em Python feita a partir das seções 18.1 e 19.1.',
+    titulo: 'Experimentação 5 – Protótipo de referência full-stack e modelo físico de dados',
+    situacao: 'Realizado (21/10/2026). Antes era "Parcialmente realizado": só havia revisão de código, e o sistema nunca tinha sido executado.',
     itens: [
-      ['Objetivo', 'ver o Nox funcionando de ponta a ponta (tela, API, processamento agendado e banco) e transformar o modelo conceitual em tabelas reais, com as falhas mais comuns de autenticação tratadas desde o início, como liberar o acesso só com o código, sem a senha, ou gerar códigos incompatíveis com os aplicativos autenticadores.'],
-      ['O que foi testado', ['as partes que ligam o núcleo ao usuário:', { lista: [
-        'gravação do Sinal de Recomendação a cada vela, com componentes, divergência e explicação (RF-008, RNF-005);',
-        'conta com login em dois passos, verificação em duas etapas, recuperação de senha, auditoria e exclusão (RF-010);',
-        'perfil de risco, preferências de alerta e lista de ativos acompanhados, com os dados pessoais cifrados (RF-011, RF-015);',
-        'alertas por notificação push e Telegram quando a sugestão de um ativo acompanhado muda, na hora ou em resumo diário (RF-012);',
-        'o modelo físico da seção 18.1 no PostgreSQL, com chaves estrangeiras, exclusão em cascata e unicidade do sinal por vela.',
-      ] }]],
+      ['Objetivo', 'visualizar o funcionamento completo do Nox (tela, API e banco) antes de definir a implementação final e transformar o modelo conceitual em tabelas reais.'],
+      ['O que foi testado', 'o protótipo de referência de setembro de 2025, preservado em experimentos/exp5_prototipo_antigo: backend em TypeScript com Fastify, Prisma e PostgreSQL e frontend em React com Vite. Desta vez ele foi executado, e não só lido. Em seguida, cada falha encontrada foi conferida no núcleo Python do Nox.'],
       ['Como foi testado', [{ numerada: [
-        'testes automatizados com Pytest para cada regra, com o relógio simulado para verificar expirações (5, 15 e 30 minutos, 7 dias) sem esperar;',
-        'testes do armazenamento contra o PostgreSQL real;',
-        'um teste de ponta a ponta no navegador, em que o Chrome preenche os formulários e clica como um usuário: cria conta, ativa o 2FA lendo a chave da tela, sai, entra com senha e código, escolhe perfil e alertas, marca ativos, recupera a senha e exclui a conta;',
-        'uma prova da criptografia das notificações push, em que um receptor local faz o papel do navegador e decifra a mensagem com as chaves dele;',
-        'uma rodada do processo agendado com os dados reais da Binance.',
-      ], ref: 'numeros5' }]],
-      ['Resultado ou evidência', ['os 112 testes automatizados e as 29 verificações de ponta a ponta passam, sem erros de JavaScript.', { lista: [
-        'só a senha não abre sessão quando o 2FA está ativo, e um código não vale duas vezes;',
-        'o cookie de sessão não é visível ao JavaScript e o banco guarda só o resumo dos tokens;',
-        'a mensagem do push chega íntegra e só o navegador inscrito consegue lê-la;',
-        'a rodada com dados reais gravou os seis sinais e, corretamente, não gerou alertas, porque todos estavam em "manter".',
-      ] }, 'As capturas de tela estão em experimentos/conta_rf010/evidencias, e o registro de cada requisito, em docs/implementacoes.']],
-      ['Aprendizados', ['o teste de ponta a ponta achou um defeito que os testes de unidade não pegaram: o QR code do 2FA não aparecia, porque o SVG gerado não declarava o namespace exigido quando usado como imagem.', { lista: [
-        'o Telegram não permite que um bot escreva para alguém só pelo nome de usuário; por isso, a conexão é feita por um link com código de uso único, que também prova que o chat pertence a quem está conectado;',
-        'gravar o sinal com a vela que o gerou resolveu de uma vez a rastreabilidade e a duplicidade de alertas;',
-        'o navegador sem interface usado nos testes não tem serviço de push, e a falha mostrou que o erro chegava ao usuário em inglês técnico; agora vira uma orientação em português.',
+        'validou o schema do Prisma com o código exatamente como estava;',
+        'instalou as dependências e subiu o servidor;',
+        'testou as proteções contra um PostgreSQL real: rota de preços, login com verificação em duas etapas e compatibilidade do código com aplicativos autenticadores;',
+        'executou o RSI e o MACD do protótipo sobre as 999 velas reais de BTCUSDT da Experimentação 1 e comparou com o núcleo Python;',
+        'compilou o frontend e leu as telas.',
+      ], ref: 'numeros5' }, 'Para o servidor subir, foram necessárias correções numa cópia descartável (schema reformatado e completado, e duas dependências trocadas de versão); o protótipo original ficou intacto.']],
+      ['Resultado ou evidência', [{ titulo: 'O que a execução do protótipo mostrou:', tabela: [['Item', 'Resultado'], [
+        ['Validação do schema do Prisma', 'falha, com 30 erros: nenhuma tabela seria criada e o backend não iniciaria'],
+        ['Causas do schema', 'blocos escritos numa linha só (sintaxe inválida), campo @index inválido e 5 relações sem o campo oposto (Ativo não declara Posição, Transação, Sinal e Item de Lista; o log de auditoria não se liga ao Usuário)'],
+        ['Migrações e testes', 'não existem; "prisma migrate deploy" responde "No migration found", e o Vitest está configurado sem nenhum teste'],
+        ['Subir o servidor', 'falha com as dependências declaradas: @fastify/cors 10 e @fastify/helmet 13 exigem Fastify 5, e o projeto usa Fastify 4'],
+        ['Rota de preços', 'aceita qualquer chamada sem login (204) e criou um ativo falso; sem validação, um preço negativo sem data devolveu erro 500'],
+        ['Verificação em duas etapas', 'a rota devolveu os tokens de acesso só com e-mail e código, sem a senha (200); o 2FA fica ativo antes de o usuário confirmar um código'],
+        ['Código dos aplicativos autenticadores', 'incompatível: com o mesmo segredo, o servidor esperava 178806 e o aplicativo mostrava 216518, que foi recusado (401)'],
+        ['Notícias e sinais', 'a coleta de notícias é uma função vazia e nenhuma rota cria sinais; a lista de sinais ficou vazia'],
+        ['Frontend', 'compila (2733 módulos). Login e cadastro são simulados com espera fixa de 400 ms, o gráfico usa preços aleatórios e o assistente devolve sempre a mesma resposta; só a tela do código de duas etapas chama a API'],
+      ], [28, 72]] }, { titulo: 'Indicadores do protótipo comparados com o núcleo Python (999 velas):', tabela: [['Comparação', 'Maior diferença'], [
+        ['RSI, todas as velas', '0,005 (arredondamento de 2 casas do protótipo)'],
+        ['Linha do MACD, todas as velas', '185,66'],
+        ['Linha do MACD, após 200 velas', '0,0003'],
+        ['Histograma do MACD, após 200 velas', '0,0001'],
+      ], [60, 40]] }, { titulo: 'Como o núcleo Python corrige cada falha (112 testes automatizados e 29 verificações no navegador):', tabela: [['Falha do protótipo', 'No núcleo Python do Nox'], [
+        ['Schema que não passa na validação', 'tabelas criadas no PostgreSQL a partir da seção 18.1, com chaves estrangeiras e testes contra o banco real'],
+        ['Servidor que não sobe', 'dependências fixadas e testadas; a API e o processo agendado rodaram com dados reais da Binance'],
+        ['Rota de preços aberta', 'o frontend nunca envia preços: o Nox obtém as velas da exchange, valida cada uma e descarta as incompletas'],
+        ['2FA sem a senha', 'login em dois passos: a senha certa gera um desafio de uso único (5 minutos), e só ele somado ao código abre a sessão'],
+        ['Código incompatível', 'TOTP padrão (RFC 6238), conferido no navegador com o segredo lido da tela; um código usado não vale de novo'],
+        ['2FA ativo sem confirmação', 'a ativação só termina depois de o usuário digitar um código válido'],
+        ['Sem sinais e sem notícias', 'o Sinal de Recomendação é gravado a cada vela, com explicação; a coleta de sentimento fica para o próximo período'],
+        ['Sem perfil de risco e preferências', 'perfil, canais de alerta e lista de ativos, com os dados pessoais cifrados'],
+      ], [38, 62]] }, 'Os arquivos estão em experimentos/exp5_prototipo_antigo/evidencias, e o registro de cada requisito, em docs/implementacoes.']],
+      ['Aprendizados', ['a revisão de código registrada na versão 3.1 do documento acertou os problemas que apontou, e a execução mostrou que o problema do schema era mais amplo (a sintaxe dos blocos) e achou falhas novas: as versões incompatíveis do Fastify e o 2FA ativado antes da confirmação.', { lista: [
+        'o RSI do protótipo estava certo: coincide com o do núcleo Python até o arredondamento. Só o MACD diverge no começo da série, porque a média exponencial parte do primeiro preço, e não da média simples. A diferença some depois de cerca de 200 velas, o que confirma a conclusão da Experimentação 4 de exigir esse histórico antes de gerar um sinal;',
+        'uma rotina que nunca foi executada esconde erros que a leitura não pega; por isso o núcleo Python nasceu com testes automatizados para cada regra (RNF-008) e com um teste de ponta a ponta no navegador;',
+        'o campo de detalhes do Sinal antecipou a necessidade de guardar a justificativa junto com a recomendação, as lacunas do modelo motivaram a ligação entre Sentimento e Ativo e a entidade Preferência de Alerta da seção 18.1, e gravar preços no PostgreSQL deu origem à comparação da Experimentação 2.',
       ] }]],
-      ['Limitações identificadas', 'não há envio real de e-mail; o bloqueio por tentativas vale por conta, e não por endereço; o canal do Telegram aguarda a criação do bot; a inscrição de push vale para um aparelho por pessoa; o HTTPS e o funcionamento contínuo dependem da publicação em servidor.'],
-      ['Próximos passos', 'publicar o sistema em servidor com HTTPS, contratar um serviço de e-mail, criar o bot do Telegram, oferecer códigos de recuperação do 2FA e fazer o perfil de risco ajustar o limiar de ação.'],
+      ['Limitações identificadas', 'o protótipo só rodou com correções mínimas numa cópia descartável; "do jeito que está", ele não sobe. O Redis e as filas constam das dependências, mas nenhum código as usa, e não foram testados. O limite de 300 requisições por minuto e a carga não foram medidos. O protótipo está em outra linguagem e não será aproveitado como código final.'],
+      ['Próximos passos', 'publicar o sistema em servidor com HTTPS, contratar um serviço de e-mail, criar o bot do Telegram, oferecer códigos de recuperação do 2FA e repetir a verificação de segurança contra o sistema publicado.'],
     ],
   }],
 
@@ -605,7 +618,7 @@ export const conteudo = [
     'consultas executadas no InfluxDB e no PostgreSQL e o resumo comparativo (Experimentação 2);',
     'capturas de tela do feed e do Modo Explicativo com dados simulados e reais (Experimentação 3);',
     'valores de RSI e MACD comparados com os de referência, a planilha de cenários do score e o score sobre os dados reais (Experimentação 4);',
-    'capturas de tela da conta, do 2FA, das preferências e da lista, e o registro de cada requisito implementado (Experimentação 5);',
+    'validação do schema do protótipo antigo, saída dos testes de segurança, comparação dos indicadores e a cópia do protótipo (Experimentação 5), e as capturas de tela da conta, do 2FA, das preferências e da lista, com o registro de cada requisito implementado;',
     'relatório dos 112 testes Pytest e das 29 verificações de ponta a ponta.',
   ]],
   ['p', 'Pendente: as respostas dos três participantes da avaliação da Experimentação 3.'],

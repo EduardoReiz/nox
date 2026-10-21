@@ -1,0 +1,54 @@
+{
+  "precos_sem_login": 204,
+  "precos_sem_validacao": 500,
+  "precos_gravados": [
+    {
+      "id": "cmvi2oadq0000p2wvts7eaz69",
+      "symbol": "FALSO",
+      "name": "FALSO",
+      "kind": "CRYPTO"
+    },
+    {
+      "id": "cmvi2oaeo0003p2wvo7bb0qef",
+      "symbol": "BTCUSDT",
+      "name": "BTCUSDT",
+      "kind": "CRYPTO"
+    }
+  ],
+  "cadastro": 200,
+  "sinais_apos_cadastro": [],
+  "segredo": {
+    "texto": "kShGwldtj6yMmeKNMrn4ey6H6MELeMJQ",
+    "tamanho": 32,
+    "rotulo_no_qr": "/Nox:cmvi2ok12000ep2wvmrp1a1u8"
+  },
+  "me_apos_setup": {
+    "id": "cmvi2ok12000ep2wvmrp1a1u8",
+    "email": "teste1792584758584@exemplo.com",
+    "name": "Teste",
+    "role": "USER",
+    "twoFAEnabled": true
+  },
+  "login_com_2fa": {
+    "status": 206,
+    "corpo": {
+      "requires2FA": true
+    }
+  },
+  "codigos": {
+    "esperado_pelo_servidor": "178806",
+    "mostrado_pelo_aplicativo": "216518",
+    "iguais": false
+  },
+  "verificar_com_codigo_do_aplicativo": 401,
+  "verify_2fa_sem_senha": {
+    "status": 200,
+    "devolveu_tokens": true
+  },
+  "tamanho_dos_segredos": {
+    "min": 32,
+    "max": 32,
+    "abaixo_de_16": 0,
+    "de": 30
+  }
+}

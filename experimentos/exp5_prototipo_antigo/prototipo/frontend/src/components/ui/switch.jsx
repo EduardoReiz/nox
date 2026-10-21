@@ -1,0 +1,1 @@
+export const Switch=({checked,onCheckedChange})=><label className='inline-flex cursor-pointer items-center gap-2'><input type='checkbox' checked={!!checked} onChange={e=>onCheckedChange?.(e.target.checked)}/><span className='text-sm'>On/Off</span></label>; export default Switch;

@@ -1,0 +1,6 @@
+error: Error validating field `auditLogs` in model `User`: The relation field `auditLogs` on model `User` is missing an opposite relation field on the model `AuditLog`. Either run `prisma format` or add it manually.
+error: Error validating field `asset` in model `Holding`: The relation field `asset` on model `Holding` is missing an opposite relation field on the model `Asset`. Either run `prisma format` or add it manually.
+error: Error validating field `asset` in model `Transaction`: The relation field `asset` on model `Transaction` is missing an opposite relation field on the model `Asset`. Either run `prisma format` or add it manually.
+error: Error validating field `asset` in model `Signal`: The relation field `asset` on model `Signal` is missing an opposite relation field on the model `Asset`. Either run `prisma format` or add it manually.
+error: Error validating field `asset` in model `WatchItem`: The relation field `asset` on model `WatchItem` is missing an opposite relation field on the model `Asset`. Either run `prisma format` or add it manually.
+Validation Error Count: 5
