@@ -27,9 +27,11 @@ export function horario(iso) {
 }
 
 export const ACOES = {
-  comprar: { rotulo: 'Comprar', cor: 'text-alta' },
-  vender: { rotulo: 'Vender', cor: 'text-queda' },
-  manter: { rotulo: 'Manter', cor: 'text-luar' },
+  // Códigos do contrato do sinal (RF-008) e como aparecem para a pessoa: o Nox
+  // descreve o que os indicadores mostram, não diz o que fazer.
+  comprar: { rotulo: 'Sinal de alta', cor: 'text-alta' },
+  vender: { rotulo: 'Sinal de queda', cor: 'text-queda' },
+  manter: { rotulo: 'Neutro', cor: 'text-luar' },
 }
 
 // Saudação pelo horário de Brasília.

@@ -1,0 +1,17 @@
+<!doctype html><html><head><meta charset="utf-8"><style>html,body{margin:0;background:#151a36}svg{display:block}</style></head><body>
+<script>
+// ?m=1 desenha o ícone "maskable": a lua fica na área central segura (Android recorta o resto).
+const maskable = new URLSearchParams(location.search).get('m') === '1'
+const r = maskable ? 118 : 150
+document.body.innerHTML = `
+<svg id="i" xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="0 0 512 512">
+  <defs>
+    <clipPath id="lua"><circle cx="256" cy="256" r="${r}"/></clipPath>
+    <radialGradient id="ceu" cx="50%" cy="38%" r="75%"><stop offset="0" stop-color="#1e2550"/><stop offset="1" stop-color="#151a36"/></radialGradient>
+  </defs>
+  <rect width="512" height="512" fill="url(#ceu)"/>
+  <circle cx="256" cy="256" r="${r}" fill="#eee7d0"/>
+  <g clip-path="url(#lua)"><circle cx="${256 + r * 0.5}" cy="${256 - r * 0.04}" r="${r * 0.92}" fill="#1b2147"/></g>
+  <circle cx="256" cy="256" r="${r}" fill="none" stroke="#2f3870" stroke-width="3"/>
+</svg>`
+</script></body></html>

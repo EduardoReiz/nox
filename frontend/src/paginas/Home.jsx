@@ -68,7 +68,7 @@ export default function Home() {
         </h1>
         <p className="mt-3 max-w-[34ch] text-[15px] leading-relaxed text-nevoa">
           Cada lua mostra a confiança de um sinal. Quanto mais cheia, mais os indicadores concordam.
-          A partir de 60% cheia, o Nox sugere agir.
+          A partir de 60% cheia, o Nox destaca um sinal de alta ou de queda.
         </p>
         {carregando && <Carregando />}
         {erro && <Erro erro={erro} />}

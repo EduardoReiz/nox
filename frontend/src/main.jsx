@@ -34,3 +34,9 @@ createRoot(document.getElementById('root')).render(
     </BrowserRouter>
   </StrictMode>,
 )
+
+// Registra o service worker só na versão publicada: ele deixa o site instalável
+// e abre o esqueleto mesmo sem internet (RNF-009).
+if (import.meta.env.PROD && 'serviceWorker' in navigator) {
+  window.addEventListener('load', () => navigator.serviceWorker.register('/sw.js').catch(() => {}))
+}

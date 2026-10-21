@@ -5,6 +5,7 @@ docs/contrato_sinal.md. O frontend usa o mesmo formato com dados simulados
 e com dados reais, sem mudar os componentes.
 """
 
+import logging
 import time
 from dataclasses import asdict
 from datetime import UTC, datetime
@@ -12,6 +13,8 @@ from datetime import UTC, datetime
 from nox.domain.mercado import Vela
 from nox.domain.score import SemSinal, Sinal, gerar_sinal
 from nox.infrastructure.binance import ClienteBinance
+
+log = logging.getLogger(__name__)
 
 ATIVOS = {
     "BTCUSDT": "Bitcoin",
@@ -70,16 +73,33 @@ def para_json(ativo: str, resultado: Sinal | SemSinal, velas: list[Vela]) -> dic
 
 
 class ServicoSinais:
-    def __init__(self, cliente: ClienteBinance | None = None, agora=lambda: datetime.now(UTC)):
+    def __init__(self, cliente: ClienteBinance | None = None, agora=lambda: datetime.now(UTC), series=None):
         self.cliente = cliente or ClienteBinance()
         self.agora = agora
+        # Quando há um repositório de séries (RF-002), cada vela fechada nova é gravada.
+        self.series = series
         self._cache: tuple[float, list[dict], dict[str, list[Vela]]] | None = None
+
+    def _guardar(self, ativo: str, velas: list[Vela]) -> None:
+        """Grava só as velas fechadas que ainda não estão no banco (uma vela
+        fechada não muda). Falha ao gravar não impede o cálculo do sinal."""
+        if not self.series:
+            return
+        try:
+            gravadas = self.series.ultimas(ativo, INTERVALO, 1)
+            desde = gravadas[-1].instante if gravadas else None
+            novas = [v for v in velas if desde is None or v.instante > desde]
+            if novas:
+                self.series.gravar(novas)
+        except Exception:
+            log.exception("não foi possível gravar as velas de %s", ativo)
 
     def _atualizar(self):
         sinais, series = [], {}
         agora = self.agora()
         for ativo in ATIVOS:
             velas = self.cliente.velas(ativo, INTERVALO, VELAS_POR_CALCULO)
+            self._guardar(ativo, velas)
             series[ativo] = velas
             sinais.append(para_json(ativo, gerar_sinal(ativo, velas, agora), velas))
         self._cache = (time.monotonic(), sinais, series)

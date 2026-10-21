@@ -1,16 +1,18 @@
 """Quando um sinal vira alerta e o que a mensagem diz (RF-012, RF-013).
 
-"Novo sinal" (RF-012) é entendido como **mudança de sugestão**: o ativo passou
-de manter para comprar, de comprar para vender, e assim por diante. Repetir a
-cada hora o mesmo "manter" faria o usuário ignorar os alertas. Decisão
+"Novo sinal" (RF-012) é entendido como **mudança de leitura**: o ativo passou
+de neutro para sinal de alta, de sinal de alta para sinal de queda, e assim por diante. Repetir a
+cada hora o mesmo "neutro" faria o usuário ignorar os alertas. Decisão
 provisória, a validar com os usuários.
 """
 
 from dataclasses import dataclass
 
-AVISO_CURTO = "Informativo, não é consultoria. O Nox não opera por você."
+from nox.domain.score import LEITURAS
 
-VERBOS = {"comprar": "sugere comprar", "vender": "sugere vender", "manter": "voltou a sugerir manter"}
+AVISO_CURTO = "Informativo, não é recomendação nem consultoria. O Nox não opera por você."
+
+TITULOS = {"comprar": "o Nox vê sinal de alta", "vender": "o Nox vê sinal de queda", "manter": "voltou ao neutro"}
 
 
 @dataclass(frozen=True)
@@ -26,7 +28,7 @@ class Mudanca:
 
 def deve_alertar(acao_anterior: str | None, acao_nova: str) -> bool:
     """Primeiro sinal de um ativo só vira alerta se pedir ação; depois disso,
-    toda mudança de sugestão vira alerta, inclusive a volta para manter (o
+    toda mudança de leitura vira alerta, inclusive a volta para neutro (o
     usuário precisa saber que o sinal anterior perdeu força)."""
     if acao_anterior is None:
         return acao_nova != "manter"
@@ -38,7 +40,7 @@ def moeda(ativo: str) -> str:
 
 
 def titulo(m: Mudanca) -> str:
-    return f"{m.nome}: o Nox {VERBOS[m.acao]}"
+    return f"{m.nome}: {TITULOS[m.acao]}"
 
 
 def texto_curto(m: Mudanca) -> str:
@@ -48,15 +50,15 @@ def texto_curto(m: Mudanca) -> str:
 
 def texto_completo(m: Mudanca, link: str, aviso_risco: str) -> str:
     """Para o Telegram: explicação inteira, link e aviso de risco (RF-013)."""
-    antes = f" (antes: {m.acao_anterior})" if m.acao_anterior else ""
+    antes = f" (antes: {LEITURAS[m.acao_anterior]})" if m.acao_anterior else ""
     return (f"{titulo(m)}{antes}\nConfiança {m.score} de 100.\n\n{m.explicacao}\n\n"
             f"Veja os detalhes: {link}\n\n{aviso_risco}")
 
 
 def resumo(mudancas: list[Mudanca], link: str, aviso_risco: str) -> tuple[str, str]:
     """Resumo diário para quem escolheu essa frequência."""
-    linhas = [f"- {moeda(m.ativo)}: {m.acao} (confiança {m.score})" for m in mudancas]
+    linhas = [f"- {moeda(m.ativo)}: {LEITURAS[m.acao]} (confiança {m.score})" for m in mudancas]
     cab = "1 mudança" if len(mudancas) == 1 else f"{len(mudancas)} mudanças"
     return (f"Nox: {cab} nos seus ativos hoje",
-            "Mudanças de sugestão nas últimas 24 horas:\n" + "\n".join(linhas)
+            "Mudanças de leitura nas últimas 24 horas:\n" + "\n".join(linhas)
             + f"\n\nVeja os detalhes: {link}\n\n{aviso_risco}")

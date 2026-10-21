@@ -5,7 +5,7 @@ import { useEnvio } from '../dados/useEnvio'
 import { Botao, Mensagem } from './Formulario'
 
 // Perfil de investidor (RF-011) e alertas (RF-011, RF-012). O perfil ainda não
-// muda as recomendações: o documento deixa isso para os próximos períodos.
+// muda a leitura do mercado: o sinal é o mesmo para todas as pessoas.
 
 const PERFIS = [
   { id: 'conservador', nome: 'Conservador', texto: 'Prefiro perder pouco, mesmo ganhando menos. Uma queda forte me tiraria o sono.' },
@@ -194,8 +194,8 @@ export default function Preferencias() {
       <fieldset>
         <legend className="font-serif text-xl">Seu perfil de investidor</legend>
         <p className="mb-4 mt-1 text-sm leading-relaxed text-nevoa">
-          Qual frase combina mais com você? Isso fica guardado de forma cifrada e, nas próximas versões, vai ajustar as
-          sugestões ao seu jeito de investir.
+          Qual frase combina mais com você? Isso fica guardado de forma cifrada. Por enquanto não muda a leitura do
+          mercado: o Nox mostra os mesmos sinais para todas as pessoas.
         </p>
         <div className="space-y-3">
           {PERFIS.map((p) => (
@@ -208,7 +208,7 @@ export default function Preferencias() {
       <fieldset>
         <legend className="font-serif text-xl">Alertas</legend>
         <p className="mb-2 mt-1 text-sm leading-relaxed text-nevoa">
-          O Nox avisa quando a sugestão de um ativo que você acompanha muda, por exemplo de manter para comprar.
+          O Nox avisa quando a leitura de um ativo que você acompanha muda, por exemplo de neutro para sinal de alta.
         </p>
         <div className="divide-y divide-linha border-y border-linha">
           <Canal

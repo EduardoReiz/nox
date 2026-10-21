@@ -9,13 +9,13 @@ Também atende o RF-008 (o Sinal de Recomendação passa a ser gravado), o RF-01
 - **O que foi feito:**
   - **Worker** (`python -m nox.worker`): um processo em segundo plano que calcula os sinais a cada minuto. É o "sistema" que dispara a geração de sinais no diagrama de casos de uso.
   - **Sinal de Recomendação no PostgreSQL** (tabela `sinal`): cada vela de 1 hora fechada gera no máximo um sinal por ativo, com componentes do score, divergência e texto explicativo. Assim a explicação mostrada é sempre a do cálculo que gerou a recomendação (RNF-005).
-  - **Regra de alerta** (`nox/domain/alertas.py`): o alerta sai quando **a sugestão muda**, por exemplo de manter para comprar ou de comprar para manter. Repetir a cada hora o mesmo "manter" faria o usuário ignorar os alertas. É uma decisão provisória, a validar com usuários.
+  - **Regra de alerta** (`nox/domain/alertas.py`): o alerta sai quando **a leitura muda**, por exemplo de neutro para sinal de alta ou de sinal de alta para neutro. Repetir a cada hora o mesmo "manter" faria o usuário ignorar os alertas. É uma decisão provisória, a validar com usuários.
   - **Entrega** (`nox/application/alertas.py`): para quem tem o ativo na lista (RF-015) e algum canal ligado (RF-011). Pode ser na hora ou num resumo diário às 9h, conforme a preferência. Cada envio fica registrado na tabela `alerta`, com sucesso ou falha.
   - **Notificações push** (padrão Web Push do W3C): o service worker (`frontend/public/sw.js`) mostra a notificação mesmo com o site fechado, e o toque abre a explicação do sinal. Funciona no Chrome, Edge e Firefox, e no Safari do iPhone com o Nox adicionado à tela de início. Não depende de conta em serviço externo, só de um par de chaves VAPID do próprio Nox, no `.env`.
   - **Telegram:** a pessoa toca em "Conectar Telegram". O Nox abre o bot com um código de uso único (válido por 15 minutos), e ao tocar em "Começar" o bot liga a conta ao chat. O identificador do chat fica cifrado (RNE-005).
   - **Alerta de teste:** botão na tela Conta para a pessoa conferir que os alertas chegam.
   - **Conteúdo** (RF-013):
-    - na notificação: "Bitcoin: o Nox sugere comprar", "Confiança 72 de 100. Toque para ver por quê. Informativo, não é consultoria. O Nox não opera por você.";
+    - na notificação: "Bitcoin: o Nox vê sinal de alta", "Confiança 72 de 100. Toque para ver por quê. Informativo, não é recomendação nem consultoria. O Nox não opera por você.";
     - no Telegram: a explicação completa, o link e o aviso de risco inteiro.
 
 - **Como foi testado:**

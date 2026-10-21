@@ -3,7 +3,7 @@ export const TERMOS = {
   score: {
     nome: 'Score de confiança',
     texto:
-      'Número de 0 a 100 que mostra o quanto os sinais concordam entre si. Abaixo de 60 o Nox sugere manter, porque os sinais ainda são fracos para agir.',
+      'Número de 0 a 100 que mostra o quanto os sinais concordam entre si. Abaixo de 60 o Nox mostra a leitura como neutra, porque os sinais ainda são fracos para destacar uma alta ou uma queda.',
   },
   rsi: {
     nome: 'RSI (Índice de Força Relativa)',

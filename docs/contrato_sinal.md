@@ -39,14 +39,14 @@ Contrato entre o backend (API) e o frontend, definido no passo 1 da Experimenta�
   ],
   "ausentes": ["Previsão de Machine Learning"],
   "divergencia": { "tecnico": "alta", "sentimento": "negativo", "score_antes": 50, "reducao": 0.3 },
-  "explicacao": "O Nox sugere manter SOL, com confiança 35 de 100. ...",
+  "explicacao": "Leitura do Nox para SOL: neutro, com confiança 35 de 100. ...",
   "aviso_risco": "Esta recomendação é apenas informativa e não constitui consultoria de investimentos. ..."
 }
 ```
 
 | Campo | Significado | Regra |
 | --- | --- | --- |
-| `acao` | `comprar`, `vender` ou `manter` | RF-008, RNE-008 |
+| `acao` | `comprar`, `vender` ou `manter` (código do contrato; na interface aparece como sinal de alta, sinal de queda ou neutro) | RF-008, RNE-008 |
 | `score` | confiança de 0 a 100 | RNE-001 |
 | `direcao` | `alta`, `baixa` ou `neutra` | lado da média ponderada das forças |
 | `componentes[].forca` | de −1 (queda) a +1 (alta) | |

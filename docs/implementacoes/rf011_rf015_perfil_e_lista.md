@@ -61,10 +61,10 @@ Situação: **Implementado e testado** (20/10/2026). Os dois requisitos estavam 
   - O teste de ponta a ponta precisou tolerar um detalhe do servidor de desenvolvimento: ao carregar módulos novos pela primeira vez, o Vite recarrega a página e interrompe a navegação. Isso não acontece na versão publicada.
 
 - **Limitações identificadas:**
-  - O perfil ainda não muda as recomendações; o documento deixa essa definição para os próximos períodos.
+  - O perfil não muda a leitura do mercado, por decisão de 21/10/2026: se o sinal mudasse conforme o perfil, o Nox pareceria adequar uma recomendação ao investidor, o que se aproxima de consultoria de investimentos. Hoje o perfil só fica guardado, cifrado.
   - O envio dos alertas foi feito em seguida, no RF-012 (`rf012_alertas.md`).
   - A lista tem só os seis ativos acompanhados pelo sistema.
 
 - **Próximos passos:**
   - RF-012: bot do Telegram e notificações push, usando a lista e as preferências;
-  - definir com a equipe como o perfil de risco vai ajustar o limiar de ação (por exemplo, um limiar maior para o perfil conservador).
+  - definir com a equipe para que o perfil servirá sem alterar o sinal (por exemplo, personalizar o conteúdo educativo).

@@ -68,6 +68,9 @@ cd frontend && NOX_LOG_API=/caminho/do/api.log node e2e/conta.mjs
 | RF-011 Perfil de risco e preferências de alerta | `docs/implementacoes/rf011_rf015_perfil_e_lista.md` |
 | RF-015 Lista de ativos acompanhados | `docs/implementacoes/rf011_rf015_perfil_e_lista.md` |
 | RF-012 Alertas (push e Telegram) e RF-008 sinais gravados | `docs/implementacoes/rf012_alertas.md` |
+| RF-002 Gravação das velas | `docs/implementacoes/rf002_gravacao_das_velas.md` |
+| RNF-009 Aplicativo instalável (PWA) | `docs/implementacoes/rnf009_aplicativo_instalavel.md` |
+| Linguagem das leituras (sinal de alta, sinal de queda, neutro) | `docs/implementacoes/linguagem_das_leituras.md` |
 
 ## Situação das experimentações
 

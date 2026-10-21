@@ -25,7 +25,7 @@ function Componente({ c }) {
         <div className="h-full rounded-full bg-luar" style={{ width: `${c.pontuacao}%` }} />
       </div>
       <p className="mt-1.5 text-sm text-nevoa">
-        Apoia a sugestão com {c.pontuacao} de 100 e vale {peso}% do cálculo.
+        Apoia a leitura com {c.pontuacao} de 100 e vale {peso}% do cálculo.
       </p>
     </li>
   )

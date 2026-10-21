@@ -6,6 +6,11 @@ divergência crítica), RNE-004 (sem dados suficientes e atuais, sem sinal),
 RNE-006 (sentimento expirado não entra), RNE-007 (aviso de risco) e RNE-008
 (abaixo do limiar, a ação é manter).
 
+O campo `acao` (comprar, vender ou manter) é o código interno do contrato do
+sinal, previsto no RF-008. O que o usuário lê é a *leitura* do Nox: sinal de
+alta, sinal de queda ou neutro (ver LEITURAS). O Nox descreve o que os
+indicadores mostram; não diz ao usuário o que fazer.
+
 Como o score é calculado:
   1. Cada componente vira uma força de -1 (aponta queda) a +1 (aponta alta).
   2. A direção do sinal é o sinal da média ponderada das forças.
@@ -32,10 +37,13 @@ REDUCAO_DIVERGENCIA = 0.3  # PROVISÓRIO: fator r
 MINIMO_VELAS = 200  # Experimentação 4: antes disso o RSI ainda não estabilizou
 JANELA_MACD = 100  # velas usadas para medir a escala típica do histograma
 
+# Como cada ação aparece para o usuário (telas, explicação e alertas).
+LEITURAS = {"comprar": "sinal de alta", "vender": "sinal de queda", "manter": "neutro"}
+
 AVISO_RISCO = (
-    "Esta recomendação é apenas informativa e não constitui consultoria de investimentos. "
-    "O Nox não opera em seu nome. Criptoativos são muito voláteis: decida com cuidado "
-    "e invista só o que pode perder."
+    "Esta leitura é apenas informativa: não é recomendação nem consultoria de investimentos, "
+    "e o Nox não diz o que você deve fazer nem opera em seu nome. Criptoativos são muito "
+    "voláteis: decida com cuidado e invista só o que pode perder."
 )
 
 
@@ -267,7 +275,7 @@ def _frase_macd(d: dict) -> str:
 def explicar(s: Sinal) -> str:
     # "BTCUSDT" é o par na exchange; para o usuário basta "BTC".
     moeda = s.ativo.removesuffix("USDT")
-    partes = [f"O Nox sugere {s.acao} {moeda}, com confiança {s.score} de 100."]
+    partes = [f"Leitura do Nox para {moeda}: {LEITURAS[s.acao]}, com confiança {s.score} de 100."]
 
     tec = next(c for c in s.componentes if c.nome == "tecnico")
     partes.append(f"No gráfico, {_frase_rsi(tec.detalhes['rsi'])}, e {_frase_macd(tec.detalhes)}.")
@@ -285,11 +293,11 @@ def explicar(s: Sinal) -> str:
 
     if s.acao == "manter":
         if s.direcao == "neutra":
-            partes.append("Os sinais se anulam, então não há motivo para agir agora.")
+            partes.append("Os sinais se anulam: não há um sinal claro agora.")
         else:
             partes.append(
                 f"Os sinais apontam levemente para {s.direcao}, mas a confiança está abaixo "
-                f"de {LIMIAR_ACAO}, o mínimo para o Nox sugerir comprar ou vender.")
+                f"de {LIMIAR_ACAO}, o mínimo para o Nox destacar um sinal de alta ou de queda.")
 
     faltam = {"sentimento": "o sentimento de mercado", "ml": "a previsão de Machine Learning"}
     if s.ausentes:

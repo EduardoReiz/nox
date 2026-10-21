@@ -143,7 +143,7 @@ def test_todo_sinal_tem_explicacao_e_aviso():
         assert isinstance(s, Sinal)
         assert 0 <= s.score <= 100
         assert s.aviso_risco == AVISO_RISCO
-        assert s.explicacao.startswith("O Nox sugere")
+        assert s.explicacao.startswith("Leitura do Nox para")
 
 
 def test_queda_forte_isolada_e_neutra_no_tecnico():

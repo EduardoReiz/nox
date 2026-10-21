@@ -22,7 +22,7 @@ INSCRICAO = {"endpoint": "https://push.exemplo/abc", "keys": {"p256dh": "p", "au
 def sinal(ativo, acao, score=70):
     return {"ativo": ativo, "nome": ATIVOS[ativo], "disponivel": True, "acao": acao, "score": score,
             "direcao": "alta", "componentes": [], "divergencia": None, "gerado_em": T0.isoformat(),
-            "explicacao": f"O Nox sugere {acao} {ativo[:3]}."}
+            "explicacao": f"Leitura do Nox para {ativo[:3]}: {acao}."}
 
 
 class Fonte:
@@ -102,11 +102,11 @@ def test_mudanca_gera_alerta_so_para_quem_acompanha(ctx):
     assert [(m.ativo, m.acao_anterior, m.acao) for m in mudancas] == [("BTCUSDT", "manter", "comprar")]
     assert len(push.enviados) == 1  # só a Ana acompanha o BTC
     _, dados = push.enviados[0]
-    assert dados["titulo"] == "Bitcoin: o Nox sugere comprar"
+    assert dados["titulo"] == "Bitcoin: o Nox vê sinal de alta"
     assert dados["url"] == "https://nox.app/sinais/BTCUSDT"
-    assert "não é consultoria" in dados["texto"]  # RF-013
+    assert "não é recomendação nem consultoria" in dados["texto"]  # RF-013
     chat, texto = tg.enviados[0]
-    assert chat == "111" and "O Nox sugere comprar BTC." in texto and "não constitui consultoria" in texto
+    assert chat == "111" and "Leitura do Nox para BTC: comprar." in texto and "não é recomendação nem consultoria" in texto
 
 
 def test_mesma_vela_nao_gera_sinal_nem_alerta_duas_vezes(ctx):
@@ -123,7 +123,7 @@ def test_sinal_guardado_com_explicacao(ctx):
     fonte.rodadas = [[(sinal("ETHUSDT", "vender", 66), T0)]]
     servico.ciclo()
     guardado = sinais.ultimo("ETHUSDT")
-    assert guardado["score"] == 66 and guardado["explicacao"].startswith("O Nox sugere vender")
+    assert guardado["score"] == 66 and guardado["explicacao"].startswith("Leitura do Nox para ETH: vender")
 
 
 def test_resumo_diario_acumula_e_envia_uma_vez(ctx):
@@ -217,10 +217,10 @@ def test_push_vai_cifrado_e_o_navegador_consegue_ler():
                  "auth": b64(auth)},
     }
     CanalPush(chave_privada, "mailto:teste@nox.invalid").enviar(
-        inscricao, "Bitcoin: o Nox sugere comprar", "Confiança 72 de 100.", "https://nox.app/sinais/BTCUSDT")
+        inscricao, "Bitcoin: o Nox vê sinal de alta", "Confiança 72 de 100.", "https://nox.app/sinais/BTCUSDT")
     servidor.server_close()
 
     assert recebido["autorizacao"].startswith("vapid t=")
     claro = http_ece.decrypt(recebido["corpo"], private_key=navegador, auth_secret=auth, version="aes128gcm")
-    assert json.loads(claro) == {"titulo": "Bitcoin: o Nox sugere comprar", "texto": "Confiança 72 de 100.",
+    assert json.loads(claro) == {"titulo": "Bitcoin: o Nox vê sinal de alta", "texto": "Confiança 72 de 100.",
                                  "url": "https://nox.app/sinais/BTCUSDT"}

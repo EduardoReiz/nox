@@ -126,8 +126,8 @@ export default function Feed() {
       <div className="px-5 pb-5 pt-9">
         <h1 className="font-serif text-[2.1rem] font-medium leading-tight tracking-tight">Sinais</h1>
         <p className="mt-2 text-[15px] leading-relaxed text-nevoa">
-          Do mais ao menos confiante. Abaixo de 60 de <Termo id="score">confiança</Termo>, a sugestão é sempre
-          manter. Toque num ativo para ver o porquê.
+          Do mais ao menos confiante. Abaixo de 60 de <Termo id="score">confiança</Termo>, a leitura é sempre
+          neutra. Toque num ativo para ver o porquê.
         </p>
         {usuario === null && (
           <p className="mt-3 text-sm text-nevoa">

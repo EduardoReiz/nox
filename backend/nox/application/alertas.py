@@ -3,7 +3,7 @@
 O ciclo roda a cada minuto no worker (nox/worker.py):
 1. calcula o sinal de cada ativo; cada vela de 1 hora fechada gera no máximo
    um Sinal de Recomendação gravado no banco (RF-008, RNF-005);
-2. se a sugestão mudou em relação ao sinal anterior, vira alerta;
+2. se a leitura mudou em relação ao sinal anterior, vira alerta;
 3. o alerta vai para quem acompanha o ativo (RF-015): na hora, pelos canais
    ligados, ou guardado para o resumo diário, conforme a preferência (RF-011).
 """

@@ -21,6 +21,7 @@ from nox.infrastructure import config
 from nox.infrastructure.contas_repo import ContasPostgres
 from nox.infrastructure.email import EmailNoLog
 from nox.infrastructure.notificacoes import CanalPush, ClienteTelegram
+from nox.infrastructure.series import SeriesPostgres
 from nox.infrastructure.sinais_repo import SinaisPostgres
 from nox.infrastructure.seguranca import Cifra
 
@@ -53,7 +54,7 @@ def servico_perfil() -> ServicoPerfil:
 def servico_alertas() -> ServicoAlertas:
     v, t = config.vapid(), config.telegram()
     return ServicoAlertas(
-        _repo(), SinaisPostgres(config.postgres_dsn()), servico_perfil(), ServicoSinais().sinais_com_vela,
+        _repo(), SinaisPostgres(config.postgres_dsn()), servico_perfil(), ServicoSinais(series=SeriesPostgres(config.postgres_dsn())).sinais_com_vela,
         CanalPush(v["privada"], v["contato"]) if v else None,
         ClienteTelegram(t["token"]) if t else None,
         url_app=os.environ.get("NOX_URL_APP", "http://localhost:5173"))
