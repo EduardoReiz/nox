@@ -1,0 +1,41 @@
+<!doctype html><html><head><meta charset="utf-8"><style>body{margin:0;background:#fff;font-family:Helvetica,Arial,sans-serif}</style></head><body>
+<script src="base.js"></script>
+<script>
+const s = svg(1220, 720)
+titulo(s, 'Os sinais abrem sem conta; a conta personaliza a lista de ativos e os alertas')
+
+grupo(s, 24, 66, 900, 270, 'Abas Hoje, Sinais e Aprender (abertas a todos)')
+caixa(s, 48, 120, 210, 76, 'Hoje', ['tela inicial'], 'destaque')
+caixa(s, 340, 120, 230, 76, 'Sinais', ['feed de sinais'])
+caixa(s, 652, 120, 250, 76, 'Modo Explicativo', ['com aviso de risco'])
+caixa(s, 48, 240, 210, 76, 'Aprender', ['temas e glossário'])
+seta(s, [[258, 158], [338, 158]], { rotulo: 'aba', rx: 298, ry: 150 })
+seta(s, [[570, 158], [650, 158]], { rotulo: 'ativo', rx: 610, ry: 150 })
+seta(s, [[153, 196], [153, 238]], { rotulo: 'aprender o básico', rx: 166, ry: 224, ancora: 'start' })
+seta(s, [[777, 198], [777, 278], [260, 278]], { tracejada: true, rotulo: 'termos técnicos levam ao conteúdo', rx: 610, ry: 300 })
+
+caixa(s, 990, 120, 206, 76, 'Alerta', ['push ou Telegram'], 'tracejada')
+seta(s, [[988, 158], [904, 158]], { rotulo: 'tocar', rx: 946, ry: 150 })
+
+grupo(s, 24, 372, 1172, 292, 'Conta (exige login)')
+caixa(s, 48, 476, 210, 76, 'Entrar', ['e-mail e senha'], 'destaque')
+caixa(s, 340, 420, 230, 66, 'Criar conta', ['sem CPF'])
+caixa(s, 340, 506, 230, 66, 'Código 2FA', ['quando ativada; depois, Hoje'])
+caixa(s, 340, 592, 230, 60, 'Esqueci a senha', [])
+caixa(s, 652, 592, 250, 60, 'Senha nova', [])
+caixa(s, 652, 420, 250, 132, 'Conta', ['perfil de risco e alertas', 'verificação em duas etapas', 'baixar meus dados', 'sair e excluir conta'], 'destaque')
+
+seta(s, [[110, 338], [110, 474]], { rotulo: 'botão Entrar', rx: 120, ry: 356, ancora: 'start' })
+seta(s, [[258, 500], [300, 500], [300, 453], [338, 453]])
+seta(s, [[258, 514], [300, 514], [300, 539], [338, 539]])
+seta(s, [[258, 530], [286, 530], [286, 622], [338, 622]])
+seta(s, [[570, 453], [650, 453]], { rotulo: 'conta nova', rx: 610, ry: 445 })
+seta(s, [[570, 622], [650, 622]], { rotulo: 'link', rx: 610, ry: 614 })
+seta(s, [[902, 622], [940, 622], [940, 690], [153, 690], [153, 554]], { rotulo: 'volta ao login', rx: 546, ry: 684 })
+seta(s, [[840, 338], [840, 418]], { tracejada: true, rotulo: 'avatar', rx: 852, ry: 400, ancora: 'start' })
+
+caixa(s, 990, 476, 206, 76, 'Estrela em Sinais', ['monta a lista'], 'tracejada')
+seta(s, [[1093, 474], [1093, 354], [455, 354], [455, 198]], { tracejada: true })
+texto(s, 1000, 600, 'Tracejado: caminho opcional', { tamanho: 13 })
+texto(s, 1000, 620, 'ou que depende da conta.', { tamanho: 13 })
+</script></body></html>

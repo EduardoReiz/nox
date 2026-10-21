@@ -1,0 +1,33 @@
+<!doctype html><html><head><meta charset="utf-8"><style>body{margin:0;background:#fff;font-family:Helvetica,Arial,sans-serif}</style></head><body>
+<script src="base.js"></script>
+<script>
+const s = svg(1220, 720)
+titulo(s, 'O Ativo liga os cadastros, as séries de mercado e os sinais, todos no PostgreSQL')
+grupo(s, 24, 66, 1172, 548, 'PostgreSQL · dados relacionais e séries temporais')
+
+caixa(s, 48, 110, 340, 86, 'Preferência de Alerta', ['canal, destino cifrado, ativa'])
+caixa(s, 440, 110, 340, 86, 'Usuário', ['e-mail, perfil de risco cifrado', '2FA, frequência de alerta'])
+caixa(s, 832, 110, 340, 86, 'Lista de Acompanhamento', ['usuário, ativo, adicionado em'])
+caixa(s, 48, 270, 340, 86, 'Alerta', ['canal, status, quando'])
+caixa(s, 832, 270, 340, 86, 'Ativo', ['símbolo, nome, tipo'], 'destaque')
+caixa(s, 48, 430, 340, 86, 'Sinal de Recomendação', ['ação, score, componentes', 'explicação, vela de origem'])
+caixa(s, 440, 430, 340, 86, 'Sentimento', ['fonte, intensidade, expira em', 'próximo período'], 'tracejada')
+caixa(s, 832, 430, 340, 86, 'Observação de Mercado', ['velas de 1 h: preços,', 'volume, instante'])
+
+seta(s, [[388, 153], [440, 153]], { ponta: false, rotulo: 'N:1', rx: 414, ry: 145 })
+seta(s, [[780, 153], [832, 153]], { ponta: false, rotulo: '1:N', rx: 806, ry: 145 })
+seta(s, [[1002, 196], [1002, 270]], { ponta: false, rotulo: 'N:1', rx: 1012, ry: 238, ancora: 'start' })
+seta(s, [[388, 290], [560, 290], [560, 196]], { ponta: false, rotulo: 'N:1', rx: 570, ry: 250, ancora: 'start' })
+seta(s, [[218, 356], [218, 430]], { ponta: false, rotulo: 'N:1', rx: 228, ry: 398, ancora: 'start' })
+seta(s, [[1002, 356], [1002, 430]], { ponta: false, rotulo: '1:N', rx: 1012, ry: 398, ancora: 'start' })
+seta(s, [[900, 356], [900, 393], [320, 393], [320, 430]], { ponta: false, rotulo: 'Ativo 1:N Sinal', rx: 560, ry: 385 })
+seta(s, [[780, 460], [806, 460], [806, 330], [832, 330]], { ponta: false, rotulo: 'N:1', rx: 790, ry: 425, ancora: 'end' })
+seta(s, [[440, 473], [390, 473]], { tracejada: true, rotulo: 'RNE-006', rx: 414, ry: 500 })
+seta(s, [[1002, 516], [1002, 566], [218, 566], [218, 518]], { tracejada: true, rotulo: 'RSI e MACD calculados a cada vela (RNE-001, RNE-003)', rx: 610, ry: 558 })
+
+el(s, 'line', { x1: 24, y1: 650, x2: 80, y2: 650, stroke: COR.linha, 'stroke-width': 1.6 })
+texto(s, 92, 655, 'relacionamento e cardinalidade')
+el(s, 'line', { x1: 380, y1: 650, x2: 436, y2: 650, stroke: COR.linha, 'stroke-width': 1.6, 'stroke-dasharray': '6 5' })
+texto(s, 448, 655, 'dado que entra no cálculo do score e do sinal')
+texto(s, 24, 690, 'Sessão, desafio de acesso e auditoria (segurança da conta, RF-010) também se ligam ao Usuário e não aparecem na figura.', { tamanho: 14 })
+</script></body></html>

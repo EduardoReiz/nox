@@ -1,0 +1,12 @@
+{
+  "name": "nox-especificacao",
+  "private": true,
+  "type": "module",
+  "description": "Gera o Documento de Especificação do Nox (.docx) a partir de conteudo.mjs",
+  "scripts": {
+    "gerar": "node gerar.mjs"
+  },
+  "dependencies": {
+    "docx": "^9.13.0"
+  }
+}

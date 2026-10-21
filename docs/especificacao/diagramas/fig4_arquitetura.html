@@ -1,0 +1,29 @@
+<!doctype html><html><head><meta charset="utf-8"><style>body{margin:0;background:#fff;font-family:Helvetica,Arial,sans-serif}</style></head><body>
+<script src="base.js"></script>
+<script>
+const s = svg(1220, 600)
+titulo(s, 'Os dados percorrem quatro blocos antes de chegar ao investidor como sinal explicado')
+
+caixa(s, 24, 84, 184, 86, 'API da Binance', ['REST e WebSocket'], 'tracejada')
+caixa(s, 24, 206, 184, 86, 'Notícias e redes', ['próximo período'], 'tracejada')
+seta(s, [[208, 127], [242, 127]])
+seta(s, [[208, 249], [242, 249]], { tracejada: true })
+
+bloco(s, 244, 72, 220, 246, '1 Ingestão', ['coleta REST e WebSocket', ['reconexão e novas', 'tentativas'], 'padronização das velas'], 'RF-001, RNF-004')
+bloco(s, 500, 72, 220, 246, '2 Processamento', [['validação e', 'deduplicação'], ['gravação das séries', 'no PostgreSQL'], ['sentimento com validade', '(próximo período)']], 'RF-002')
+bloco(s, 756, 72, 220, 246, '3 Inteligência', ['RSI e MACD', 'score 0–100 (RNE-001)', 'divergência (RNE-003)', 'limiar de ação (RNE-008)'], 'RF-003, RF-006 a 008')
+bloco(s, 1012, 72, 184, 246, '4 Entrega', ['API REST', ['feed e Modo', 'Explicativo'], ['alertas push e', 'Telegram']], 'RF-005, 009, 012')
+seta(s, [[464, 188], [498, 188]])
+seta(s, [[720, 188], [754, 188]])
+seta(s, [[976, 188], [1010, 188]])
+
+caixa(s, 500, 388, 476, 78, 'PostgreSQL', ['velas, sinais, usuários, listas, preferências e alertas'], 'banco')
+caixa(s, 1012, 388, 184, 78, 'Cache em memória', ['último estado, 60 s'], 'banco')
+seta(s, [[610, 318], [610, 386]])
+seta(s, [[866, 318], [866, 386]])
+seta(s, [[1104, 318], [1104, 386]])
+
+texto(s, 24, 516, 'Núcleo (blocos 1 a 3 e API): Python, nas camadas api, application, domain e infrastructure. Um processo agendado (worker) roda os blocos 1 a 3', { tamanho: 14 })
+texto(s, 24, 538, 'a cada minuto e dispara os alertas. Interface do bloco 4: React.', { tamanho: 14 })
+texto(s, 24, 566, 'Linhas tracejadas: sistemas externos ao Nox. Nenhum bloco executa ordens na conta do usuário (RNE-007).', { tamanho: 14 })
+</script></body></html>
