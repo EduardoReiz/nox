@@ -28,7 +28,7 @@ export const conteudo = [
     ['2.2', '3º', '02 (revisão)', '14/05/2026', 'Plano de arquitetura técnica em camadas, consolidação do feedback da Fase 02 e cronograma de desenvolvimento prático do núcleo em Python; refinamento dos requisitos de desempenho (RNF-002) e de conformidade (RNF-007).'],
     ['3.0', '4º', '01', '07/09/2026', 'Formalização das escolhas tecnológicas (seções 19 e 19.1): Python, React, PostgreSQL, InfluxDB e Redis. Consolidação do histórico, das regras de negócio e do DER; atualização dos requisitos e do planejamento.'],
     ['3.1', '4º', '02', '18/10/2026', 'Registro das experimentações técnicas iniciais (seção 19.2). Revisão e ampliação dos requisitos funcionais (RF-001 a RF-015), dos requisitos não funcionais e das regras de negócio. Refinamento do modelo de dados com a separação entre PostgreSQL e InfluxDB, e atualização das escolhas tecnológicas, dos diagramas e do planejamento.'],
-    ['3.2', '4º', '02 (revisão)', '21/10/2026', 'Execução das experimentações da seção 19.2, inclusive a do protótipo de referência de 2025 (Experimentação 5), e implementação do núcleo em Python e da interface em React a partir desta especificação. Adoção do PostgreSQL também para as séries temporais (Experimentação 2). Atualização da situação dos requisitos, das regras de negócio com os parâmetros definidos, do design, dos diagramas, do modelo de dados, das escolhas tecnológicas e do planejamento.'],
+    ['3.2', '4º', '02 (revisão)', '21/10/2026', 'Execução das experimentações da seção 19.2, inclusive a do protótipo de referência de 2025 (Experimentação 5), e implementação do núcleo em Python e da interface em React a partir desta especificação. Adoção do PostgreSQL também para as séries temporais (Experimentação 2). Atualização da situação dos requisitos, das regras de negócio com os parâmetros definidos, do design, dos diagramas, do modelo de dados, das escolhas tecnológicas e do planejamento. Registro dos resultados da pesquisa com 8 participantes (seções 11 e 12).'],
   ], [10, 11, 13, 15, 51], { primeiraNegrito: false, centralizar: [0, 1, 2, 3] }],
 
   // ------------------------------------------------------------------ PARTE 01
@@ -98,7 +98,7 @@ export const conteudo = [
     'envia alertas por notificação push e pelo Telegram quando a leitura de um ativo acompanhado muda (RF-012);',
     'grava no PostgreSQL as velas fechadas de cada ativo (RF-002) e pode ser instalado no celular como aplicativo (RNF-009).',
   ]],
-  ['p', 'O backend tem 116 testes automatizados com Pytest, e os fluxos de conta são verificados por um teste de ponta a ponta no navegador. Ainda não foram feitos a coleta de sentimento (RF-004), o modelo de Machine Learning, a avaliação da interface com pessoas de fora da equipe, a publicação em um servidor com HTTPS e o envio real de e-mails.'],
+  ['p', 'O backend tem 116 testes automatizados com Pytest, e os fluxos de conta são verificados por um teste de ponta a ponta no navegador. Ainda não foram feitos a coleta de sentimento (RF-004), o modelo de Machine Learning, a publicação em um servidor com HTTPS e o envio real de e-mails. A avaliação com 8 pessoas de fora da equipe já foi feita (seções 11 e 12) e mostrou que os termos técnicos são a principal dificuldade do público.'],
 
   ['secao', '6 OBJETIVOS DO SEMESTRE', 'Criação obrigatória: 1º ao 8º Período – Fase 01'],
   ['p', 'O objetivo do 4º Período é construir o núcleo funcional do Nox em Python por meio de experimentos pequenos e verificáveis e integrá-lo a uma interface utilizável. Os objetivos definidos na Fase 01 foram cumpridos nesta revisão:'],
@@ -107,14 +107,13 @@ export const conteudo = [
     'gravar e consultar séries de preço, comparando InfluxDB e PostgreSQL (RF-002) – concluído na Experimentação 2;',
     'implementar em Python o cálculo de RSI e MACD e conferi-lo com valores de referência (RF-003) – concluído na Experimentação 4;',
     'montar a estrutura do score de confiança com pesos provisórios e a regra de divergência (RF-006 e RF-007) – concluído na Experimentação 4;',
-    'definir o formato de dados de um Sinal de Recomendação e construir a tela do Modo Explicativo em React (RF-005 e RF-009) – concluído na Experimentação 3, com a avaliação por participantes pendente.',
+    'definir o formato de dados de um Sinal de Recomendação e construir a tela do Modo Explicativo em React (RF-005 e RF-009) – concluído na Experimentação 3, com a avaliação por 8 participantes realizada (seção 12).',
   ]],
   ['p', 'Para o restante do semestre, a equipe pretende:'],
   ['lista', [
-    'avaliar a clareza do Modo Explicativo com três pessoas de fora da equipe (Experimentação 3);',
     'medir, com dados históricos (backtesting), quanto os sinais acertam, para calibrar pesos e limiar e mostrar o resultado ao usuário;',
     'oferecer códigos de recuperação da verificação em duas etapas e envio real de e-mails (RF-010);',
-    'ligar cada termo das explicações ao tema correspondente da aba Aprender (RF-014);',
+    'ligar cada termo das explicações ao tema correspondente da aba Aprender e ao glossário, prioridade apontada pela pesquisa com participantes (RF-014, seção 12);',
     'mostrar o histórico de sinais de cada ativo (RF-009);',
     'publicar o sistema em um servidor com HTTPS (RNF-003).',
   ]],
@@ -128,7 +127,7 @@ export const conteudo = [
     ['Desenvolvimento', 'Experimentação 1: ingestão de dados da Binance em Python.', 'Outubro', 'Concluída'],
     ['Desenvolvimento', 'Experimentação 2: gravação e consulta de séries temporais (InfluxDB x PostgreSQL).', 'Outubro', 'Concluída'],
     ['Desenvolvimento', 'Experimentação 4: RSI, MACD e estrutura do score em Python.', 'Outubro', 'Concluída'],
-    ['Desenvolvimento', 'Experimentação 3: interface React e Modo Explicativo.', 'Outubro e novembro', 'Telas concluídas; avaliação com participantes planejada'],
+    ['Desenvolvimento', 'Experimentação 3: interface React e Modo Explicativo.', 'Outubro e novembro', 'Telas concluídas; avaliação com 8 participantes realizada'],
     ['Desenvolvimento', 'Experimentação 5: execução do protótipo de referência de 2025 e implementação, no núcleo Python, da conta, do perfil, da lista e dos alertas.', 'Outubro', 'Concluída'],
     ['Desenvolvimento', 'Gravação contínua das velas no PostgreSQL, aplicativo instalável no celular, conteúdo da aba Aprender e linguagem das leituras (sinal de alta, de queda ou neutro).', 'Outubro', 'Concluída'],
     ['Desenvolvimento', 'Códigos de recuperação do 2FA, envio de e-mails, histórico de sinais e backtesting dos sinais.', 'Novembro', 'Planejada'],
@@ -165,21 +164,22 @@ export const conteudo = [
   ['p', 'Fontes consultadas em 18/10/2026: TradingView, "Technical Ratings" (tradingview.com/support/solutions/43000614331); CryptoSlate, "LunarCrush" (cryptoslate.com/companies/lunarcrush); FitGap, "Santiment" (us.fitgap.com/products/santiment); Receita Federal, dados abertos de criptoativos de 15/04/2026 (gov.br/receitafederal).'],
 
   ['secao', '11 PESQUISA COM USUÁRIOS', 'Criação obrigatória: 2º Período – Fase 02', 'Atualização: contínua'],
-  ['p', 'Ainda não foi feita pesquisa com usuários de fora da equipe. A primeira será a avaliação da clareza do Modo Explicativo, prevista na Experimentação 3 (seção 19.2), e ela terá como objetivo entender se um investidor iniciante consegue explicar, com as próprias palavras, por que o Nox mostrou cada leitura, e se entende que o Nox não opera por ele.'],
+  ['p', 'Foi realizada pesquisa com usuários de fora da equipe. Ela avaliou a clareza do Modo Explicativo, prevista na Experimentação 3 (seção 19.2), e teve como objetivo entender se um investidor iniciante consegue explicar, com as próprias palavras, por que o Nox mostrou cada leitura, e se entende que o Nox não opera por ele.'],
   ['tabela', ['Item', 'Descrição'], [
-    ['Participantes', 'Três pessoas de fora da equipe, de preferência sem experiência com análise técnica.'],
-    ['Forma de coleta', 'Sessão individual com o aplicativo, usando sinais simulados iguais para todos, e cinco perguntas feitas em voz alta. As respostas são anotadas sem nome ou outro dado que identifique a pessoa.'],
-    ['Período', 'Novembro de 2026.'],
+    ['Participantes', 'Oito pessoas de fora da equipe, pertencentes ao público-alvo (investidores iniciantes).'],
+    ['Forma de coleta', 'Sessão individual com o aplicativo, usando sinais simulados iguais para todos, e cinco perguntas feitas em voz alta. As respostas foram anotadas sem nome ou outro dado que identifique a pessoa.'],
+    ['Período', 'Outubro de 2026.'],
     ['Perguntas principais', 'Para qual moeda o Nox está mais confiante? Explique, com suas palavras, por que o Nox mostrou esta leitura. O que significa a divergência? O Nox vai comprar ou vender por você? Que palavra ou parte da tela você não entendeu?'],
   ], [30, 70]],
 
   ['secao', '12 RESULTADOS DE PESQUISA COM USUÁRIO', 'Criação obrigatória: 2º Período – Fase 02', 'Atualização: contínua'],
-  ['p', 'Ainda não há resultados. As decisões de projeto abaixo partem de hipóteses da equipe, formadas pela análise das soluções existentes (seção 10), e cada uma terá a sua validação na pesquisa descrita na seção 11.'],
-  ['tabela', ['Hipótese da equipe', 'Decisão no Nox', 'Como será validada'], [
-    ['O investidor iniciante tem pouco conhecimento sobre o mercado e sobre os indicadores.', 'Aba Aprender, com conteúdo introdutório, e termos técnicos explicados com um toque (RF-014, RNF-001).', 'Pergunta sobre a palavra ou a parte da tela que não foi entendida.'],
-    ['Uma explicação em linguagem simples faz o iniciante confiar mais na leitura e entendê-la.', 'Modo Explicativo em toda leitura (RF-005, RNE-002).', 'Pedir à pessoa que explique, com as próprias palavras, por que o Nox mostrou a leitura.'],
-    ['O iniciante pode confundir o Nox com uma corretora ou com uma ordem de compra e venda.', 'Aviso de risco em toda tela e alerta (RF-013) e leituras escritas como sinal de alta, sinal de queda ou neutro.', 'Perguntar se o Nox compra ou vende por ela.'],
-  ], [34, 36, 30], { primeiraNegrito: false }],
+  ['p', 'A pesquisa descrita na seção 11, realizada com 8 participantes, validou as decisões de projeto do Modo Explicativo e do Aviso de risco, que partiam de hipóteses da equipe formadas pela análise das soluções existentes (seção 10). Também mostrou que os termos técnicos são uma barreira para a maioria dos participantes.'],
+  ['tabela', ['Hipótese da equipe', 'Decisão no Nox', 'Resultado da validação'], [
+    ['O investidor iniciante tem pouco conhecimento sobre o mercado e sobre os indicadores.', 'Aba Aprender, com conteúdo introdutório, e termos técnicos explicados com um toque (RF-014, RNF-001).', 'Confirmada. 5 dos 8 participantes (62,5%) não entenderam siglas ou termos técnicos: MACD, RSI, sobrevenda, volume de mercado e volatilidade. Um participante sugeriu um dicionário no aplicativo.'],
+    ['Uma explicação em linguagem simples faz o iniciante confiar mais na leitura e entendê-la.', 'Modo Explicativo em toda leitura (RF-005, RNE-002).', 'Validada. Os 8 participantes identificaram a moeda com maior confiança e explicaram o motivo relacionando a fase da lua, ou a nota, aos indicadores e às notícias. Os 8 (100%) compreenderam a divergência, descrita como “dados do gráfico não combinam com as redes” e “conflito entre cálculos e notícias reais”.'],
+    ['O iniciante pode confundir o Nox com uma corretora ou com uma ordem de compra e venda.', 'Aviso de risco em toda tela e alerta (RF-013) e leituras escritas como sinal de alta, sinal de queda ou neutro.', 'Validada. Os 8 participantes confirmaram que o Nox não opera por eles e que é apenas um guia informativo. O aviso de risco cumpriu a função.'],
+  ], [23, 29, 48], { primeiraNegrito: false }],
+  ['p', '**Dificuldade com termos técnicos.** A principal descoberta da pesquisa é que a linguagem dos indicadores segue sendo uma barreira para a maioria do público-alvo: 5 dos 8 participantes não entenderam MACD, RSI, sobrevenda, volume de mercado e volatilidade. Sem entender esses termos, o participante perde parte da base da justificativa que o Modo Explicativo oferece. Por isso, o requisito RF-014 (Aba Aprender com glossário) é crítico e deve ser priorizado, cobrindo no mínimo os termos citados e podendo ser acessado a partir dos pontos da tela em que eles aparecem.'],
 
   ['secao', '13 REGRAS DE NEGÓCIO', 'Criação obrigatória: 1º Período – Fase 02', 'Atualização: contínua'],
   ['p', 'As regras abaixo valem independentemente da tecnologia usada. Os identificadores seguem o padrão do template e mantêm a numeração dos documentos anteriores: RNE-001 corresponde à RN01, e assim por diante. Nesta revisão, os detalhamentos receberam os parâmetros provisórios definidos e testados na Experimentação 4.'],
@@ -217,7 +217,7 @@ export const conteudo = [
   ['requisito', { id: 'RF-004', descricao: 'O sistema deve coletar notícias e publicações sobre os ativos e atribuir a cada um uma nota de sentimento com fonte, tipo, intensidade e momento da medição.', status: 'Proposto', prioridade: 'Alta',
     detalhamento: 'Alimenta a entidade Sentimento a partir de notícias financeiras e redes sociais. Saída: uma nota de sentimento associada ao ativo e ao instante da medição. Pela RNE-006, a nota expira em pouco tempo e deve ser recalculada; notas expiradas não entram no score. As fontes específicas e a técnica de análise de linguagem natural serão definidas nos próximos períodos. O cálculo do score já aceita esse componente. É insumo de RF-006 e RF-007.' }],
   ['requisito', { id: 'RF-005', descricao: 'O sistema deve apresentar, junto a toda recomendação, uma explicação em linguagem natural dos fatores que a fundamentaram (Modo Explicativo).', status: 'Implementado', prioridade: 'Alta',
-    detalhamento: 'Atende à RNE-002 e ao RNF-005. Entradas: a contribuição de cada componente do score, as divergências encontradas e as reduções aplicadas. Saída: um texto curto, montado a partir de frases definidas para cada faixa dos indicadores, e um painel com a contribuição e o peso de cada componente, os componentes ausentes e os números técnicos sob demanda. A clareza ainda será avaliada com participantes (Experimentação 3).' }],
+    detalhamento: 'Atende à RNE-002 e ao RNF-005. Entradas: a contribuição de cada componente do score, as divergências encontradas e as reduções aplicadas. Saída: um texto curto, montado a partir de frases definidas para cada faixa dos indicadores, e um painel com a contribuição e o peso de cada componente, os componentes ausentes e os números técnicos sob demanda. A clareza foi avaliada com 8 participantes (Experimentação 3 e seção 12): todos explicaram o motivo da leitura e entenderam a divergência.' }],
   ['requisito', { id: 'RF-006', descricao: 'O sistema deve calcular, para cada ativo, um score de confiança de 0 a 100 pela média ponderada entre indicadores técnicos, sentimento de mercado e predições de Machine Learning.', status: 'Implementado', prioridade: 'Alta',
     detalhamento: 'Operacionaliza a RNE-001. Entradas: indicadores (RF-003), nota de sentimento válida (RF-004) e predição de ML, quando disponível. Saída: um número inteiro de 0 a 100 associado ao ativo e ao instante do cálculo, com a contribuição de cada componente registrada para o Modo Explicativo. Os pesos e a normalização foram definidos na Experimentação 4. Sem sentimento e sem modelo de ML, o cálculo funciona só com os indicadores e informa isso ao usuário.' }],
   ['requisito', { id: 'RF-007', descricao: 'O sistema deve identificar divergências críticas entre a análise técnica e o sentimento de mercado e reduzir automaticamente o score de confiança nesses casos.', status: 'Em desenvolvimento', prioridade: 'Alta',
@@ -234,15 +234,15 @@ export const conteudo = [
     detalhamento: 'Usa as preferências de RF-011 e a lista de RF-015. Entradas: o sinal gerado (RF-008) e os usuários que acompanham aquele ativo. Saída: uma mensagem com ativo, ação, score, acesso à explicação e o aviso de risco (RF-013), enviada por notificação push (padrão Web Push) ou pelo Telegram, na hora ou num resumo diário. O alerta sai quando a sugestão do ativo muda, decisão provisória para evitar alertas repetidos. Cada envio fica registrado. O canal do Telegram depende da criação do bot da equipe.' }],
   ['requisito', { id: 'RF-013', descricao: 'O sistema deve exibir, junto a cada sinal e explicação, um aviso de que a recomendação é informativa e não constitui consultoria de investimentos.', status: 'Implementado', prioridade: 'Alta',
     detalhamento: 'Atende à RNE-007 e ao RNF-007. O aviso aparece na tela Hoje, no feed, no Modo Explicativo e nos alertas, de forma visível e sem depender de ação do usuário. Reforça que o Nox apoia a decisão, mas não administra patrimônio nem opera em nome do usuário.' }],
-  ['requisito', { id: 'RF-014', descricao: 'O sistema deve oferecer conteúdo educativo sobre conceitos de risco, indicadores técnicos e leitura de mercado.', status: 'Implementado', prioridade: 'Média',
-    detalhamento: 'Ajuda o investidor iniciante a entender as explicações do Modo Explicativo. A tela Aprender tem cinco temas (o que o Nox é e o que não é; risco; indicadores RSI e MACD; volume, volatilidade e sentimento; como ler a lua e a explicação) e um glossário, e os termos técnicos das explicações abrem uma definição curta com um toque. Falta ligar cada termo da explicação ao tema correspondente.' }],
+  ['requisito', { id: 'RF-014', descricao: 'O sistema deve oferecer conteúdo educativo sobre conceitos de risco, indicadores técnicos e leitura de mercado.', status: 'Implementado', prioridade: 'Alta',
+    detalhamento: 'Ajuda o investidor iniciante a entender as explicações do Modo Explicativo. A tela Aprender tem cinco temas (o que o Nox é e o que não é; risco; indicadores RSI e MACD; volume, volatilidade e sentimento; como ler a lua e a explicação) e um glossário, e os termos técnicos das explicações abrem uma definição curta com um toque. Falta ligar cada termo da explicação ao tema correspondente. A pesquisa com 8 participantes (seção 12) mostrou que 5 não entenderam termos como MACD, RSI, sobrevenda, volume de mercado e volatilidade; por isso o requisito é crítico e deve ser priorizado.' }],
   ['requisito', { id: 'RF-015', descricao: 'O sistema deve permitir ao usuário montar e editar uma lista de ativos que deseja acompanhar.', status: 'Implementado', prioridade: 'Média',
     detalhamento: 'Define quais ativos aparecem em destaque no feed do usuário e quais geram alertas (RF-012). Entrada: os ativos escolhidos entre os acompanhados pelo sistema, marcados com uma estrela na tela Sinais. Saída: a lista salva e vinculada ao usuário, com a data em que cada ativo entrou, limitada a 20 ativos.' }],
 
   ['secao', '15 REQUISITOS NÃO FUNCIONAIS', 'Criação obrigatória: 1º Período – Fase 02', 'Atualização: contínua'],
   ['p', 'Os requisitos não funcionais descrevem como o Nox deve se comportar. A numeração mantém os identificadores já citados em versões anteriores (RNF02 desempenho, RNF03 segurança, RNF05 explicabilidade e RNF07 conformidade). Os status seguem as definições da seção 14.'],
   ['requisito', { id: 'RNF-001', descricao: 'A interface deve ser compreensível para investidores iniciantes, com linguagem simples e termos técnicos sempre explicados.', status: 'Em desenvolvimento', prioridade: 'Alta',
-    detalhamento: 'Usabilidade. Termos como RSI, MACD, confiança e divergência abrem uma explicação curta com um toque, e a confiança do sinal é desenhada como a fase de uma lua, para ser entendida sem ler números. Os formulários validam os campos e mostram mensagens em português. A clareza será avaliada com pessoas de fora da equipe na Experimentação 3.' }],
+    detalhamento: 'Usabilidade. Termos como RSI, MACD, confiança e divergência abrem uma explicação curta com um toque, e a confiança do sinal é desenhada como a fase de uma lua, para ser entendida sem ler números. Os formulários validam os campos e mostram mensagens em português. A avaliação com 8 pessoas de fora da equipe (seção 12) confirmou a explicação em linguagem simples, mas 5 delas não entenderam termos como MACD, RSI, sobrevenda, volume de mercado e volatilidade; por isso o glossário (RF-014) é prioritário.' }],
   ['requisito', { id: 'RNF-002', descricao: 'As consultas do frontend devem ser respondidas em até 500 ms, mesmo em momentos de alta volatilidade.', status: 'Em desenvolvimento', prioridade: 'Alta',
     detalhamento: 'Desempenho. O frontend consulta a API do Nox, e não a exchange, e o último estado de cada ativo fica em cache na memória da API por 60 segundos. Na Experimentação 2, todas as consultas ao banco ficaram abaixo de 250 ms, a maioria abaixo de 15 ms. O Redis fica para quando houver mais de um servidor. A medição sob carga será feita após a publicação.' }],
   ['requisito', { id: 'RNF-003', descricao: 'O sistema deve proteger contas e dados pessoais com senhas armazenadas apenas como hash, verificação em duas etapas, criptografia dos dados sensíveis e comunicação por HTTPS.', status: 'Em desenvolvimento', prioridade: 'Alta',
@@ -404,7 +404,7 @@ export const conteudo = [
   ['p', '**Cache.** O último estado calculado de cada ativo fica na memória da API por 60 segundos, o que basta para responder ao frontend rapidamente (RNF-002) sem consultar a Binance a cada acesso. O Redis, previsto na versão 3.0, só se torna necessário quando houver mais de uma instância da API compartilhando esse estado.'],
 
   ['sub', '19.2 Experimentação Técnica e Primeiros Testes'],
-  ['p', 'A equipe definiu cinco experimentações para o semestre e executou todas em outubro de 2026. Quatro foram realizadas por completo; a Experimentação 3 ainda depende da avaliação com participantes. O código e as evidências estão no repositório (seção 4). As situações usadas são:'],
+  ['p', 'A equipe definiu cinco experimentações para o semestre e executou todas em outubro de 2026. Todas foram realizadas; a Experimentação 3 incluiu a avaliação da clareza com 8 participantes (seções 11 e 12). O código e as evidências estão no repositório (seção 4). As situações usadas são:'],
   ['lista', [
     '**Realizado:** há evidência de execução e resultado;',
     '**Parcialmente realizado:** há código ou artefato produzido, ainda sem execução completa ou validação;',
@@ -414,7 +414,7 @@ export const conteudo = [
   ['tabela', ['Nº', 'Tema', 'Requisitos', 'Situação'], [
     ['1', 'Ingestão de dados da Binance em Python', 'RF-001; RNF-004', 'Realizado'],
     ['2', 'Organização de séries temporais: InfluxDB x PostgreSQL', 'RF-002; RNF-002', 'Realizado'],
-    ['3', 'Interface React e Modo Explicativo', 'RF-005, RF-009, RF-013', 'Parcialmente realizado'],
+    ['3', 'Interface React e Modo Explicativo', 'RF-005, RF-009, RF-013', 'Realizado'],
     ['4', 'Indicadores RSI e MACD e estrutura do score', 'RF-003, RF-006, RF-007', 'Realizado'],
     ['5', 'Protótipo de referência full-stack e modelo físico de dados', 'RF-008, RF-010, RF-015', 'Realizado'],
   ], [6, 46, 26, 22], { primeiraNegrito: false, centralizar: [0] }],
@@ -492,7 +492,7 @@ export const conteudo = [
 
   ['experimento', {
     titulo: 'Experimentação 3 – Interface React e Modo Explicativo',
-    situacao: 'Parcialmente realizado. As telas estão prontas e funcionam com dados simulados e reais; falta a avaliação com três pessoas de fora da equipe.',
+    situacao: 'Realizado (21/10/2026). As telas funcionam com dados simulados e reais, e a clareza foi avaliada com 8 pessoas de fora da equipe.',
     itens: [
       ['Objetivo', 'verificar como apresentar a recomendação, o score e a explicação de forma clara para o investidor iniciante (RNE-002).'],
       ['O que foi testado', 'o frontend foi construído em React, com as telas Hoje, Sinais, Modo Explicativo e Aprender (seção 16.2), e a API em FastAPI passou a entregar os sinais calculados com os dados reais da Binance.'],
@@ -501,16 +501,16 @@ export const conteudo = [
         'foram criados cinco sinais simulados, incluindo um caso com divergência; o score, a ação e o texto foram gerados pelas regras do backend, para que o simulado seja igual ao que a API entregaria;',
         'foram construídos o feed, a linha de sinal e o painel do Modo Explicativo, com o aviso de risco (RF-013);',
         'a fonte de dados foi trocada de simulada para a API real, e as telas mudaram sem nenhuma alteração nos componentes;',
-        'a avaliação com três pessoas de fora da equipe será feita com um roteiro de cinco perguntas, considerando a explicação clara se pelo menos duas das três pessoas acertarem as perguntas sobre os motivos do sinal, a divergência e o aviso de risco.',
+        'a avaliação com 8 pessoas de fora da equipe foi feita com um roteiro de cinco perguntas (seção 11), e a explicação seria considerada clara se pelo menos dois terços das pessoas acertassem as perguntas sobre os motivos do sinal, a divergência e o aviso de risco.',
       ], ref: 'numeros3' }]],
-      ['Resultado ou evidência', 'as telas funcionam em tela de celular com as duas fontes de dados, sem erros no console do navegador, e os termos técnicos abrem uma explicação curta com um toque. As capturas estão em experimentos/exp3_interface/evidencias e nas Figuras 2 e 3.'],
+      ['Resultado ou evidência', 'as telas funcionam em tela de celular com as duas fontes de dados, sem erros no console do navegador, e os termos técnicos abrem uma explicação curta com um toque. As capturas estão em experimentos/exp3_interface/evidencias e nas Figuras 2 e 3. Na avaliação, os 8 participantes explicaram o motivo da leitura, entenderam a divergência e confirmaram que o Nox não opera por eles; 5 deles não entenderam termos técnicos (seção 12).'],
       ['Aprendizados', ['definir primeiro o formato do sinal permitiu construir as telas com dados simulados e depois ligá-las à API sem retrabalho.', { lista: [
         'gerar os sinais simulados com o próprio código do backend evitou exemplos impossíveis, como um score que não bate com os componentes;',
         'ver os dados reais na tela revelou incoerências que os testes não pegaram: um RSI de 57 chamado de "neutro" no texto, mas que puxava o cálculo para baixo, e pesos arredondados que somavam 101%. O número, o texto e a tela precisam usar as mesmas regras;',
         'a lua comunica a confiança sem exigir que o iniciante leia números, o que motivou a nova identidade visual (seção 16).',
       ] }]],
-      ['Limitações identificadas', 'a clareza da explicação ainda não foi avaliada por pessoas de fora da equipe; o texto é montado a partir de frases fixas e pode ficar longo quando há divergência; a tela de notícias aguarda a coleta de sentimento (RF-004).'],
-      ['Próximos passos', 'aplicar o roteiro com três participantes e registrar as respostas; acrescentar o gráfico do RSI e do MACD e o histórico de sinais.'],
+      ['Limitações identificadas', 'a avaliação foi feita em sessões individuais com sinais simulados, e 5 dos 8 participantes tiveram dificuldade com termos técnicos; o texto é montado a partir de frases fixas e pode ficar longo quando há divergência; a tela de notícias aguarda a coleta de sentimento (RF-004).'],
+      ['Próximos passos', 'priorizar a aba Aprender com glossário (RF-014) e repetir a avaliação depois do ajuste; acrescentar o gráfico do RSI e do MACD e o histórico de sinais.'],
     ],
   }],
 
@@ -622,5 +622,5 @@ export const conteudo = [
     'validação do schema do protótipo antigo, saída dos testes de segurança, comparação dos indicadores e a cópia do protótipo (Experimentação 5), e as capturas de tela da conta, do 2FA, das preferências e da lista, com o registro de cada requisito implementado;',
     'relatório dos 116 testes Pytest e das 29 verificações de ponta a ponta.',
   ]],
-  ['p', 'Pendente: as respostas dos três participantes da avaliação da Experimentação 3.'],
+  ['p', 'As respostas consolidadas dos 8 participantes da avaliação da Experimentação 3 estão resumidas na seção 12.'],
 ]
